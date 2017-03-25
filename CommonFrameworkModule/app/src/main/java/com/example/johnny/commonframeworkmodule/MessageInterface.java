@@ -49,8 +49,8 @@ class MessageInterface {
      * @param body the message body
      */
     public void publishMessage(Context context, String id, int[] body) {
-        Intent intent = new Intent();
-        intent.putExtra(id, body);
+        Intent intent = new Intent(id);
+        intent.putExtra(Messages.MESSAGE_BODY, body);
 
         context.sendBroadcast(intent);
     }
@@ -80,7 +80,9 @@ class MessageInterface {
          */
         @Override
         public void onReceive(Context context, Intent intent) {
-            theListener.processMessage(intent);
+            String id = intent.getAction();
+            int[] body = intent.getExtras().getIntArray(Messages.MESSAGE_BODY);
+            theListener.processMessage(id, body);
         }
     }
 }

@@ -39,37 +39,38 @@ public abstract class BaseService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        // The service that extends this class will define how it processes it's messages.
-        messageListener  = new MessageListener() {
-
-            /**
-             * Defines how the message is processed
-             * @param intent object containing the message
-             */
-            @Override
-            public void processMessage(Intent intent) {
-                processServiceMessage(intent);
-            }
-
-            /**
-             * Accesses the list of valid message IDs
-             * @return the list of valid message IDs
-             */
-            @Override
-            public IntentFilter getValidMessages() {
-                return getValidServiceMessages();
-            }
-        };
-
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                // The service that extends this class will define how it processes it's messages.
+                messageListener  = new MessageListener() {
+
+                    /**
+                     * Defines how the message is processed
+                     * @param id the message ID
+                     * @param body the message body
+                     */
+                    @Override
+                    public void processMessage(String id, int[] body) {
+                        processServiceMessage(id, body);
+                    }
+
+                    /**
+                     * Accesses the list of valid message IDs
+                     * @return the list of valid message IDs
+                     */
+                    @Override
+                    public IntentFilter getValidMessages() {
+                        return getValidServiceMessages();
+                    }
+                };
+
+                messageInterface = new MessageInterface(messageListener);
+                registerReceiver(messageInterface.getReceiver(), messageInterface.getFilter());
+
                 runService();
             }
         });
-
-        messageInterface = new MessageInterface(messageListener);
-        registerReceiver(messageInterface.getReceiver(), messageInterface.getFilter());
 
         thread.start();
     }
@@ -100,15 +101,15 @@ public abstract class BaseService extends Service {
      */
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
+        return null;
     }
 
     /**
      * Processes the message received by the service. Defined by the child service.
-     * @param intent the object containing the message
+     * @param id the message ID
+     * @param body the message body
      */
-    public abstract void processServiceMessage(Intent intent);
+    public abstract void processServiceMessage(String id, int[] body);
 
     /**
      * Accesses the list of valid message IDs this service can receive.

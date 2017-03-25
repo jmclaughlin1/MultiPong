@@ -33,8 +33,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         messageListener  = new MessageListener() {
             @Override
-            public void processMessage(Intent intent) {
-                processActivityMessage(intent);
+            public void processMessage(String id, int[] body) {
+                processActivityMessage(id, body);
             }
 
             @Override
@@ -68,9 +68,10 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Processes an incoming message.
-     * @param intent object containing the message
+     * @param id the message ID
+     * @param body the message body
      */
-    public abstract void processActivityMessage(Intent intent);
+    public abstract void processActivityMessage(String id, int[] body);
 
     /**
      * Accesses the list of valid messages the activity can process.

@@ -14,9 +14,10 @@ interface MessageListener {
 
     /**
      * Defines how messages are processed.
-     * @param intent the object containing the message
+     * @param id the message ID
+     * @param body the message body
      */
-    void processMessage(Intent intent);
+    void processMessage(String id, int[] body);
 
     /**
      * Accesses the list of valid message IDs.
