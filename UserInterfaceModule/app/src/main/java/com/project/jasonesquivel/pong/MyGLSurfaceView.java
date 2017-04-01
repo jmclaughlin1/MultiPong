@@ -13,9 +13,6 @@ class MyGLSurfaceView extends GLSurfaceView {
     private final String TAG = "MyGLSurfaceView";
 
     private final MyGLRenderer mRenderer;
-    private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
-    private float mPreviousX;
-    private float mPreviousY;
 
     public MyGLSurfaceView(Context context){
         super(context);
