@@ -12,7 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 public class PongActivity extends Activity {
-    //private GLSurfaceView mGLView;
+    private GLSurfaceView mGLView;
     
     private final String TAG = "PongActivity";
 
@@ -21,10 +21,10 @@ public class PongActivity extends Activity {
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
 
-        //FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
-        setContentView(R.layout.activity_menu);//frameLayout);
+        FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
+        setContentView(frameLayout);
 
-        /*TextView mScore = (TextView) frameLayout.findViewById(R.id.score);
+        TextView mScore = (TextView) frameLayout.findViewById(R.id.score);
 
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         ConfigurationInfo info = am.getDeviceConfigurationInfo();
@@ -37,7 +37,7 @@ public class PongActivity extends Activity {
         } else
             Log.e("OpenGL2", "your device doesn't support ES2. (" + info.reqGlEsVersion + ")");
 
-        mScore.bringToFront();*/
+        mScore.bringToFront();
     }
 
     @Override
@@ -65,14 +65,14 @@ public class PongActivity extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        //mGLView.onResume();
+        mGLView.onResume();
         Log.i(TAG, "onResume");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        //mGLView.onPause();
+        mGLView.onPause();
         Log.i(TAG, "onPause");
     }
 
