@@ -52,6 +52,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     // GL Handles
     private int mProgram;
 
+    private boolean pause = false;
+
     public MyGLRenderer(Context context){
         mContext = context;
     }
@@ -88,12 +90,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
         // Paddle
-        mPaddle.move();
+        mPaddle.move(pause);
 
         mPaddle.draw(mProgram, mMVPMatrix);
 
         // Ball
-        mBall.move();
+        mBall.move(pause);
         mBall.draw(mProgram, mMVPMatrix);
     }
 
@@ -139,5 +141,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         return mProgram;
     }
 
+    public void togglePause(){
+        this.pause = !this.pause;
+    }
 
 }

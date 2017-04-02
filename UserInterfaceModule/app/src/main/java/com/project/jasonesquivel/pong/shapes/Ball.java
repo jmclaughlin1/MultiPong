@@ -50,32 +50,32 @@ public class Ball extends Shape {
     }
 
     // TEST functions to move paddle
-    public void move()
+    public void move(boolean pause)
     {
-        float x, y;
-        if(tempX) {
-            x = super.getPosX() + 0.01f;
-            super.setPosX(x);
-            if(x > 1.6f)
-                tempX = false;
-        }
-        else {
-            x = super.getPosX() - 0.01f;
-            super.setPosX(x);
-            if(x < -1.6f)
-                tempX = true;
-        }
-        if(tempY) {
-            y = super.getPosY() + 0.01f;
-            super.setPosY(y);
-            if(y > 0.95f)
-                tempY = false;
-        }
-        else {
-            y = super.getPosY() - 0.01f;
-            super.setPosY(y);
-            if(y < -0.95f)
-                tempY = true;
+        if(!pause) {
+            float x, y;
+            if (tempX) {
+                x = super.getPosX() + 0.01f;
+                super.setPosX(x);
+                if (x > 1.6f)
+                    tempX = false;
+            } else {
+                x = super.getPosX() - 0.01f;
+                super.setPosX(x);
+                if (x < -1.6f)
+                    tempX = true;
+            }
+            if (tempY) {
+                y = super.getPosY() + 0.01f;
+                super.setPosY(y);
+                if (y > 0.95f)
+                    tempY = false;
+            } else {
+                y = super.getPosY() - 0.01f;
+                super.setPosY(y);
+                if (y < -0.95f)
+                    tempY = true;
+            }
         }
     }
 

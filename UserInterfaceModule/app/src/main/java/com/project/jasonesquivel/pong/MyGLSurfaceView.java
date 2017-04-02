@@ -28,34 +28,16 @@ class MyGLSurfaceView extends GLSurfaceView {
 
     @Override
     public boolean onTouchEvent (MotionEvent e) {
-        /*Log.i(TAG, "onTouchEvent");
+        Log.i(TAG, "onTouchEvent");
         float x = e.getX();
         float y = e.getY();
 
         switch(e.getAction()){
-            case MotionEvent.ACTION_MOVE:
-
-                float dx = x - mPreviousX;
-                float dy = y - mPreviousY;
-
-                // reverse direction of rotation above the mid-line
-                if (y > getHeight() / 2) {
-                    dx = dx * -1 ;
-                }
-
-                // reverse direction of rotation to left of the mid-line
-                if (x < getWidth() / 2) {
-                    dy = dy * -1 ;
-                }
-
-                mRenderer.setAngle(
-                        mRenderer.getAngle() +
-                                ((dx + dy) * TOUCH_SCALE_FACTOR));
-                Log.i(TAG, "    Angle : " + mRenderer.getAngle() + " X : " + x + " Y : " + y);
+            case MotionEvent.ACTION_DOWN:
+                if(x < 100 && y > 600)
+                    mRenderer.togglePause();
+               Log.i(TAG,  "(X,Y) = " + x + ", "+ y);
         }
-
-        mPreviousY = y;
-        mPreviousX = x;*/
         return true;
     }
 }
