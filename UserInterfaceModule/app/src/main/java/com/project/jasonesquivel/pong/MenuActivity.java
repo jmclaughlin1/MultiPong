@@ -1,12 +1,12 @@
 package com.project.jasonesquivel.pong;
 
 import android.app.Activity;
-import android.app.VoiceInteractor;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.media.MediaPlayer;
 
 /**
  * Created by Jason Esquivel on 3/25/2017.
@@ -26,6 +26,9 @@ public class MenuActivity extends Activity implements View.OnClickListener{
 
         Button optionsButton = (Button) findViewById(R.id.optionsbutton);
         optionsButton.setOnClickListener(this);
+
+        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.spystory);
+        mp.start();
     }
 
     @Override
