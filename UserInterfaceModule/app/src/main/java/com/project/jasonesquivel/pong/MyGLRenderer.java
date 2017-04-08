@@ -8,7 +8,8 @@ import android.util.Log;
 
 import com.project.jasonesquivel.pong.shapes.Ball;
 import com.project.jasonesquivel.pong.shapes.Paddle;
-import com.project.jasonesquivel.pong.shapes.Triangle;
+import com.project.jasonesquivel.pong.shapes.PauseButton;
+import com.project.jasonesquivel.pong.shapes.ResumeButton;
 
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
@@ -43,6 +44,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private Paddle mPaddle;
     private Ball mBall;
+    private PauseButton mPauseLeft, mPauseRight;
+    private ResumeButton mResume;
 
     // mMVPMatrix is an abbreviation for "Model View Projection Matrix"
     private final float[] mMVPMatrix = new float[16];
@@ -71,6 +74,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // initialize a ball
         mBall = new Ball();
 
+        mPauseLeft = new PauseButton();
+        mPauseRight = new PauseButton();
+        mPauseRight.setPosX(-1.5f);
+        mResume = new ResumeButton();
+
         // Set the camera position (View matrix) - constant
         Matrix.setLookAtM(mViewMatrix, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
@@ -97,6 +105,15 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // Ball
         mBall.move(pause);
         mBall.draw(mProgram, mMVPMatrix);
+
+        //Pause
+        if(!pause) {
+            mPauseLeft.draw(mProgram, mMVPMatrix);
+            mPauseRight.draw(mProgram, mMVPMatrix);
+        }
+        else{
+            mResume.draw(mProgram, mMVPMatrix);
+        }
     }
 
     @Override

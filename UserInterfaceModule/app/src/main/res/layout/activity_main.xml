@@ -8,12 +8,21 @@
     tools:context="com.project.jasonesquivel.pong.PongActivity">
 
     <TextView
-        android:id="@+id/score"
+        android:id="@+id/player1Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0:0"
-        android:layout_gravity="center|top"
+        android:text="Player 1\n     0"
+        android:layout_gravity="top|left"
         android:textColor="@android:color/white"
         android:textSize="25dp"/>
+    <TextView
+        android:id="@+id/player2Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Player 2\n     0"
+        android:layout_gravity="top|right"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"/>
+
 
 </FrameLayout>

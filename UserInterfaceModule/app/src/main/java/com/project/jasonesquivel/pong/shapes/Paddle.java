@@ -1,10 +1,5 @@
 package com.project.jasonesquivel.pong.shapes;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-
-import java.nio.ShortBuffer;
-
 /**
  * A two-dimensional square for use as a drawn object in OpenGL ES 2.0.
  */

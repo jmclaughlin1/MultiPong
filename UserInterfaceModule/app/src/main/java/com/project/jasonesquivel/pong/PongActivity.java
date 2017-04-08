@@ -24,7 +24,8 @@ public class PongActivity extends Activity {
         FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
         setContentView(frameLayout);
 
-        TextView mScore = (TextView) frameLayout.findViewById(R.id.score);
+        TextView mPlayer1 = (TextView) frameLayout.findViewById(R.id.player1Text);
+        TextView mPlayer2 = (TextView) frameLayout.findViewById(R.id.player2Text);
 
         ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         ConfigurationInfo info = am.getDeviceConfigurationInfo();
@@ -37,7 +38,8 @@ public class PongActivity extends Activity {
         } else
             Log.e("OpenGL2", "your device doesn't support ES2. (" + info.reqGlEsVersion + ")");
 
-        mScore.bringToFront();
+        mPlayer1.bringToFront();
+        mPlayer2.bringToFront();
     }
 
     @Override

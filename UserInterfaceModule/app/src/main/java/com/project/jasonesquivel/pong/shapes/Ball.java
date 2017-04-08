@@ -2,10 +2,6 @@ package com.project.jasonesquivel.pong.shapes;
 
 import android.util.Log;
 
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.FloatBuffer;
-
 public class Ball extends Shape {
 
     private static final int NUMBER_POINTS_OUTSIDE = 16;
