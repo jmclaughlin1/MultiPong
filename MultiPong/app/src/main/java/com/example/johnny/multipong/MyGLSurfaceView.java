@@ -14,6 +14,11 @@ class MyGLSurfaceView extends GLSurfaceView {
 
     private final MyGLRenderer mRenderer;
 
+    public static int resolution720 = 0;
+    public static int resolution1080 = 1;
+    public static int resolution1440 = 2;
+
+
     public MyGLSurfaceView(Context context){
         super(context);
         Log.i(TAG, "MyGLSurfaceView");
@@ -29,15 +34,23 @@ class MyGLSurfaceView extends GLSurfaceView {
     @Override
     public boolean onTouchEvent (MotionEvent e) {
         Log.i(TAG, "onTouchEvent");
-        float x = e.getX();
-        float y = e.getY();
+        int x = (int)e.getX();
+        int y = (int)e.getY();
 
+        int xPauseLimit = 100;
+        int yPauseLimit = 600;
+
+        if(mRenderer.getResolution() == 1440){
+            xPauseLimit = 200;
+            yPauseLimit = 1200;
+        }
         switch(e.getAction()){
             case MotionEvent.ACTION_DOWN:
-                if(x < 100 && y > 600)
+                if(x < xPauseLimit && y > yPauseLimit)
                     mRenderer.togglePause();
                Log.i(TAG,  "(X,Y) = " + x + ", "+ y);
         }
         return true;
     }
+
 }

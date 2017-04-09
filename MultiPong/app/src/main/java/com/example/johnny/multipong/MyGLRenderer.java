@@ -57,6 +57,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private boolean pause = false;
 
+    private int mWidth;
+    private int mHeight;
+
     public MyGLRenderer(Context context){
         mContext = context;
     }
@@ -122,6 +125,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         GLES20.glViewport(0, 0, width, height);
 
+        mWidth = width;
+        mHeight = height;
         float ratio = (float) width / height;
 
         // this projection matrix is applied to object coordinates
@@ -160,6 +165,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public void togglePause(){
         this.pause = !this.pause;
+    }
+
+    public int getResolution(){
+        return mHeight;
     }
 
 }
