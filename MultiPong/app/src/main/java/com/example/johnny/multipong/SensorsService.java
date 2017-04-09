@@ -1,6 +1,7 @@
 package com.example.johnny.multipong;
 
 import android.content.Context;
+import android.content.IntentFilter;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -17,7 +18,7 @@ import static android.hardware.SensorManager.SENSOR_DELAY_NORMAL;
  *
  * Author: Onkar
  */
-public class SensorsService {
+public class SensorsService extends BaseActivity {
     SensorManager sensorManager;
     Sensor sensor_gyro,sensor_acc;
 
@@ -28,6 +29,16 @@ public class SensorsService {
         sensor_gyro = sensorManager.getDefaultSensor(Sensor.TYPE_GYROSCOPE);
         sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         sensor_acc = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    }
+
+    @Override
+    public void processActivityMessage(String id, int[] body) {
+
+    }
+
+    @Override
+    public IntentFilter getValidActivityMessages() {
+        return null;
     }
 
     public void onResume() {
@@ -62,4 +73,19 @@ public class SensorsService {
             float Accelerometer_Z = event2.values[2];
         }
     };
+
+    //@Override
+    public void processServiceMessage(String id, int[] body) {
+
+    }
+
+    //@Override
+    public IntentFilter getValidServiceMessages() {
+        return null;
+    }
+
+    //@Override
+    public void runService() {
+
+    }
 }
