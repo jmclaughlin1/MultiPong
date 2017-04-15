@@ -46,11 +46,11 @@ public abstract class Messages {
     public abstract class InitMessage {
         public static final String INIT_MESSAGE_ID = "Init";
 
-        public static final int FIELD_HEIGHT = 0;
-        public static final int FIELD_WIDTH = 1;
-        public static final int BALL_RADIUS = 2;
-        public static final int PADDLE_HEIGHT = 3;
-        public static final int PADDLE_WIDTH = 4;
+        public static final int BALL_RADIUS = 0;
+        public static final int PADDLE_HEIGHT = 1;
+        public static final int PADDLE_WIDTH = 2;
+
+        public static final int INIT_MESSAGE_SIZE = 3;
     }
 
     /**
