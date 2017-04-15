@@ -80,7 +80,7 @@ public class DataModel extends BaseService {
         paddle_x = 0;
         paddle_y = 0;
         ball_x = (max_width / 2) - ball_radius;
-        ball_y = 0;
+        ball_y = max_height;
     }
 
     /**
