@@ -36,6 +36,11 @@
             android:configChanges="orientation">
         </activity>
 
+        <service
+            android:name=".DataModel"
+            android:enabled="true"
+            android:exported="true" />
+
     </application>
 
 </manifest>

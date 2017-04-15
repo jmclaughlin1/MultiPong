@@ -93,7 +93,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 unused) {
-        Log.i(TAG, "onDrawFrame");
+        //Log.i(TAG, "onDrawFrame");
 
         initializeBallPaddle(mPongActivity.getValidFields());
 
@@ -142,7 +142,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // in the onDrawFrame() method
         Matrix.frustumM(mProjectionMatrix, 0, -mRatio, mRatio, -1, 1, 3, 7);
 
-        //sendResolutionMessageToDM();
+        sendResolutionMessageToDM();
 
         Log.i(TAG, "    Width : " + width + " Height : " + height + " Ratio : " + mRatio);
     }
@@ -187,7 +187,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         messageBody[Messages.ScreenResMessage.SCREEN_WIDTH] = mWidth;
         messageBody[Messages.ScreenResMessage.SCREEN_HEIGHT] = mHeight;
 
-        //mPongActivity.publishActivityMessage(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID, messageBody);
+        mPongActivity.publishActivityMessage(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID, messageBody);
     }
 
     public void initializeBallPaddle(Boolean validFields){

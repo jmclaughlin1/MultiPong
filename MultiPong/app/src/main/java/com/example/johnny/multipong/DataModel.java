@@ -1,6 +1,7 @@
 package com.example.johnny.multipong;
 
 import android.content.IntentFilter;
+import android.util.Log;
 
 /**
  * This service performs all the data process and number crunching for the game. It models the
@@ -27,6 +28,9 @@ public class DataModel extends BaseService {
 
     private int ball_radius;
 
+    public DataModel() {
+        Log.i("Data Model", "Data Model is constructed!");
+    }
     @Override
     public void processServiceMessage(String id, int[] body) {
         if (id.equals(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID)) {
@@ -53,6 +57,7 @@ public class DataModel extends BaseService {
 
     @Override
     public void runService() {
+        Log.i("Data Model", "Running Data Model Service!");
         max_height = 0;
         max_width = 0;
         ball_radius = 0;

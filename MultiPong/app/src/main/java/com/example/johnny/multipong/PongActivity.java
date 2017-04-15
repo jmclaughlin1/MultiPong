@@ -15,9 +15,9 @@ import android.widget.TextView;
 
 public class PongActivity extends BaseActivity {
     private GLSurfaceView mGLView;
-    private int ballRadius = 50;
-    private int paddleWidth= 200;
-    private int paddleHeight= 50;
+    private int ballRadius;
+    private int paddleWidth;
+    private int paddleHeight;
     private boolean validFields = true;
 
     
@@ -49,7 +49,7 @@ public class PongActivity extends BaseActivity {
 
         //mPlayer1.bringToFront();
         //mPlayer2.bringToFront();
-        //startService(new Intent(this, DataModel.class));
+        startService(new Intent(this, DataModel.class));
     }
 
     @Override
@@ -103,13 +103,14 @@ public class PongActivity extends BaseActivity {
     // if states id parameter with all ids in getValidActivityMessges,
     // body is message body
     public void processActivityMessage(String id, int[] body) {
+        Log.i(TAG, "processActivityMessage");
         if (id.equals(Messages.InitMessage.INIT_MESSAGE_ID)){
             ballRadius = body[Messages.InitMessage.BALL_RADIUS];
             paddleWidth = body[Messages.InitMessage.PADDLE_WIDTH];
             paddleHeight = body[Messages.InitMessage.PADDLE_HEIGHT];
 
             validFields = true;
-
+            Log.i(TAG, ballRadius + " " + paddleWidth + " " + paddleHeight);
         }
     }
     // create intent filter

@@ -1,8 +1,8 @@
 package com.example.johnny.multipong;
 
+import android.app.Activity;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 
 /**
  * This is a super class that all activities will inherit from. It sets up the messaging interface
@@ -10,7 +10,7 @@ import android.support.v7.app.AppCompatActivity;
  *
  * @author Johnny McLaughlin
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends Activity {
 
     // the inter-module messaging interface
     private MessageInterface messageInterface;

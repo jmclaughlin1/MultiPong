@@ -4,6 +4,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.IBinder;
+import android.util.Log;
 
 /**
  * This is a super class that all services will inherit from. It initializes the thread that the
@@ -35,6 +36,7 @@ public abstract class BaseService extends Service {
      */
     @Override
     public void onCreate() {
+        Log.i("Base Service", "Creating service!");
         super.onCreate();
 
         thread = new Thread(new Runnable() {
