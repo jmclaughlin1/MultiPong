@@ -45,7 +45,7 @@ public class Ball extends Shape {
     }
 
     // TEST functions to move paddle
-    public void move(boolean pause, float ballX, float ballY)
+    public void move(float ballX, float ballY)
     {
         Log.i("Ball",ballX + " " + ballY);
         super.setPosX(ballX);

@@ -39,34 +39,11 @@ public class Paddle extends Shape{
     }
 
     // TEST functions to move paddle
-    public void move(boolean pause)
+    public void move(float paddleX, float paddleY)
     {
-        if(!pause) {
-            float x, angle;
-            if (tempX) {
-                x = super.getPosX() + 0.01f;
-                super.setPosX(x);
-                if (x > 1.0f)
-                    tempX = false;
-            } else {
-                x = super.getPosX() - 0.01f;
-                super.setPosX(x);
-                if (x < -1.0f)
-                    tempX = true;
-            }
+        super.setPosX(paddleX);
+        super.setPosY(paddleY);
 
-            if (tempAngle) {
-                angle = super.getAngle() + 0.5f;
-                super.setAngle(angle);
-                if (angle > 30.0f)
-                    tempAngle = false;
-            } else {
-                angle = super.getAngle() - 0.5f;
-                super.setAngle(angle);
-                if (angle < -30.0f)
-                    tempAngle = true;
-            }
-        }
     }
 
 }

@@ -166,4 +166,13 @@ public class PongActivity extends BaseActivity {
     public int getBallY(){
         return ballY;
     }
+    public int getPaddleX(){
+        return paddleX;
+    }
+    public int getPaddleY(){
+        return paddleY;
+    }
+    public int getPaddleAngle(){
+        return paddleAngle;
+    }
 }
