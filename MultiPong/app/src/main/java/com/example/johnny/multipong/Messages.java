@@ -67,6 +67,8 @@ public abstract class Messages {
         public static final int PADDLE_Y = 4;
         public static final int PADDLE_ANGLE = 5;
 
+        public static final int POSITION_MESSAGE_SIZE = 6;
+
     }
 
     /**

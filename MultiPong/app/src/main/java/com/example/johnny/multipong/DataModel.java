@@ -3,6 +3,9 @@ package com.example.johnny.multipong;
 import android.content.IntentFilter;
 import android.util.Log;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * This service performs all the data process and number crunching for the game. It models the
  * in-game physics and provides the UI thread all the necessary data to render the game on the
@@ -28,9 +31,19 @@ public class DataModel extends BaseService {
 
     private int ball_radius;
 
+    private int paddle_x, paddle_y, paddle_theta;
+
+    private int ball_x;
+
+    private int ball_y;
+
+    private Timer positionTimer;
+
     public DataModel() {
         Log.i("Data Model", "Data Model is constructed!");
+        positionTimer = new Timer();
     }
+
     @Override
     public void processServiceMessage(String id, int[] body) {
         if (id.equals(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID)) {
@@ -63,6 +76,11 @@ public class DataModel extends BaseService {
         ball_radius = 0;
         paddle_height = 0;
         paddle_width = 0;
+        paddle_theta = 0;
+        paddle_x = 0;
+        paddle_y = 0;
+        ball_x = (max_width / 2) - ball_radius;
+        ball_y = 0;
     }
 
     /**
@@ -76,5 +94,36 @@ public class DataModel extends BaseService {
         body[Messages.InitMessage.PADDLE_WIDTH] = paddle_width;
 
         publishServiceMessage(Messages.InitMessage.INIT_MESSAGE_ID, body);
+
+        PositionTask positionTask = new PositionTask();
+
+        positionTimer.scheduleAtFixedRate(positionTask, 0, 50);
+    }
+
+    private void sendPositionMessage() {
+        int body[] = new int[Messages.PositionMessage.POSITION_MESSAGE_SIZE];
+
+        body[Messages.PositionMessage.BALL_X] = ball_x;
+        body[Messages.PositionMessage.BALL_Y] = ball_y;
+        body[Messages.PositionMessage.DRAW_BALL] = 1;
+        body[Messages.PositionMessage.PADDLE_ANGLE] = paddle_theta;
+        body[Messages.PositionMessage.PADDLE_X] = paddle_x;
+        body[Messages.PositionMessage.PADDLE_Y] = paddle_y;
+
+        publishServiceMessage(Messages.PositionMessage.POSITION_MESSAGE_ID, body);
+    }
+
+    private class PositionTask extends TimerTask {
+
+        @Override
+        public void run() {
+            paddle_x = (max_width / 2) - (paddle_width / 2);
+            paddle_y = paddle_height * 3;
+            paddle_theta = 0;
+
+            ball_y = (ball_y - 10) % max_height;
+
+            sendPositionMessage();
+        }
     }
 }
