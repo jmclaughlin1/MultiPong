@@ -37,6 +37,8 @@ public class DataModel extends BaseService {
 
     private int ball_y;
 
+    private int ball_y_increment;
+
     private Timer positionTimer;
 
     public DataModel() {
@@ -54,7 +56,7 @@ public class DataModel extends BaseService {
             paddle_height = max_height / PADDLE_HEIGHT_RATIO;
 
             ball_radius = max_width / BALL_RADIUS_RATIO;
-
+            ball_y_increment = max_height / 50;
             sendInitMessage();
         }
     }
@@ -121,7 +123,7 @@ public class DataModel extends BaseService {
             paddle_y = paddle_height * 3;
             paddle_theta = 0;
             ball_x = max_width / 2;
-            ball_y = ball_y > 0 ? (ball_y - 10) : max_height;
+            ball_y = ball_y > 0 ? (ball_y - ball_y_increment) : max_height;
 
             sendPositionMessage();
         }
