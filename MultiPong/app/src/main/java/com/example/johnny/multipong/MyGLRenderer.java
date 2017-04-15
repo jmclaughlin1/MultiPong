@@ -108,7 +108,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         if(mInitBallPaddle) {
             // Paddle
-            mPaddle.move(projPosX(mPongActivity.getPaddleX()), projPosY(mPongActivity.getPaddleY()));
+            mPaddle.move(projPosX(mPongActivity.getPaddleX()), projPosY(mPongActivity.getPaddleY()), mPongActivity.getPaddleAngle());
 
             mPaddle.draw(mProgram, mMVPMatrix);
 
