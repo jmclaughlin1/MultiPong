@@ -120,8 +120,8 @@ public class DataModel extends BaseService {
             paddle_x = (max_width / 2);
             paddle_y = paddle_height * 3;
             paddle_theta = 0;
-
-            ball_y = (ball_y - 10) % max_height;
+            ball_x = max_width / 2;
+            ball_y = ball_y > 0 ? (ball_y - 10) : max_height;
 
             sendPositionMessage();
         }
