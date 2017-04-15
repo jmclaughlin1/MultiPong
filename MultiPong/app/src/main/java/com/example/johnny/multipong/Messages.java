@@ -31,6 +31,16 @@ public abstract class Messages {
     }
 
     /**
+     * Sent from UI thread to Data Model to set the screen resolution of the phone.
+     */
+    public abstract class ScreenResMessage {
+        public static final String SCREEN_RES_MESSAGE_ID = "ScreenRes";
+
+        public static final int SCREEN_WIDTH = 0;
+        public static final int SCREEN_HEIGHT = 1;
+    }
+
+    /**
      * Send from Data Model to UI thread to set the field size, ball and paddle size.
      */
     public abstract class InitMessage {
