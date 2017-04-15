@@ -19,13 +19,13 @@ class MyGLSurfaceView extends GLSurfaceView {
     public static int resolution1440 = 2;
 
 
-    public MyGLSurfaceView(Context context){
-        super(context);
+    public MyGLSurfaceView(PongActivity pongActivity){
+        super(pongActivity);
         Log.i(TAG, "MyGLSurfaceView");
         // Create an OpenGL ES 2.0 context
         setEGLContextClientVersion(2);
 
-        mRenderer = new MyGLRenderer(context);
+        mRenderer = new MyGLRenderer(pongActivity);
 
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(mRenderer);
@@ -52,5 +52,6 @@ class MyGLSurfaceView extends GLSurfaceView {
         }
         return true;
     }
+
 
 }

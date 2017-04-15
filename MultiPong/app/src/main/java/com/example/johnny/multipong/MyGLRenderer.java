@@ -40,7 +40,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
                     "  gl_FragColor = vColor;" +
                     "}";
 
-    private Context mContext;
+    private PongActivity mPongActivity;
 
     private Paddle mPaddle;
     private Ball mBall;
@@ -59,9 +59,13 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private int mWidth;
     private int mHeight;
+    private float mRatio;
 
-    public MyGLRenderer(Context context){
-        mContext = context;
+    private boolean mInitBallPaddle = false;
+
+    public MyGLRenderer(PongActivity pongActivity){
+        Log.i(TAG, "MyGLRenderer");
+        mPongActivity = pongActivity;
     }
 
     @Override
@@ -73,9 +77,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         mProgram = createGLProgram(vertexShaderCode, fragmentShaderCode);
         // initialize a paddle
-        mPaddle = new Paddle();
+        //mPaddle = new Paddle();
         // initialize a ball
-        mBall = new Ball();
+        //mBall = new Ball();
 
         mPauseLeft = new PauseButton();
         mPauseRight = new PauseButton();
@@ -91,6 +95,8 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 unused) {
         Log.i(TAG, "onDrawFrame");
 
+        initializeBallPaddle(mPongActivity.getValidFields());
+
         // Redraw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
@@ -100,14 +106,17 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
-        // Paddle
-        mPaddle.move(pause);
+        if(mInitBallPaddle) {
+            // Paddle
+            //mPaddle.move(pause);
 
-        mPaddle.draw(mProgram, mMVPMatrix);
+            mPaddle.draw(mProgram, mMVPMatrix);
 
-        // Ball
-        mBall.move(pause);
-        mBall.draw(mProgram, mMVPMatrix);
+            // Ball
+            //mBall.move(pause);
+            mBall.draw(mProgram, mMVPMatrix);
+        }
+
 
         //Pause
         if(!pause) {
@@ -127,13 +136,15 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         mWidth = width;
         mHeight = height;
-        float ratio = (float) width / height;
+        mRatio = (float) width / height;
 
         // this projection matrix is applied to object coordinates
         // in the onDrawFrame() method
-        Matrix.frustumM(mProjectionMatrix, 0, -ratio, ratio, -1, 1, 3, 7);
+        Matrix.frustumM(mProjectionMatrix, 0, -mRatio, mRatio, -1, 1, 3, 7);
 
-        Log.i(TAG, "    Width : " + width + " Height : " + height + " Ratio : " + ratio);
+        //sendResolutionMessageToDM();
+
+        Log.i(TAG, "    Width : " + width + " Height : " + height + " Ratio : " + mRatio);
     }
 
     public static int loadShader(int type, String shaderCode){
@@ -171,4 +182,34 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         return mHeight;
     }
 
+    private void sendResolutionMessageToDM(){
+        int[] messageBody = new int[2];
+        messageBody[Messages.ScreenResMessage.SCREEN_WIDTH] = mWidth;
+        messageBody[Messages.ScreenResMessage.SCREEN_HEIGHT] = mHeight;
+
+        //mPongActivity.publishActivityMessage(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID, messageBody);
+    }
+
+    public void initializeBallPaddle(Boolean validFields){
+        if(validFields){
+            // initialize a paddle
+            mPaddle = new Paddle(pixelToScreenX(mPongActivity.getPaddleWidth())/2.0f, pixelToScreenY(mPongActivity.getPaddleHeight())/2.0f);
+            // initialize a ball
+            mBall = new Ball(pixelToScreenX(mPongActivity.getBallRadius()));
+
+            mInitBallPaddle = true;
+        }
+    }
+
+    private float pixelToScreenX(int xPixels){
+        float x = 2*mRatio/mWidth;
+
+        return (float) xPixels * x;
+    }
+
+    private float pixelToScreenY(int yPixels){
+        float y = 2.0f/mHeight;
+
+        return (float) yPixels * y;
+    }
 }

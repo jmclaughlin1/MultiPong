@@ -6,7 +6,7 @@ public class Ball extends Shape {
 
     private static final int NUMBER_POINTS_OUTSIDE = 16;
     private static final int NUMBER_POINTS_TOTAL = NUMBER_POINTS_OUTSIDE + 2;
-    private static final float RADIUS = 0.05f;
+    //private static final float RADIUS = 0.05f;
 
     private static final float COLOR[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
 
@@ -22,7 +22,7 @@ public class Ball extends Shape {
     private boolean tempX = true;
     private boolean tempY = true;
 
-    public Ball(){
+    public Ball(float radius){
         super(COLOR, NUMBER_POINTS_TOTAL, INITIAL_COORDINATE_X, INITIAL_COORDINATE_Y, INITIAL_ANGLE );
 
         ballCoords[0] = 0;
@@ -33,8 +33,8 @@ public class Ball extends Shape {
         int index;
         for(int i =1; i < NUMBER_POINTS_TOTAL ; i++){
             index = i * 3;
-            ballCoords[index + 0] = (float) (RADIUS * Math.cos(Math.toRadians((float)(i-1) * 360.0/NUMBER_POINTS_OUTSIDE)));
-            ballCoords[index + 1] = (float) (RADIUS * Math.sin(Math.toRadians((float)(i-1) * 360.0/NUMBER_POINTS_OUTSIDE)));
+            ballCoords[index + 0] = (float) (radius * Math.cos(Math.toRadians((float)(i-1) * 360.0/NUMBER_POINTS_OUTSIDE)));
+            ballCoords[index + 1] = (float) (radius * Math.sin(Math.toRadians((float)(i-1) * 360.0/NUMBER_POINTS_OUTSIDE)));
             ballCoords[index + 2] = 0;
             Log.v("Thread","Index"+ index+ " " + ballCoords[index + 0] + " , "+ ballCoords[index + 1] + " , " + ballCoords[index + 2]);
         }

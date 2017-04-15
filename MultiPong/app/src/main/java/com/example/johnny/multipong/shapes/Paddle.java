@@ -5,16 +5,6 @@ package com.example.johnny.multipong.shapes;
  */
 public class Paddle extends Shape{
 
-
-    private static final float paddleCoords[] = {
-            0.0f, 0.0f, 0.0f,     // center
-            -0.5f,  0.1f, 0.0f,   // top right
-            -0.5f, -0.1f, 0.0f,   // bottom right
-            0.5f, -0.1f, 0.0f,   // bottom left
-            0.5f,  0.1f, 0.0f,    // top left
-            -0.5f,  0.1f, 0.0f}; // top right
-
-
     private static final float COLOR[] = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
 
     private static final int NUMBER_POINTS = 6;
@@ -33,8 +23,17 @@ public class Paddle extends Shape{
     /**
      * Sets up the drawing object data for use in an OpenGL ES context.
      */
-    public Paddle() {
+    public Paddle(float width, float height) {
         super(COLOR, NUMBER_POINTS, INITIAL_COORDINATE_X, INITIAL_COORDINATE_Y, INITIAL_ANGLE );
+
+         float paddleCoords [] = {
+                    0.0f, 0.0f, 0.0f,     // center
+                    -1.0f*width,  height, 0.0f,   // top right
+                    -1.0f*width, -1.0f*height, 0.0f,   // bottom right
+                    width, -1.0f*height, 0.0f,   // bottom left
+                    width,  height, 0.0f,    // top left
+                    -1.0f*width,  height, 0.0f}; // top right
+
         super.setmCoordinates(paddleCoords);
         super.initializeVertexBuffer();
     }

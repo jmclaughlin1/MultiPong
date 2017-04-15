@@ -3,6 +3,8 @@ package com.example.johnny.multipong;
 import android.app.Activity;
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -11,8 +13,13 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
-public class PongActivity extends Activity {
+public class PongActivity extends BaseActivity {
     private GLSurfaceView mGLView;
+    private int ballRadius = 50;
+    private int paddleWidth= 200;
+    private int paddleHeight= 50;
+    private boolean validFields = true;
+
     
     private final String TAG = "PongActivity";
 
@@ -21,25 +28,28 @@ public class PongActivity extends Activity {
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
 
-        FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
-        setContentView(frameLayout);
 
-        TextView mPlayer1 = (TextView) frameLayout.findViewById(R.id.player1Text);
-        TextView mPlayer2 = (TextView) frameLayout.findViewById(R.id.player2Text);
+        Log.i(TAG, " DataModel Service Started");
+        //FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
+        //setContentView(R.layout.activity_main);
 
-        ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        ConfigurationInfo info = am.getDeviceConfigurationInfo();
-        boolean supportES2 = (info.reqGlEsVersion >= 0x20000);
-        if (supportES2) {
-            Log.i(TAG, "Your device OpenGLES2 version (" + info.reqGlEsVersion + ")");
-            mGLView = new MyGLSurfaceView(this);
-            frameLayout.addView(mGLView);
-            //setContentView(mGLView);
-        } else
-            Log.e("OpenGL2", "your device doesn't support ES2. (" + info.reqGlEsVersion + ")");
+        //TextView mPlayer1 = (TextView) frameLayout.findViewById(R.id.player1Text);
+        //TextView mPlayer2 = (TextView) frameLayout.findViewById(R.id.player2Text);
 
-        mPlayer1.bringToFront();
-        mPlayer2.bringToFront();
+        //ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        //ConfigurationInfo info = am.getDeviceConfigurationInfo();
+        //boolean supportES2 = (info.reqGlEsVersion >= 0x20000);
+        //if (supportES2) {
+        //    Log.i(TAG, "Your device OpenGLES2 version (" + info.reqGlEsVersion + ")");
+        mGLView = new MyGLSurfaceView(this);
+        //    frameLayout.addView(mGLView);
+        setContentView(mGLView);
+        //} else
+        //    Log.e("OpenGL2", "your device doesn't support ES2. (" + info.reqGlEsVersion + ")");
+
+        //mPlayer1.bringToFront();
+        //mPlayer2.bringToFront();
+        //startService(new Intent(this, DataModel.class));
     }
 
     @Override
@@ -85,16 +95,48 @@ public class PongActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy");
     }
 
-    //@Override
-    //protected void onSaveInstanceState(Bundle outState) {
-    //    super.onSaveInstanceState(outState);
-    //    outState.putStringArray("state", state);
-    //    Log.i(TAG, "onSaveInstanceState");
-    //}
+    // if states id parameter with all ids in getValidActivityMessges,
+    // body is message body
+    public void processActivityMessage(String id, int[] body) {
+        if (id.equals(Messages.InitMessage.INIT_MESSAGE_ID)){
+            ballRadius = body[Messages.InitMessage.BALL_RADIUS];
+            paddleWidth = body[Messages.InitMessage.PADDLE_WIDTH];
+            paddleHeight = body[Messages.InitMessage.PADDLE_HEIGHT];
 
+            validFields = true;
+
+        }
+    }
+    // create intent filter
+    // add message ids gonna receive to intent filter
+
+    @Override
+    public IntentFilter getValidActivityMessages() {
+        IntentFilter filter = new IntentFilter();
+        filter.addAction(Messages.InitMessage.INIT_MESSAGE_ID);
+        filter.addAction(Messages.PositionMessage.POSITION_MESSAGE_ID);
+        return filter;
+    }
+
+    /*public boolean getValidAttributes(){
+        return validAttributes;
+    }*/
+
+    public int getBallRadius() {
+        return ballRadius;
+    }
+    public int getPaddleWidth() {
+        return paddleWidth;
+    }
+    public int getPaddleHeight() {
+        return paddleHeight;
+    }
+    public boolean getValidFields() {
+        return validFields;
+    }
 }

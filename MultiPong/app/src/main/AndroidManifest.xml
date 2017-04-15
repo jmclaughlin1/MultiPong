@@ -12,7 +12,7 @@
         >
 
         <activity
-            android:name=".MenuActivity"
+            android:name=".PongActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:configChanges="orientation">
@@ -23,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".PongActivity"
+            android:name=".MenuActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:configChanges="orientation">
