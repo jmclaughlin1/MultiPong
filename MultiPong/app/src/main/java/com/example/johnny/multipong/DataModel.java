@@ -37,7 +37,7 @@ public class DataModel extends BaseService {
 
     private int ball_y;
 
-    private int ball_y_increment;
+    private int ball_y_increment, paddle_x_increment;
 
     private Timer positionTimer;
 
@@ -54,9 +54,11 @@ public class DataModel extends BaseService {
 
             paddle_width = max_width / PADDLE_WIDTH_RATIO;
             paddle_height = max_height / PADDLE_HEIGHT_RATIO;
+            paddle_x = (max_width / 2);
 
             ball_radius = max_width / BALL_RADIUS_RATIO;
             ball_y_increment = max_height / 50;
+            paddle_x_increment = max_width / 50;
             sendInitMessage();
         }
     }
@@ -115,13 +117,17 @@ public class DataModel extends BaseService {
         publishServiceMessage(Messages.PositionMessage.POSITION_MESSAGE_ID, body);
     }
 
+    boolean test = false;
+
     private class PositionTask extends TimerTask {
 
         @Override
         public void run() {
-            paddle_x = (max_width / 2);
+            if (paddle_x < 0) test = true;
+            if (paddle_x > max_width) test = false;
+            paddle_x = test ? paddle_x + paddle_x_increment : paddle_x - paddle_x_increment;
             paddle_y = paddle_height * 3;
-            paddle_theta = 0;
+            paddle_theta++;
             ball_x = max_width / 2;
             ball_y = ball_y > 0 ? (ball_y - ball_y_increment) : max_height;
 
