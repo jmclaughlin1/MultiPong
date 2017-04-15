@@ -97,7 +97,7 @@ public class DataModel extends BaseService {
 
         PositionTask positionTask = new PositionTask();
 
-        positionTimer.scheduleAtFixedRate(positionTask, 0, 1000);
+        positionTimer.scheduleAtFixedRate(positionTask, 0, 200);
     }
 
     private void sendPositionMessage() {
