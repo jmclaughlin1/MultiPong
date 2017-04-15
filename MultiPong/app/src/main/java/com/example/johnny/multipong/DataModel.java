@@ -79,7 +79,7 @@ public class DataModel extends BaseService {
         paddle_theta = 0;
         paddle_x = 0;
         paddle_y = 0;
-        ball_x = (max_width / 2) - ball_radius;
+        ball_x = (max_width / 2);
         ball_y = max_height;
     }
 
@@ -117,7 +117,7 @@ public class DataModel extends BaseService {
 
         @Override
         public void run() {
-            paddle_x = (max_width / 2) - (paddle_width / 2);
+            paddle_x = (max_width / 2);
             paddle_y = paddle_height * 3;
             paddle_theta = 0;
 
