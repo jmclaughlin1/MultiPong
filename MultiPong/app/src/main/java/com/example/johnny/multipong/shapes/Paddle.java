@@ -39,11 +39,11 @@ public class Paddle extends Shape{
     }
 
     // TEST functions to move paddle
-    public void move(float paddleX, float paddleY)
+    public void move(float paddleX, float paddleY, int paddleAngle)
     {
         super.setPosX(paddleX);
         super.setPosY(paddleY);
-
+        super.setAngle((float) paddleAngle);
     }
 
 }
