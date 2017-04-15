@@ -15,6 +15,14 @@ import android.widget.TextView;
 
 public class PongActivity extends BaseActivity {
     private GLSurfaceView mGLView;
+
+    private int drawBall;
+    private int ballX;
+    private int ballY;
+    private int paddleX;
+    private int paddleY;
+    private int paddleAngle;
+
     private int ballRadius;
     private int paddleWidth;
     private int paddleHeight;
@@ -105,12 +113,24 @@ public class PongActivity extends BaseActivity {
     public void processActivityMessage(String id, int[] body) {
         Log.i(TAG, "processActivityMessage");
         if (id.equals(Messages.InitMessage.INIT_MESSAGE_ID)){
-            ballRadius = body[Messages.InitMessage.BALL_RADIUS];
-            paddleWidth = body[Messages.InitMessage.PADDLE_WIDTH];
-            paddleHeight = body[Messages.InitMessage.PADDLE_HEIGHT];
+            Log.i(TAG, Messages.InitMessage.INIT_MESSAGE_ID);
+            ballRadius      = body[Messages.InitMessage.BALL_RADIUS];
+            paddleWidth     = body[Messages.InitMessage.PADDLE_WIDTH];
+            paddleHeight    = body[Messages.InitMessage.PADDLE_HEIGHT];
 
             validFields = true;
             Log.i(TAG, ballRadius + " " + paddleWidth + " " + paddleHeight);
+        }
+        else if(id.equals(Messages.PositionMessage.POSITION_MESSAGE_ID)){
+            Log.i(TAG, Messages.PositionMessage.POSITION_MESSAGE_ID);
+            drawBall    = body[Messages.PositionMessage.DRAW_BALL];
+            ballX       = body[Messages.PositionMessage.BALL_X];
+            ballY       = body[Messages.PositionMessage.BALL_Y];
+            paddleX     = body[Messages.PositionMessage.PADDLE_X];
+            paddleY     = body[Messages.PositionMessage.PADDLE_Y];
+            paddleAngle = body[Messages.PositionMessage.PADDLE_ANGLE];
+
+            Log.i(TAG, ballX + " " + ballY );
         }
     }
     // create intent filter
@@ -139,5 +159,11 @@ public class PongActivity extends BaseActivity {
     }
     public boolean getValidFields() {
         return validFields;
+    }
+    public int getBallX(){
+        return ballX;
+    }
+    public int getBallY(){
+        return ballY;
     }
 }

@@ -113,7 +113,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             mPaddle.draw(mProgram, mMVPMatrix);
 
             // Ball
-            //mBall.move(pause);
+            mBall.move(pause, ballPosX(), ballPosY());
             mBall.draw(mProgram, mMVPMatrix);
         }
 
@@ -202,7 +202,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     }
 
     private float pixelToScreenX(int xPixels){
-        float x = 2*mRatio/mWidth;
+        float x = 2.0f*mRatio/mWidth;
 
         return (float) xPixels * x;
     }
@@ -211,5 +211,17 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         float y = 2.0f/mHeight;
 
         return (float) yPixels * y;
+    }
+
+    private float ballPosX(){
+        int xPixels = mPongActivity.getBallX();
+        float x = ((xPixels - (mWidth/2.0f))/(mWidth/2.0f)) * mRatio;
+        return x;
+    }
+
+    private float ballPosY(){
+        int yPixels = mPongActivity.getBallY();
+
+        return (yPixels - (mHeight/2.0f))/(mHeight/2.0f);
     }
 }
