@@ -21,6 +21,8 @@ public class DataModel extends BaseService {
 
     private static final int BALL_RADIUS_RATIO = 50;
 
+    private static final int BALL_SPEED = 1;
+
     private int max_width;
 
     private int max_height;
@@ -38,6 +40,8 @@ public class DataModel extends BaseService {
     private int ball_y;
 
     private int ball_y_increment, ball_x_increment, paddle_x_increment;
+
+    private double[][] paddle_rotation_matrix;
 
     private boolean ball_x_direction;
 
@@ -59,8 +63,15 @@ public class DataModel extends BaseService {
             paddle_x = (max_width / 2);
 
             ball_radius = max_width / BALL_RADIUS_RATIO;
-            ball_y_increment = max_height / 50;
+            ball_y_increment = max_height / 75;
             paddle_x_increment = ball_x_increment = max_width / 50;
+            ball_x = (max_width/2);
+            ball_x_increment = 0;
+            ball_y = max_height;
+
+            PositionTask positionTask = new PositionTask();
+
+            positionTimer.scheduleAtFixedRate(positionTask, 0, 33);
             sendInitMessage();
         }
     }
@@ -82,12 +93,14 @@ public class DataModel extends BaseService {
         ball_radius = 0;
         paddle_height = 0;
         paddle_width = 0;
-        paddle_theta = 0;
+        paddle_theta = 30;
         paddle_x = 0;
-        paddle_y = 0;
-        ball_x = (max_width / 2);
+        paddle_y = 100;
+        ball_x = 200;
         ball_y = max_height;
         ball_x_direction = false;
+
+        paddle_rotation_matrix = new double[2][2];
     }
 
     /**
@@ -102,9 +115,7 @@ public class DataModel extends BaseService {
 
         publishServiceMessage(Messages.InitMessage.INIT_MESSAGE_ID, body);
 
-        PositionTask positionTask = new PositionTask();
 
-        positionTimer.scheduleAtFixedRate(positionTask, 0, 33);
     }
 
     private void sendPositionMessage() {
@@ -120,22 +131,66 @@ public class DataModel extends BaseService {
         publishServiceMessage(Messages.PositionMessage.POSITION_MESSAGE_ID, body);
     }
 
-    boolean test = false;
+    boolean paddle_test = false;
 
     private class PositionTask extends TimerTask {
 
         @Override
         public void run() {
-            if (paddle_x < 0) test = true;
-            if (paddle_x > max_width) test = false;
-            paddle_x = test ? paddle_x + paddle_x_increment : paddle_x - paddle_x_increment;
-            paddle_y = paddle_height * 3;
-            paddle_theta++;
+            boolean hit_right_wall = ball_x > max_width;
+            boolean hit_left_wall = ball_x < 0;
+            boolean hit_top_wall = ball_y < 0;
+            boolean hit_bottom_wall = ball_y > max_height;
 
-            if (ball_x > max_width) ball_x_direction = true;
-            if (ball_x < 0) ball_x_direction = false;
-            ball_x = ball_x_direction ? ball_x - ball_x_increment : ball_x + ball_x_increment;
-            ball_y = ball_y > 0 ? (ball_y - ball_y_increment) : max_height;
+            // Test purposes only. Paddle theta will be controlled by accelerometer.
+            if (paddle_theta >= 60) paddle_test = true;
+            else if (paddle_theta <= -60) paddle_test = false;
+            paddle_theta = paddle_test ? paddle_theta - 1 : paddle_theta + 1;
+
+            //paddle_rotation_matrix[0][0] = paddle_rotation_matrix[1][1] = Math.cos(paddle_theta);
+            //paddle_rotation_matrix[0][1] = Math.sin(paddle_theta);
+            //paddle_rotation_matrix[1][0] = -(Math.sin(paddle_theta));
+
+            boolean hit_paddle = (ball_y <= (paddle_y + (paddle_height)))
+                    && ball_x >= (paddle_x - (paddle_width/2))
+                    && ball_x <= (paddle_x + (paddle_width/2));
+
+
+
+            if (hit_paddle) {
+                if (paddle_theta % 360 != 0) {
+                    int slope = (int) Math.atan(paddle_theta);
+                    if (slope != 0) ball_x_increment = -(ball_y_increment / slope);
+                }
+
+                //ball_y = ball_y_increment > 0 ?
+                ball_y_increment = -(ball_y_increment + BALL_SPEED);
+
+            } else if (hit_left_wall) {
+                ball_x = 0;
+                ball_x_increment = -ball_x_increment;
+            } else if (hit_right_wall) {
+                ball_x = max_width;
+                ball_x_increment = -ball_x_increment;
+            } else if (hit_bottom_wall) {
+                ball_y = max_height;
+                ball_y_increment = -ball_y_increment;
+            } else if (hit_top_wall) {
+                ball_y = 0;
+                ball_y_increment = -ball_y_increment;
+            }
+            /*if (hit_top_bottom_walls || hit_paddle) ball_y_increment = -ball_y_increment;
+
+            if (hit_side_walls) ball_x_increment = -ball_x_increment;
+            else if (hit_paddle && paddle_theta % 360 != 0) {
+                int slope = (int) Math.atan(paddle_theta);
+                ball_x_increment = -(ball_y_increment / slope);
+            }*/
+
+            // TODO: Control paddle_x with accelerometer data
+
+            ball_x -= ball_x_increment;
+            ball_y -= ball_y_increment;
 
             sendPositionMessage();
         }
