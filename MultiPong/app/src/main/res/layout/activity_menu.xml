@@ -18,7 +18,7 @@
         android:id="@+id/playbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play/Find Friend"
+        android:text="Find Friend"
         android:textSize="30dp"
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"

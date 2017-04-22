@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,19 +20,33 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.johnny.multipong.BaseActivity;
 import com.example.johnny.multipong.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class BluetoothChat extends Activity {
+public class BluetoothChat extends BaseActivity {
 
     // BluetoothMessage types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
     public static final int MESSAGE_DEVICE_NAME = 4;
+
+    @Override
+    public void processActivityMessage(String id, int[] body) {
+
+    }
+
+    @Override
+    public IntentFilter getValidActivityMessages() {
+        IntentFilter filter = new IntentFilter();
+
+        return filter;
+    }
+
     public static final int MESSAGE_TOAST = 5;
 
 

@@ -15,7 +15,7 @@
         >
 
         <activity
-            android:name=".PongActivity"
+            android:name=".MenuActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:configChanges="orientation">
@@ -26,7 +26,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MenuActivity"
+            android:name=".PongActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:configChanges="orientation">
@@ -41,6 +41,10 @@
 
         <activity
             android:name=".Bluetooth.DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/select_device" />
+        <activity
+            android:name=".Bluetooth.BluetoothChat"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_device" />
 

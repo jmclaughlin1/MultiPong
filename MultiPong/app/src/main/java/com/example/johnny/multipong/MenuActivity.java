@@ -8,6 +8,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.johnny.multipong.Bluetooth.BluetoothChat;
+import com.example.johnny.multipong.Bluetooth.DeviceListActivity;
+
 /**
  * Created by Jason Esquivel on 3/25/2017.
  */
@@ -40,7 +43,7 @@ public class MenuActivity extends Activity implements View.OnClickListener{
                 startActivity(intentOptions);
                 break;
             case R.id.playbutton:
-                Intent intentPlay = new Intent(MenuActivity.this, PongActivity.class);
+                Intent intentPlay = new Intent(MenuActivity.this, BluetoothChat.class);
                 startActivity(intentPlay);
                 break;
         }

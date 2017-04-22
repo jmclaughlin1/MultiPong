@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.johnny.multipong.BaseActivity;
 import com.example.johnny.multipong.R;
 
 import java.util.Set;
@@ -29,9 +30,21 @@ import java.util.Set;
  * by the user, the MAC address of the device is sent back to the parent
  * Activity in the result Intent.
  */
-public class DeviceListActivity extends Activity {
+public class DeviceListActivity extends BaseActivity {
     // Return Intent extra
     public static String EXTRA_DEVICE_ADDRESS = "device_address";
+
+    @Override
+    public void processActivityMessage(String id, int[] body) {
+
+    }
+
+    @Override
+    public IntentFilter getValidActivityMessages() {
+        IntentFilter filter = new IntentFilter();
+        return filter;
+    }
+
     // Member fields
     private BluetoothAdapter mBtAdapter;
     private ArrayAdapter<String> mPairedDevicesArrayAdapter;
@@ -88,7 +101,7 @@ public class DeviceListActivity extends Activity {
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         // Make sure we're not doing discovery anymore
         if (mBtAdapter != null) {
