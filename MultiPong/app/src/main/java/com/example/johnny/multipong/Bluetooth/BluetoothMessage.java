@@ -1,12 +1,12 @@
-package androidRecyclerView;
+package com.example.johnny.multipong.Bluetooth;
 
-public class Message {
+public class BluetoothMessage {
 
     protected int id;
     protected String message;
     protected String senderName;
 
-    public Message(int id, String message, String senderName) {
+    public BluetoothMessage(int id, String message, String senderName) {
         this.id = id;
         this.message = message;
         this.senderName = senderName;

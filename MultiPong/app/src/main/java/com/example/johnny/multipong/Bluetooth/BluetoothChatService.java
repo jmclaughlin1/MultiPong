@@ -1,4 +1,4 @@
-package com.javacodegeeks.androidBluetoothExample;
+package com.example.johnny.multipong.Bluetooth;
 
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;

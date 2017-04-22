@@ -1,4 +1,4 @@
-package com.javacodegeeks.androidBluetoothExample;
+package com.example.johnny.multipong.Bluetooth;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -19,7 +19,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.javacodegeeks.R;
+import com.example.johnny.multipong.R;
 
 import java.util.Set;
 

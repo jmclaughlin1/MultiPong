@@ -1,4 +1,4 @@
-package androidRecyclerView;
+package com.example.johnny.multipong.Bluetooth;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,18 +8,18 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.javacodegeeks.R;
+import com.example.johnny.multipong.R;
 
 import java.util.List;
 
 public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
 
-    private List<Message> messageList;
+    private List<BluetoothMessage> messageList;
 
     public static final int SENDER = 0;
     public static final int RECIPIENT = 1;
 
-    public MessageAdapter(Context context, List<Message> messages) {
+    public MessageAdapter(Context context, List<BluetoothMessage> messages) {
         messageList = messages;
     }
 
@@ -71,7 +71,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public int getItemViewType(int position) {
-        Message message = messageList.get(position);
+        BluetoothMessage message = messageList.get(position);
 
         if (message.getSenderName().equals("Me")) {
             return SENDER;

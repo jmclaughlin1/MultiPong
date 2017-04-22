@@ -1,4 +1,4 @@
-package com.javacodegeeks.androidBluetoothExample;
+package com.example.johnny.multipong.Bluetooth;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
@@ -19,17 +19,15 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.johnny.multipong.R;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.javacodegeeks.R;
-
-import androidRecyclerView.MessageAdapter;
 
 
 public class BluetoothChat extends Activity {
 
-    // Message types sent from the BluetoothChatService Handler
+    // BluetoothMessage types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
@@ -64,7 +62,7 @@ public class BluetoothChat extends Activity {
 
     public int counter = 0;
 
-    private List<androidRecyclerView.Message> messageList = new ArrayList<androidRecyclerView.Message>();
+    private List<BluetoothMessage> messageList = new ArrayList<BluetoothMessage>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -199,7 +197,7 @@ public class BluetoothChat extends Activity {
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
                     mAdapter.notifyDataSetChanged();
-                    messageList.add(new androidRecyclerView.Message(counter++, writeMessage, "Me"));
+                    messageList.add(new BluetoothMessage(counter++, writeMessage, "Me"));
                     break;
                 case MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
@@ -207,7 +205,7 @@ public class BluetoothChat extends Activity {
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Toast.makeText(BluetoothChat.this, readMessage, Toast.LENGTH_SHORT).show(); // read your message here
                     mAdapter.notifyDataSetChanged();
-                    messageList.add(new androidRecyclerView.Message(counter++, readMessage, mConnectedDeviceName));
+                    messageList.add(new BluetoothMessage(counter++, readMessage, mConnectedDeviceName));
                     break;
                 case MESSAGE_DEVICE_NAME:
                     // save the connected device's name

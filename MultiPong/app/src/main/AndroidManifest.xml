@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.johnny.multipong">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
     <uses-feature android:glEsVersion="0x00020000"
         android:required="true" />
 
@@ -36,10 +39,16 @@
             android:configChanges="orientation">
         </activity>
 
+        <activity
+            android:name=".Bluetooth.DeviceListActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/select_device" />
+
         <service
             android:name=".DataModel"
             android:enabled="true"
             android:exported="true" />
+
 
     </application>
 
