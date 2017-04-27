@@ -33,8 +33,7 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         Button testButton = (Button) findViewById(R.id.GameTest);
         testButton.setOnClickListener(this);
 
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.spystory);
-        mp.start();
+        startService(new Intent(this, SoundService.class));
     }
 
     @Override
