@@ -30,6 +30,9 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         Button optionsButton = (Button) findViewById(R.id.optionsbutton);
         optionsButton.setOnClickListener(this);
 
+        Button testButton = (Button) findViewById(R.id.GameTest);
+        testButton.setOnClickListener(this);
+
         MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.spystory);
         mp.start();
     }
@@ -46,6 +49,12 @@ public class MenuActivity extends Activity implements View.OnClickListener{
                 Intent intentPlay = new Intent(MenuActivity.this, BluetoothChat.class);
                 startActivity(intentPlay);
                 break;
+            case R.id.GameTest:
+                Intent intentTest = new Intent(MenuActivity.this, PongActivity.class);
+                startActivity(intentTest);
+                break;
+
+
         }
     }
 
