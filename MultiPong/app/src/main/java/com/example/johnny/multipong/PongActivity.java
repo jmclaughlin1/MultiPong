@@ -110,6 +110,7 @@ public class PongActivity extends BaseActivity {
 
     // if states id parameter with all ids in getValidActivityMessges,
     // body is message body
+    @Override
     public void processActivityMessage(String id, int[] body) {
         Log.i(TAG, "processActivityMessage");
         if (id.equals(Messages.InitMessage.INIT_MESSAGE_ID)){

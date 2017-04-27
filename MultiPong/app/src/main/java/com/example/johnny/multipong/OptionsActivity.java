@@ -2,6 +2,7 @@ package com.example.johnny.multipong;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +13,7 @@ import android.widget.SeekBar;
  * Created by Jason Esquivel on 4/1/2017.
  */
 
-public class OptionsActivity extends Activity implements View.OnClickListener{
+public class OptionsActivity extends BaseActivity implements View.OnClickListener{
 
     private final String TAG = "OptionsActivity";
     private static int musicSeekbarValue = 50;
@@ -129,7 +130,7 @@ public class OptionsActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy");
     }
@@ -142,6 +143,16 @@ public class OptionsActivity extends Activity implements View.OnClickListener{
         Log.i(TAG, "musicSeekbarValue : " + musicSeekbarValue);
     }
 
+    @Override
+    public void processActivityMessage(String id, int[] body) {
+
+    }
+
+    @Override
+    public IntentFilter getValidActivityMessages() {
+        IntentFilter filter = new IntentFilter();
+        return filter;
+    }
 
 }
 

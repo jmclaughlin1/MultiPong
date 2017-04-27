@@ -2,6 +2,7 @@ package com.example.johnny.multipong;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +16,7 @@ import com.example.johnny.multipong.Bluetooth.DeviceListActivity;
  * Created by Jason Esquivel on 3/25/2017.
  */
 
-public class MenuActivity extends Activity implements View.OnClickListener{
+public class MenuActivity extends BaseActivity implements View.OnClickListener{
 
     private final String TAG = "MenuActivity";
 
@@ -99,7 +100,7 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy");
     }
@@ -109,5 +110,14 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState");
     }
+    @Override
+    public void processActivityMessage(String id, int[] body) {
 
+    }
+
+    @Override
+    public IntentFilter getValidActivityMessages() {
+        IntentFilter filter = new IntentFilter();
+        return filter;
+    }
 }
