@@ -85,12 +85,14 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
+        resumeBackgroundMusic();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "onPause");
+        pauseBackgroundMusic();
     }
 
     @Override
@@ -101,8 +103,9 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
         Log.i(TAG, "onDestroy");
+        stopBackgroundMusic();
+        super.onDestroy();
     }
 
     @Override
@@ -120,4 +123,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         IntentFilter filter = new IntentFilter();
         return filter;
     }
+
+
 }

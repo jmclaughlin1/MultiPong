@@ -15,8 +15,10 @@ import android.util.Log;
 
 public class SoundService extends BaseService implements MediaPlayer.OnErrorListener {
     String TAG = "SoundService";
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer bgMediaPlayer;
+    private int bgPos;
 
+    private static final float MAX_VOLUME = 100.f;
     //@Override
     //public IBinder onBind(Intent intent) {
     //    return null;
@@ -26,31 +28,62 @@ public class SoundService extends BaseService implements MediaPlayer.OnErrorList
     public void runService() {
         //super.onCreate();
         Log.i(TAG, "Sound Service Started");
-        mediaPlayer = mediaPlayer.create(this, R.raw.spystory);
-        mediaPlayer.setOnErrorListener(this);
+        bgMediaPlayer = bgMediaPlayer.create(this, R.raw.spystory);
+        bgMediaPlayer.setOnErrorListener(this);
 
-        if(mediaPlayer!=null){
-            mediaPlayer.setLooping(true);
-            mediaPlayer.setVolume(1.0f,1.0f);
+        if(bgMediaPlayer!=null){
+            bgMediaPlayer.setLooping(true);
+            bgMediaPlayer.setVolume(0.5f,0.5f);
         }
-        mediaPlayer.setOnErrorListener(new OnErrorListener() {
+        bgMediaPlayer.setOnErrorListener(new OnErrorListener() {
             @Override
             public boolean onError(MediaPlayer mp, int what, int extra) {
                 onError(mp, what, extra);
                 return true;
             }
         });
-        mediaPlayer.start();
+        bgMediaPlayer.start();
     }
 
     @Override
     public void processServiceMessage(String id, int[] body) {
+        if(id.equals(Messages.MusicMessage.BACKGROUND_MUSIC_VOLUME_ID)){
+            Log.i(TAG, "Background Music Volume Message");
+            float backgroundVolume = (float)body[Messages.MusicMessage.BACKGROUND_VOLUME]/MAX_VOLUME;
 
+            bgMediaPlayer.setVolume(backgroundVolume, backgroundVolume);
+        }
+        else if(id.equals(Messages.MusicMessage.BACKGROUND_MUSIC_PAUSE_ID)){
+            Log.i(TAG, "Background Music Pause Message");
+            pauseBackgroundMusic();
+        }
+        else if(id.equals(Messages.MusicMessage.BACKGROUND_MUSIC_RESUME_ID)){
+            Log.i(TAG, "Background Music Resume Message");
+            resumeBackgroundMusic();
+        }
+        else if(id.equals(Messages.MusicMessage.BACKGROUND_MUSIC_STOP_ID)){
+            Log.i(TAG, "Background Music Stop Message");
+            stopBackgroundMusic();
+        }
+        else if(id.equals(Messages.MusicMessage.SFX_MUSIC_VOLUME_ID)){
+            Log.i(TAG, "SFX Music Volume Message");
+
+        }
+        else if(id.equals(Messages.MusicMessage.SFX_MUSIC_PLAY_ID)){
+            Log.i(TAG, "SFX Music Play Message");
+
+        }
     }
 
     @Override
     public IntentFilter getValidServiceMessages() {
         IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Messages.MusicMessage.BACKGROUND_MUSIC_VOLUME_ID);
+        intentFilter.addAction(Messages.MusicMessage.BACKGROUND_MUSIC_PAUSE_ID);
+        intentFilter.addAction(Messages.MusicMessage.BACKGROUND_MUSIC_RESUME_ID);
+        intentFilter.addAction(Messages.MusicMessage.BACKGROUND_MUSIC_STOP_ID);
+        intentFilter.addAction(Messages.MusicMessage.SFX_MUSIC_VOLUME_ID);
+        intentFilter.addAction(Messages.MusicMessage.SFX_MUSIC_PLAY_ID);
         return intentFilter;
     }
 
@@ -71,16 +104,36 @@ public class SoundService extends BaseService implements MediaPlayer.OnErrorList
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
-        if(mediaPlayer != null)
+
+        Log.i(TAG, "onDestroy");
+        if(bgMediaPlayer != null)
         {
-            try{
-                mediaPlayer.stop();
-                mediaPlayer.release();
-            }finally {
-                mediaPlayer = null;
-            }
+            stopBackgroundMusic();
         }
+        super.onDestroy();
+    }
+
+    public void pauseBackgroundMusic()
+    {
+        if(bgMediaPlayer.isPlaying()){
+            bgMediaPlayer.pause();
+            bgPos = bgMediaPlayer.getCurrentPosition();
+        }
+    }
+
+    public void resumeBackgroundMusic()
+    {
+        if(bgMediaPlayer.isPlaying()==false){
+            bgMediaPlayer.seekTo(bgPos);
+            bgMediaPlayer.start();
+        }
+    }
+
+    public void stopBackgroundMusic()
+    {
+        bgMediaPlayer.stop();
+        bgMediaPlayer.release();
+        bgMediaPlayer = null;
     }
 
 }
