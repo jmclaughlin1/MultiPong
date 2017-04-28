@@ -85,4 +85,7 @@ public abstract class BaseActivity extends Activity {
     public void stopBackgroundMusic(){
         publishActivityMessage(Messages.MusicMessage.BACKGROUND_MUSIC_STOP_ID, null);
     }
+    public void playSFXMusic(){
+        publishActivityMessage(Messages.MusicMessage.SFX_MUSIC_PLAY_ID, null);
+    }
 }

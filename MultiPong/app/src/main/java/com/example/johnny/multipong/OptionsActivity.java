@@ -21,10 +21,10 @@ public class OptionsActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState){
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        if(savedInstanceState != null) {
-            musicValue = savedInstanceState.getInt("musicValue");
+        //if(savedInstanceState != null) {
+        //    musicValue = savedInstanceState.getInt("musicValue");
 
-        }
+        //}
         Log.i(TAG, "Music Saved Value : " + musicValue);
         Log.i(TAG, "SFX   Saved Value : " + sfxValue);
 
@@ -67,6 +67,14 @@ public class OptionsActivity extends BaseActivity implements View.OnClickListene
                                           boolean fromUser) {
                 Log.i(TAG, "SFX   SeekBar Progress : " + progress);
                 sfxValue = progress;
+
+                int body[] = new int[Messages.MusicMessage.SFX_MUSIC_VOLUME_SIZE];
+
+                body[Messages.MusicMessage.SFX_VOLUME] = sfxValue;
+
+                publishActivityMessage(Messages.MusicMessage.SFX_MUSIC_VOLUME_ID, body);
+
+                playSFXMusic();
             }
 
             @Override
@@ -143,13 +151,13 @@ public class OptionsActivity extends BaseActivity implements View.OnClickListene
         super.onDestroy();
     }
 
-    @Override
+    /*@Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt("musicValue", musicValue);
         Log.i(TAG, "onSaveInstanceState");
         Log.i(TAG, "musicValue : " + musicValue);
-    }
+    }*/
 
     @Override
     public void processActivityMessage(String id, int[] body) {
@@ -161,10 +169,5 @@ public class OptionsActivity extends BaseActivity implements View.OnClickListene
         IntentFilter filter = new IntentFilter();
         return filter;
     }
-
-    private void updateVolumeBackgroundMusic(int volume){
-
-    }
-
 }
 

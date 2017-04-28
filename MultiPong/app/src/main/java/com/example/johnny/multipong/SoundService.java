@@ -16,6 +16,7 @@ import android.util.Log;
 public class SoundService extends BaseService implements MediaPlayer.OnErrorListener {
     String TAG = "SoundService";
     private MediaPlayer bgMediaPlayer;
+    private MediaPlayer sfxMediaPlayer;
     private int bgPos;
 
     private static final float MAX_VOLUME = 100.f;
@@ -42,6 +43,21 @@ public class SoundService extends BaseService implements MediaPlayer.OnErrorList
                 return true;
             }
         });
+
+        sfxMediaPlayer = sfxMediaPlayer.create(this, R.raw.button31);
+        sfxMediaPlayer.setOnErrorListener(this);
+
+        if(sfxMediaPlayer!=null){
+            sfxMediaPlayer.setVolume(0.5f,0.5f);
+        }
+        sfxMediaPlayer.setOnErrorListener(new OnErrorListener() {
+            @Override
+            public boolean onError(MediaPlayer mp, int what, int extra) {
+                onError(mp, what, extra);
+                return true;
+            }
+        });
+
         bgMediaPlayer.start();
     }
 
@@ -50,7 +66,6 @@ public class SoundService extends BaseService implements MediaPlayer.OnErrorList
         if(id.equals(Messages.MusicMessage.BACKGROUND_MUSIC_VOLUME_ID)){
             Log.i(TAG, "Background Music Volume Message");
             float backgroundVolume = (float)body[Messages.MusicMessage.BACKGROUND_VOLUME]/MAX_VOLUME;
-
             bgMediaPlayer.setVolume(backgroundVolume, backgroundVolume);
         }
         else if(id.equals(Messages.MusicMessage.BACKGROUND_MUSIC_PAUSE_ID)){
@@ -67,11 +82,12 @@ public class SoundService extends BaseService implements MediaPlayer.OnErrorList
         }
         else if(id.equals(Messages.MusicMessage.SFX_MUSIC_VOLUME_ID)){
             Log.i(TAG, "SFX Music Volume Message");
-
+            float sfxVolume = (float)body[Messages.MusicMessage.SFX_VOLUME]/MAX_VOLUME;
+            sfxMediaPlayer.setVolume(sfxVolume, sfxVolume);
         }
         else if(id.equals(Messages.MusicMessage.SFX_MUSIC_PLAY_ID)){
             Log.i(TAG, "SFX Music Play Message");
-
+            sfxMediaPlayer.start();
         }
     }
 
