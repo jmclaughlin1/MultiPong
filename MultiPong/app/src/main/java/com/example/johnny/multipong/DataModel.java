@@ -35,11 +35,13 @@ public class DataModel extends BaseService {
 
     private int paddle_x, paddle_y, paddle_theta;
 
-    private int center_accel_x, center_accel_y;
+    private int center_accel_x, center_accel_y, left_accel_x, right_accel_x, left_accel_y, right_accel_y;
 
     private int ball_x;
 
     private int ball_y;
+
+    private double accel_pixel_ratio_x, accel_pixel_ratio_y;
 
     private int ball_y_increment, ball_x_increment, paddle_x_increment;
 
@@ -76,13 +78,24 @@ public class DataModel extends BaseService {
         } else if (id.equals(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID)) {
             center_accel_x = body[Messages.CenterPositionMessage.CENTER_X_FIELD];
             center_accel_y = body[Messages.CenterPositionMessage.CENTER_Y_FIELD];
+            left_accel_x = body[Messages.CenterPositionMessage.LEFT_X_FIELD];
+            right_accel_x = body[Messages.CenterPositionMessage.RIGHT_X_FIELD];
+            left_accel_y = body[Messages.CenterPositionMessage.LEFT_Y_FIELD];
+            right_accel_x = body[Messages.CenterPositionMessage.RIGHT_Y_FIELD];
+
+            accel_pixel_ratio_y = max_width / right_accel_y;
+            accel_pixel_ratio_x = 120 / left_accel_x;
 
             PositionTask positionTask = new PositionTask();
 
             positionTimer.scheduleAtFixedRate(positionTask, 0, 33);
             sendInitMessage();
-        } else if (id.equals(Messages.PositionMessage.POSITION_MESSAGE_ID)) {
+        } else if (id.equals(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID)) {
+            int accel_x = body[Messages.GyroscopeMessage.GYROSCOPE_X];
+            int accel_y = body[Messages.GyroscopeMessage.GYROSCOPE_Y];
 
+            paddle_x = (int)(accel_y * accel_pixel_ratio_y);
+            paddle_theta = (int)(accel_x * accel_pixel_ratio_x);
         }
     }
 
@@ -155,9 +168,9 @@ public class DataModel extends BaseService {
             boolean hit_bottom_wall = ball_y > max_height;
 
             // Test purposes only. Paddle theta will be controlled by accelerometer.
-            if (paddle_theta >= 60) paddle_test = true;
-            else if (paddle_theta <= -60) paddle_test = false;
-            paddle_theta = paddle_test ? paddle_theta - 1 : paddle_theta + 1;
+            //if (paddle_theta >= 60) paddle_test = true;
+            //else if (paddle_theta <= -60) paddle_test = false;
+            //paddle_theta = paddle_test ? paddle_theta - 1 : paddle_theta + 1;
 
             //paddle_rotation_matrix[0][0] = paddle_rotation_matrix[1][1] = Math.cos(paddle_theta);
             //paddle_rotation_matrix[0][1] = Math.sin(paddle_theta);
