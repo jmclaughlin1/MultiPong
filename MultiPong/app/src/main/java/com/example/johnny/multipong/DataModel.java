@@ -49,6 +49,8 @@ public class DataModel extends BaseService {
 
     private boolean ball_x_direction;
 
+    private int player1_score, player2_score;
+
     private Timer positionTimer;
 
     public DataModel() {
@@ -96,6 +98,20 @@ public class DataModel extends BaseService {
 
             paddle_x = (int)(accel_y * accel_pixel_ratio_y);
             paddle_theta = (int)(accel_x * accel_pixel_ratio_x);
+        } else if (id.equals(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID)) {
+            ball_y_increment = -ball_y_increment;
+            ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
+            ball_x = body[Messages.BallTransferBTMessage.BALL_X];
+            ball_x_increment = body[Messages.BallTransferBTMessage.BALL_ANGLE];
+        } else if (id.equals(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID)) {
+            player1_score = body[Messages.UpdateScoreBTMessage.PLAYER_1_SCORE];
+            player2_score = body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE];
+
+            ball_y_increment = -ball_y_increment;
+            ball_y_increment = max_height / 75;
+            ball_x = (max_width/2);
+            ball_x_increment = 0;
+            ball_y = max_height;
         }
     }
 
@@ -122,6 +138,7 @@ public class DataModel extends BaseService {
         ball_x = 200;
         ball_y = max_height;
         ball_x_direction = false;
+        player1_score = player2_score = 0;
 
         paddle_rotation_matrix = new double[2][2];
     }
@@ -156,7 +173,28 @@ public class DataModel extends BaseService {
         publishServiceMessage(Messages.PositionMessage.POSITION_MESSAGE_ID, body);
     }
 
-    boolean paddle_test = false;
+    private void updateScore(boolean player1) {
+        if (player1) {
+            player1_score++;
+        } else {
+            player2_score++;
+        }
+
+        int body[] = new int[Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_SIZE];
+        body[Messages.UpdateScoreMessage.PLAYER_1_SCORE] = player1_score;
+        body[Messages.UpdateScoreMessage.PLAYER_2_SCORE] = player2_score;
+
+        publishServiceMessage(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID, body);
+    }
+
+    private void sendBallTransferMessage() {
+        int body[] = new int[Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_SIZE];
+        body[Messages.BallTransferMessage.BALL_ANGLE] = ball_x_increment;
+        body[Messages.BallTransferMessage.BALL_X] = ball_x;
+        body[Messages.BallTransferMessage.BALL_Y] = ball_y;
+
+        publishServiceMessage(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID, body);
+    }
 
     private class PositionTask extends TimerTask {
 
@@ -167,20 +205,9 @@ public class DataModel extends BaseService {
             boolean hit_top_wall = ball_y < 0;
             boolean hit_bottom_wall = ball_y > max_height;
 
-            // Test purposes only. Paddle theta will be controlled by accelerometer.
-            //if (paddle_theta >= 60) paddle_test = true;
-            //else if (paddle_theta <= -60) paddle_test = false;
-            //paddle_theta = paddle_test ? paddle_theta - 1 : paddle_theta + 1;
-
-            //paddle_rotation_matrix[0][0] = paddle_rotation_matrix[1][1] = Math.cos(paddle_theta);
-            //paddle_rotation_matrix[0][1] = Math.sin(paddle_theta);
-            //paddle_rotation_matrix[1][0] = -(Math.sin(paddle_theta));
-
             boolean hit_paddle = (ball_y <= (paddle_y + (paddle_height)))
                     && ball_x >= (paddle_x - (paddle_width/2))
                     && ball_x <= (paddle_x + (paddle_width/2));
-
-
 
             if (hit_paddle) {
                 if (paddle_theta % 360 != 0) {
@@ -188,7 +215,6 @@ public class DataModel extends BaseService {
                     if (slope != 0) ball_x_increment = -(ball_y_increment / slope);
                 }
 
-                //ball_y = ball_y_increment > 0 ?
                 ball_y_increment = -(ball_y_increment + BALL_SPEED);
 
             } else if (hit_left_wall) {
@@ -198,21 +224,10 @@ public class DataModel extends BaseService {
                 ball_x = max_width;
                 ball_x_increment = -ball_x_increment;
             } else if (hit_bottom_wall) {
-                ball_y = max_height;
-                ball_y_increment = -ball_y_increment;
+                updateScore(false);
             } else if (hit_top_wall) {
-                ball_y = 0;
-                ball_y_increment = -ball_y_increment;
+                sendBallTransferMessage();
             }
-            /*if (hit_top_bottom_walls || hit_paddle) ball_y_increment = -ball_y_increment;
-
-            if (hit_side_walls) ball_x_increment = -ball_x_increment;
-            else if (hit_paddle && paddle_theta % 360 != 0) {
-                int slope = (int) Math.atan(paddle_theta);
-                ball_x_increment = -(ball_y_increment / slope);
-            }*/
-
-            // TODO: Control paddle_x with accelerometer data
 
             ball_x -= ball_x_increment;
             ball_y -= ball_y_increment;

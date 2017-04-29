@@ -79,6 +79,17 @@ public abstract class Messages {
 
         public static final int PLAYER_1_SCORE = 0;
         public static final int PLAYER_2_SCORE = 1;
+
+        public static final int UPDATE_SCORE_MESSAGE_SIZE = 2;
+    }
+
+    public abstract class UpdateScoreBTMessage {
+        public static final String UPDATE_SCORE_MESSAGE_ID = "ScoreBT";
+
+        public static final int PLAYER_1_SCORE = 0;
+        public static final int PLAYER_2_SCORE = 1;
+
+        public static final int UPDATE_SCORE_MESSAGE_SIZE = 2;
     }
 
     /**
@@ -117,6 +128,8 @@ public abstract class Messages {
         public static final int BALL_X = 0;
         public static final int BALL_Y = 1;
         public static final int BALL_ANGLE = 2;
+
+        public static final int BALL_TRANSFER_BT_MESSAGE_SIZE = 3;
     }
 
     /**
@@ -128,6 +141,8 @@ public abstract class Messages {
         public static final int BALL_X = 0;
         public static final int BALL_Y = 1;
         public static final int BALL_ANGLE = 2;
+
+        public static final int BALL_TRANSFER_MESSAGE_SIZE = 3;
     }
 
     /**
