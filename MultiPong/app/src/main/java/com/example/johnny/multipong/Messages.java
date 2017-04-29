@@ -155,6 +155,8 @@ public abstract class Messages {
         public static final int GYROSCOPE_X = 0;
         public static final int GYROSCOPE_Y = 1;
         public static final int GYROSCOPE_Z = 2;
+
+        public static final int GYROSCOPE_MESSAGE_SIZE = 3;
     }
 
     /**

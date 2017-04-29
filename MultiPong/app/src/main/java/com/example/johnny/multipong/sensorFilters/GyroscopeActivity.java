@@ -61,7 +61,7 @@ import com.example.johnny.multipong.sensorFilters.Filters.Orientation;
  * @author Kaleb
  *
  */
-public class GyroscopeActivity extends Activity
+public class GyroscopeActivity extends Activity implements Runnable
 {
 	private static final String tag = GyroscopeActivity.class.getSimpleName();
 
@@ -116,17 +116,17 @@ public class GyroscopeActivity extends Activity
 	{
 		super.onCreate(savedInstanceState);
 
-		//setContentView(R.layout.activity_gyroscope);
+		setContentView(R.layout.activity_gyroscope);
 
-	//	initUI();
+		initUI();
 		//String	yAxis=  String.format("%.2f", Math.toDegrees(vOrientation[1]));
 
 		//Toast.makeText(getApplicationContext(), "Val=" + yAxis , Toast.LENGTH_SHORT).show();
 
-		//gyroscopeAvailable = gyroscopeAvailable();
+		gyroscopeAvailable = gyroscopeAvailable();
 	};
 
-	/*
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -135,13 +135,13 @@ public class GyroscopeActivity extends Activity
 		return true;
 	}
 
-	*/
+
 
 	/**
 	 * Event Handling for Individual menu item selected Identify single menu
 	 * item by it's id
 	 * */
-	/*
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -162,7 +162,7 @@ public class GyroscopeActivity extends Activity
 
 			// Reset everything
 		case R.id.action_help:
-			showHelpDialog();
+	//		showHelpDialog();
 			return true;
 
 		default:
@@ -170,7 +170,7 @@ public class GyroscopeActivity extends Activity
 		}
 	}
 
-	*/
+
 
 	public void onResume()
 	{
@@ -197,7 +197,7 @@ public class GyroscopeActivity extends Activity
 	 * Output and logs are run on their own thread to keep the UI from hanging
 	 * and the output smooth.
 	 */
-	/*
+
 	@Override
 	public void run()
 	{
@@ -208,7 +208,7 @@ public class GyroscopeActivity extends Activity
 
 		Thread.currentThread().interrupt();
 	}
-	*/
+
 
 	private boolean getPrefCalibratedGyroscopeEnabled()
 	{
@@ -288,7 +288,7 @@ public class GyroscopeActivity extends Activity
 				PackageManager.FEATURE_SENSOR_GYROSCOPE);
 	}
 
-	/*
+
 	private void initStartButton()
 	{
 		final Button button = (Button) findViewById(R.id.button_start);
@@ -319,12 +319,12 @@ public class GyroscopeActivity extends Activity
 		});
 	}
 
-	*/
+
 
 	/**
 	 * Initialize the UI.
 	 */
-	/*
+
 	private void initUI()
 	{
 		// Initialize the calibrated text views
@@ -340,12 +340,12 @@ public class GyroscopeActivity extends Activity
 		initStartButton();
 	}
 
-	*/
+
 
 	/**
 	 * Log output data to an external .csv file.
 	 */
-	/*
+
 	private void logData()
 	{
 		if (logData && dataReady)
@@ -369,7 +369,7 @@ public class GyroscopeActivity extends Activity
 			dataReady = false;
 		}
 	}
-*/
+
 	private void reset()
 	{
 		isCalibrated = getPrefCalibratedGyroscopeEnabled();
@@ -442,7 +442,7 @@ public class GyroscopeActivity extends Activity
 				tvStatus.setText("ImuOKfQuaternion Uncalibrated");
 			}
 		}
-/*
+
 		if (gyroscopeAvailable)
 		{
 			tvStatus.setTextColor(this.getResources().getColor(
@@ -456,7 +456,7 @@ public class GyroscopeActivity extends Activity
 			showGyroscopeNotAvailableAlert();
 		}
 
-		*/
+
 
 		handler = new Handler();
 
@@ -515,8 +515,8 @@ public class GyroscopeActivity extends Activity
 		alertDialog.show();
 	}
 
-	/*
 
+/*
 	private void showHelpDialog()
 	{
 		Dialog helpDialog = new Dialog(this);
@@ -532,12 +532,14 @@ public class GyroscopeActivity extends Activity
 
 		helpDialog.show();
 	}
+
 	*/
+
 
 	/**
 	 * Begin logging data to an external .csv file.
 	 */
-	/*
+
 	private void startDataLog()
 	{
 		if (logData == false)
@@ -584,17 +586,17 @@ public class GyroscopeActivity extends Activity
 			thread = null;
 		}
 	}
-	*/
+
 
 	private void updateText()
 	{
-		//tvXAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[0])));
-		//tvYAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[1])));
+		tvXAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[0])));
+		tvYAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[1])));
 
-	String	yAxis=  String.format("%.2f", Math.toDegrees(vOrientation[1]));
+	//String	yAxis=  String.format("%.2f", Math.toDegrees(vOrientation[1]));
 
-		Toast.makeText(getApplicationContext(), "Val=" + yAxis , Toast.LENGTH_SHORT).show();
-		//tvZAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[2])));
+		//Toast.makeText(getApplicationContext(), "Val=" + yAxis , Toast.LENGTH_SHORT).show();
+		tvZAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[2])));
 	}
 
 	/*private void updateGauges()
@@ -602,12 +604,12 @@ public class GyroscopeActivity extends Activity
 		gaugeBearingCalibrated.updateBearing(vOrientation[0]);
 		gaugeTiltCalibrated.updateRotation(vOrientation);
 	}
-	*/
+
 
 	/**
 	 * Write the logged data out to a persisted file.
 	 */
-	/*
+
 	private void writeLogToFile()
 	{
 		Calendar c = Calendar.getInstance();
@@ -672,6 +674,6 @@ public class GyroscopeActivity extends Activity
 					});
 		}
 	}
-	*/
+
 
 }

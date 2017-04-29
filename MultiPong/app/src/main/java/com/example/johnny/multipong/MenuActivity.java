@@ -36,8 +36,7 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         testButton.setOnClickListener(this);
 
         startService(new Intent(this, SoundService.class));
-       Intent sensor = new Intent(getApplicationContext(), GyroscopeActivity.class);
-        startActivity(sensor);
+
 
     }
 
