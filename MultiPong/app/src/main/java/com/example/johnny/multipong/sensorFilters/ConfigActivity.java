@@ -5,10 +5,8 @@ import android.content.SharedPreferences.Editor;
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
-import android.preference.Preference;
-import android.preference.SwitchPreference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.preference.SwitchPreference;
 import android.widget.Toast;
 
 import com.example.johnny.multipong.R;
