@@ -6,6 +6,7 @@ import android.util.Log;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 /**
  * This service performs all the data process and number crunching for the game. It models the
  * in-game physics and provides the UI thread all the necessary data to render the game on the
@@ -53,6 +54,8 @@ public class DataModel extends BaseService {
 
     private int player1_score, player2_score;
 
+    private boolean pause_flag;
+
     private Timer positionTimer;
 
     public DataModel() {
@@ -97,11 +100,12 @@ public class DataModel extends BaseService {
             positionTimer.scheduleAtFixedRate(positionTask, 0, 33);
             sendInitMessage();
         } else if (id.equals(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID)) {
-            int accel_x = body[Messages.GyroscopeMessage.GYROSCOPE_X];
-            int accel_y = body[Messages.GyroscopeMessage.GYROSCOPE_Y];
-
-            paddle_x = (int)(accel_y * accel_pixel_ratio_y);
-            paddle_theta = (int)(accel_x * accel_pixel_ratio_x);
+            if (!pause_flag) {
+                int accel_x = body[Messages.GyroscopeMessage.GYROSCOPE_X];
+                int accel_y = body[Messages.GyroscopeMessage.GYROSCOPE_Y];
+                paddle_x = (int) (accel_y * accel_pixel_ratio_y);
+                paddle_theta = (int) (accel_x * accel_pixel_ratio_x);
+            }
         } else if (id.equals(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID)) {
             ball_y_increment = -ball_y_increment;
             ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
@@ -115,6 +119,10 @@ public class DataModel extends BaseService {
             ball_x = (max_width/2);
             ball_x_increment = 0;
             ball_y = max_height;
+        } else if (id.equals(Messages.PauseMessage.PAUSE_MESSAGE_ID)) {
+            pause_flag = (body[Messages.PauseMessage.PAUSE_RESUME_FLAG]== 1);
+        } else if (id.equals(Messages.PauseMessageBT.PAUSE_MESSAGE_BT_ID)) {
+            pause_flag = (body[Messages.PauseMessage.PAUSE_RESUME_FLAG] == 1);
         }
     }
 
@@ -126,6 +134,7 @@ public class DataModel extends BaseService {
 
         return messageIds;
     }
+
 
     @Override
     public void runService() {
@@ -143,6 +152,7 @@ public class DataModel extends BaseService {
         ball_x_direction = false;
         player1_score = player2_score = 0;
         player1 = false;
+        pause_flag = false;
 
         paddle_rotation_matrix = new double[2][2];
     }
@@ -204,39 +214,41 @@ public class DataModel extends BaseService {
 
         @Override
         public void run() {
-            boolean hit_right_wall = ball_x > max_width;
-            boolean hit_left_wall = ball_x < 0;
-            boolean hit_top_wall = ball_y < 0;
-            boolean hit_bottom_wall = ball_y > max_height;
+            if (!pause_flag) {
+                boolean hit_right_wall = ball_x > max_width;
+                boolean hit_left_wall = ball_x < 0;
+                boolean hit_top_wall = ball_y < 0;
+                boolean hit_bottom_wall = ball_y > max_height;
 
-            boolean hit_paddle = (ball_y <= (paddle_y + (paddle_height)))
-                    && ball_x >= (paddle_x - (paddle_width/2))
-                    && ball_x <= (paddle_x + (paddle_width/2));
+                boolean hit_paddle = (ball_y <= (paddle_y + (paddle_height)))
+                        && ball_x >= (paddle_x - (paddle_width / 2))
+                        && ball_x <= (paddle_x + (paddle_width / 2));
 
-            if (hit_paddle) {
-                if (paddle_theta % 360 != 0) {
-                    int slope = (int) Math.atan(paddle_theta);
-                    if (slope != 0) ball_x_increment = -(ball_y_increment / slope);
+                if (hit_paddle) {
+                    if (paddle_theta % 360 != 0) {
+                        int slope = (int) Math.atan(paddle_theta);
+                        if (slope != 0) ball_x_increment = -(ball_y_increment / slope);
+                    }
+
+                    ball_y_increment = -(ball_y_increment + BALL_SPEED);
+
+                } else if (hit_left_wall) {
+                    ball_x = 0;
+                    ball_x_increment = -ball_x_increment;
+                } else if (hit_right_wall) {
+                    ball_x = max_width;
+                    ball_x_increment = -ball_x_increment;
+                } else if (hit_bottom_wall) {
+                    updateScore();
+                } else if (hit_top_wall) {
+                    sendBallTransferMessage();
                 }
 
-                ball_y_increment = -(ball_y_increment + BALL_SPEED);
+                ball_x -= ball_x_increment;
+                ball_y -= ball_y_increment;
 
-            } else if (hit_left_wall) {
-                ball_x = 0;
-                ball_x_increment = -ball_x_increment;
-            } else if (hit_right_wall) {
-                ball_x = max_width;
-                ball_x_increment = -ball_x_increment;
-            } else if (hit_bottom_wall) {
-                updateScore();
-            } else if (hit_top_wall) {
-                sendBallTransferMessage();
+                sendPositionMessage();
             }
-
-            ball_x -= ball_x_increment;
-            ball_y -= ball_y_increment;
-
-            sendPositionMessage();
         }
     }
 }
