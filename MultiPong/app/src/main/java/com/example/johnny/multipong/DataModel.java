@@ -131,6 +131,11 @@ public class DataModel extends BaseService {
     {
         IntentFilter messageIds = new IntentFilter();
         messageIds.addAction(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID);
+        messageIds.addAction(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID);
+        messageIds.addAction(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID);
+        messageIds.addAction(Messages.PauseMessage.PAUSE_MESSAGE_ID);
+        messageIds.addAction(Messages.PauseMessageBT.PAUSE_MESSAGE_BT_ID);
+        messageIds.addAction(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID);
 
         return messageIds;
     }
