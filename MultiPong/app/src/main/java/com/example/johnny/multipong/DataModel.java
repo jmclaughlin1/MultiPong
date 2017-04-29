@@ -35,6 +35,8 @@ public class DataModel extends BaseService {
 
     private int paddle_x, paddle_y, paddle_theta;
 
+    private int center_accel_x, center_accel_y;
+
     private int ball_x;
 
     private int ball_y;
@@ -69,10 +71,18 @@ public class DataModel extends BaseService {
             ball_x_increment = 0;
             ball_y = max_height;
 
+            requestCenterPosition();
+
+        } else if (id.equals(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID)) {
+            center_accel_x = body[Messages.CenterPositionMessage.CENTER_X_FIELD];
+            center_accel_y = body[Messages.CenterPositionMessage.CENTER_Y_FIELD];
+
             PositionTask positionTask = new PositionTask();
 
             positionTimer.scheduleAtFixedRate(positionTask, 0, 33);
             sendInitMessage();
+        } else if (id.equals(Messages.PositionMessage.POSITION_MESSAGE_ID)) {
+
         }
     }
 
@@ -114,8 +124,10 @@ public class DataModel extends BaseService {
         body[Messages.InitMessage.PADDLE_WIDTH] = paddle_width;
 
         publishServiceMessage(Messages.InitMessage.INIT_MESSAGE_ID, body);
+    }
 
-
+    private void requestCenterPosition() {
+        publishServiceMessage(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID, null);
     }
 
     private void sendPositionMessage() {

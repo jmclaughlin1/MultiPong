@@ -46,7 +46,7 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
                 startActivity(intentOptions);
                 break;
             case R.id.playbutton:
-                Intent intentPlay = new Intent(MenuActivity.this, BluetoothChat.class);
+                Intent intentPlay = new Intent(MenuActivity.this, DeviceListActivity.class);
                 startActivity(intentPlay);
                 break;
             case R.id.GameTest:

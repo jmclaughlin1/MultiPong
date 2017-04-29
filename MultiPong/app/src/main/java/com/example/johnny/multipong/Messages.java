@@ -195,4 +195,17 @@ public abstract class Messages {
 
         public static final String SFX_MUSIC_PLAY_ID = "SFXMusicPlay";
     }
+
+    public abstract class CenterPositionMessage {
+        public static final String CENTER_POSITION_MESSAGE_ID = "CenterPosition";
+
+        public static final int CENTER_X_FIELD = 0;
+        public static final int CENTER_Y_FIELD = 1;
+        public static final int CENTER_Z_FIELD = 2;
+        public static final int CENTER_POSITION_MESSAGE_SIZE = 3;
+    }
+
+    public abstract class RequestCenterPositionMessage {
+        public static final String REQUEST_CENTER_POSITION_MESSAGE_ID = "RequestCenterPosition";
+    }
 }
