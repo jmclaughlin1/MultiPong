@@ -1,6 +1,6 @@
 package com.example.johnny.multipong.sensorFilters.Filters;
 
-import com.example.johnny.multipong.sensorFilters.Filters;
+import com.example.johnny.multipong.sensorFilters.ConfigActivity;
 
 import android.content.Context;
 import android.content.SharedPreferences;

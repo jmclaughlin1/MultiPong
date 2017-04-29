@@ -61,7 +61,7 @@ import com.example.johnny.multipong.sensorFilters.Filters.Orientation;
  * @author Kaleb
  *
  */
-public class GyroscopeActivity extends Activity implements Runnable
+public class GyroscopeActivity extends Activity
 {
 	private static final String tag = GyroscopeActivity.class.getSimpleName();
 
@@ -86,8 +86,8 @@ public class GyroscopeActivity extends Activity implements Runnable
 
 	// The gauge views. Note that these are views and UI hogs since they run in
 	// the UI thread, not ideal, but easy to use.
-	private GaugeBearing gaugeBearingCalibrated;
-	private GaugeRotation gaugeTiltCalibrated;
+	//private GaugeBearing gaugeBearingCalibrated;
+	//private GaugeRotation gaugeTiltCalibrated;
 
 	// Handler for the UI plots so everything plots smoothly
 	protected Handler handler;
@@ -116,13 +116,17 @@ public class GyroscopeActivity extends Activity implements Runnable
 	{
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.activity_gyroscope);
+		//setContentView(R.layout.activity_gyroscope);
 
-		initUI();
+	//	initUI();
+		//String	yAxis=  String.format("%.2f", Math.toDegrees(vOrientation[1]));
 
-		gyroscopeAvailable = gyroscopeAvailable();
+		//Toast.makeText(getApplicationContext(), "Val=" + yAxis , Toast.LENGTH_SHORT).show();
+
+		//gyroscopeAvailable = gyroscopeAvailable();
 	};
 
+	/*
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -131,10 +135,13 @@ public class GyroscopeActivity extends Activity implements Runnable
 		return true;
 	}
 
+	*/
+
 	/**
 	 * Event Handling for Individual menu item selected Identify single menu
 	 * item by it's id
 	 * */
+	/*
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item)
 	{
@@ -163,6 +170,8 @@ public class GyroscopeActivity extends Activity implements Runnable
 		}
 	}
 
+	*/
+
 	public void onResume()
 	{
 		super.onResume();
@@ -188,6 +197,7 @@ public class GyroscopeActivity extends Activity implements Runnable
 	 * Output and logs are run on their own thread to keep the UI from hanging
 	 * and the output smooth.
 	 */
+	/*
 	@Override
 	public void run()
 	{
@@ -198,6 +208,7 @@ public class GyroscopeActivity extends Activity implements Runnable
 
 		Thread.currentThread().interrupt();
 	}
+	*/
 
 	private boolean getPrefCalibratedGyroscopeEnabled()
 	{
@@ -277,6 +288,7 @@ public class GyroscopeActivity extends Activity implements Runnable
 				PackageManager.FEATURE_SENSOR_GYROSCOPE);
 	}
 
+	/*
 	private void initStartButton()
 	{
 		final Button button = (Button) findViewById(R.id.button_start);
@@ -307,9 +319,12 @@ public class GyroscopeActivity extends Activity implements Runnable
 		});
 	}
 
+	*/
+
 	/**
 	 * Initialize the UI.
 	 */
+	/*
 	private void initUI()
 	{
 		// Initialize the calibrated text views
@@ -319,15 +334,18 @@ public class GyroscopeActivity extends Activity implements Runnable
 		tvStatus = (TextView) this.findViewById(R.id.label_sensor_status);
 
 		// Initialize the calibrated gauges views
-		gaugeBearingCalibrated = (GaugeBearing) findViewById(R.id.gauge_bearing_calibrated);
-		gaugeTiltCalibrated = (GaugeRotation) findViewById(R.id.gauge_tilt_calibrated);
+		//gaugeBearingCalibrated = (GaugeBearing) findViewById(R.id.gauge_bearing_calibrated);
+		//gaugeTiltCalibrated = (GaugeRotation) findViewById(R.id.gauge_tilt_calibrated);
 
 		initStartButton();
 	}
 
+	*/
+
 	/**
 	 * Log output data to an external .csv file.
 	 */
+	/*
 	private void logData()
 	{
 		if (logData && dataReady)
@@ -351,7 +369,7 @@ public class GyroscopeActivity extends Activity implements Runnable
 			dataReady = false;
 		}
 	}
-
+*/
 	private void reset()
 	{
 		isCalibrated = getPrefCalibratedGyroscopeEnabled();
@@ -424,7 +442,7 @@ public class GyroscopeActivity extends Activity implements Runnable
 				tvStatus.setText("ImuOKfQuaternion Uncalibrated");
 			}
 		}
-
+/*
 		if (gyroscopeAvailable)
 		{
 			tvStatus.setTextColor(this.getResources().getColor(
@@ -437,6 +455,8 @@ public class GyroscopeActivity extends Activity implements Runnable
 
 			showGyroscopeNotAvailableAlert();
 		}
+
+		*/
 
 		handler = new Handler();
 
@@ -452,7 +472,7 @@ public class GyroscopeActivity extends Activity implements Runnable
 				dataReady = true;
 
 				updateText();
-				updateGauges();
+				//updateGauges();
 			}
 		};
 	}
@@ -495,6 +515,8 @@ public class GyroscopeActivity extends Activity implements Runnable
 		alertDialog.show();
 	}
 
+	/*
+
 	private void showHelpDialog()
 	{
 		Dialog helpDialog = new Dialog(this);
@@ -510,10 +532,12 @@ public class GyroscopeActivity extends Activity implements Runnable
 
 		helpDialog.show();
 	}
+	*/
 
 	/**
 	 * Begin logging data to an external .csv file.
 	 */
+	/*
 	private void startDataLog()
 	{
 		if (logData == false)
@@ -560,23 +584,30 @@ public class GyroscopeActivity extends Activity implements Runnable
 			thread = null;
 		}
 	}
+	*/
 
 	private void updateText()
 	{
-		tvXAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[0])));
-		tvYAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[1])));
-		tvZAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[2])));
+		//tvXAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[0])));
+		//tvYAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[1])));
+
+	String	yAxis=  String.format("%.2f", Math.toDegrees(vOrientation[1]));
+
+		Toast.makeText(getApplicationContext(), "Val=" + yAxis , Toast.LENGTH_SHORT).show();
+		//tvZAxis.setText(String.format("%.2f", Math.toDegrees(vOrientation[2])));
 	}
 
-	private void updateGauges()
+	/*private void updateGauges()
 	{
 		gaugeBearingCalibrated.updateBearing(vOrientation[0]);
 		gaugeTiltCalibrated.updateRotation(vOrientation);
 	}
+	*/
 
 	/**
 	 * Write the logged data out to a persisted file.
 	 */
+	/*
 	private void writeLogToFile()
 	{
 		Calendar c = Calendar.getInstance();
@@ -641,5 +672,6 @@ public class GyroscopeActivity extends Activity implements Runnable
 					});
 		}
 	}
+	*/
 
 }

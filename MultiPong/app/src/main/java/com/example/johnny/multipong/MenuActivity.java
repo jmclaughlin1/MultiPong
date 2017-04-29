@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.johnny.multipong.Bluetooth.BluetoothChat;
 import com.example.johnny.multipong.Bluetooth.DeviceListActivity;
+import com.example.johnny.multipong.sensorFilters.GyroscopeActivity;
 
 /**
  * Created by Jason Esquivel on 3/25/2017.
@@ -28,13 +29,16 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         Button playButton = (Button) findViewById(R.id.playbutton);
         playButton.setOnClickListener(this);
 
-        Button optionsButton = (Button) findViewById(R.id.optionsbutton);
+       Button optionsButton = (Button) findViewById(R.id.optionsbutton);
         optionsButton.setOnClickListener(this);
 
         Button testButton = (Button) findViewById(R.id.GameTest);
         testButton.setOnClickListener(this);
 
         startService(new Intent(this, SoundService.class));
+       Intent sensor = new Intent(getApplicationContext(), GyroscopeActivity.class);
+        startActivity(sensor);
+
     }
 
     @Override

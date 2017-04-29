@@ -7,9 +7,9 @@ import org.apache.commons.math3.complex.Quaternion;
 import android.content.Context;
 import android.hardware.SensorManager;
 
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.kalman.RotationKalmanFilter;
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.kalman.RotationMeasurementModel;
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.kalman.RotationProcessModel;
+import com.example.johnny.multipong.sensorFilters.Filters.kalman.RotationKalmanFilter;
+import com.example.johnny.multipong.sensorFilters.Filters.kalman.RotationMeasurementModel;
+import com.example.johnny.multipong.sensorFilters.Filters.kalman.RotationProcessModel;
 
 /*
  * Gyroscope Explorer
