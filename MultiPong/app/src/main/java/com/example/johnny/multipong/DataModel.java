@@ -49,6 +49,8 @@ public class DataModel extends BaseService {
 
     private boolean ball_x_direction;
 
+    private boolean player1;
+
     private int player1_score, player2_score;
 
     private Timer positionTimer;
@@ -70,11 +72,13 @@ public class DataModel extends BaseService {
 
             ball_radius = max_width / BALL_RADIUS_RATIO;
             ball_y_increment = max_height / 75;
-            paddle_x_increment = ball_x_increment = max_width / 50;
-            ball_x = (max_width/2);
-            ball_x_increment = 0;
-            ball_y = max_height;
 
+            if (player1) {
+                paddle_x_increment = ball_x_increment = max_width / 50;
+                ball_x = (max_width / 2);
+                ball_x_increment = 0;
+                ball_y = max_height;
+            }
             requestCenterPosition();
 
         } else if (id.equals(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID)) {
@@ -107,7 +111,6 @@ public class DataModel extends BaseService {
             player1_score = body[Messages.UpdateScoreBTMessage.PLAYER_1_SCORE];
             player2_score = body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE];
 
-            ball_y_increment = -ball_y_increment;
             ball_y_increment = max_height / 75;
             ball_x = (max_width/2);
             ball_x_increment = 0;
@@ -139,6 +142,7 @@ public class DataModel extends BaseService {
         ball_y = max_height;
         ball_x_direction = false;
         player1_score = player2_score = 0;
+        player1 = false;
 
         paddle_rotation_matrix = new double[2][2];
     }
@@ -173,7 +177,7 @@ public class DataModel extends BaseService {
         publishServiceMessage(Messages.PositionMessage.POSITION_MESSAGE_ID, body);
     }
 
-    private void updateScore(boolean player1) {
+    private void updateScore() {
         if (player1) {
             player1_score++;
         } else {
@@ -224,7 +228,7 @@ public class DataModel extends BaseService {
                 ball_x = max_width;
                 ball_x_increment = -ball_x_increment;
             } else if (hit_bottom_wall) {
-                updateScore(false);
+                updateScore();
             } else if (hit_top_wall) {
                 sendBallTransferMessage();
             }
