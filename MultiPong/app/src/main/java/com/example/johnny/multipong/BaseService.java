@@ -36,7 +36,6 @@ public abstract class BaseService extends Service {
      */
     @Override
     public void onCreate() {
-        Log.i("Base Service", "Creating service!");
         super.onCreate();
 
         thread = new Thread(new Runnable() {
@@ -83,6 +82,11 @@ public abstract class BaseService extends Service {
         unregisterReceiver(messageInterface.getReceiver());
 
         super.onDestroy();
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        return START_NOT_STICKY;
     }
 
     /**

@@ -131,25 +131,31 @@ public class SoundService extends BaseService implements MediaPlayer.OnErrorList
 
     public void pauseBackgroundMusic()
     {
-        if(bgMediaPlayer.isPlaying()){
-            bgMediaPlayer.pause();
-            bgPos = bgMediaPlayer.getCurrentPosition();
+        if (bgMediaPlayer != null) {
+            if (bgMediaPlayer.isPlaying()) {
+                bgMediaPlayer.pause();
+                bgPos = bgMediaPlayer.getCurrentPosition();
+            }
         }
     }
 
     public void resumeBackgroundMusic()
     {
-        if(bgMediaPlayer.isPlaying()==false){
-            bgMediaPlayer.seekTo(bgPos);
-            bgMediaPlayer.start();
+        if (bgMediaPlayer != null) {
+            if (bgMediaPlayer.isPlaying() == false) {
+                bgMediaPlayer.seekTo(bgPos);
+                bgMediaPlayer.start();
+            }
         }
     }
 
     public void stopBackgroundMusic()
     {
-        bgMediaPlayer.stop();
-        bgMediaPlayer.release();
-        bgMediaPlayer = null;
+        if (bgMediaPlayer != null) {
+            bgMediaPlayer.stop();
+            bgMediaPlayer.release();
+            bgMediaPlayer = null;
+        }
     }
 
 }

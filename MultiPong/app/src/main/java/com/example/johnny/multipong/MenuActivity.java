@@ -98,6 +98,7 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onStop() {
         super.onStop();
+        //stopBackgroundMusic();
         Log.i(TAG, "onStop");
     }
 
