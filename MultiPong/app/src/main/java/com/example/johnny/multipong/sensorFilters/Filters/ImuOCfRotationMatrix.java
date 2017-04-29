@@ -1,4 +1,4 @@
-package com.kircherelectronics.gyroscopeexplorer.activity.filter;
+package com.example.johnny.multipong.sensorFilters.Filters;
 
 import android.content.Context;
 import android.hardware.SensorManager;

@@ -1,4 +1,4 @@
-package com.kircherelectronics.gyroscopeexplorer.activity;
+package com.example.johnny.multipong.sensorFilters;
 
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -11,7 +11,7 @@ import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.widget.Toast;
 
-import com.kircherelectronics.com.gyroscopeexplorer.R;
+import com.example.johnny.multipong.R;
 
 /*
  * Gyroscope Explorer

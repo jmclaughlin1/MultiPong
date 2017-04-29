@@ -1,4 +1,4 @@
-package com.kircherelectronics.gyroscopeexplorer.activity.filter.kalman;
+package com.example.johnny.multipong.sensorFilters.Filters.kalman;
 
 /*
  * Licensed to the Apache Software Foundation (ASF) under one or more

@@ -1,4 +1,4 @@
-package com.kircherelectronics.gyroscopeexplorer.activity.filter;
+package com.example.johnny.multipong.sensorFilters.Filters;
 
 import java.util.Arrays;
 
@@ -33,7 +33,7 @@ import android.hardware.SensorManager;
  * @author Kaleb
  *
  */
-public class GyroscopeOrientation extends Orientation
+public class 	GyroscopeOrientation extends Orientation
 {
 	// Developer Note: The quaternions rely on the Apache Commons Math
 	// Quaternion object. The dependency is already in the project because I use

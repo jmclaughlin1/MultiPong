@@ -1,4 +1,4 @@
-package com.kircherelectronics.gyroscopeexplorer.activity;
+package com.example.johnny.multipong.sensorFilters;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -27,15 +27,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.kircherelectronics.com.gyroscopeexplorer.R;
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.GyroscopeOrientation;
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.ImuOCfOrientation;
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.ImuOCfQuaternion;
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.ImuOCfRotationMatrix;
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.ImuOKfQuaternion;
-import com.kircherelectronics.gyroscopeexplorer.activity.filter.Orientation;
-import com.kircherelectronics.gyroscopeexplorer.activity.gauge.GaugeBearing;
-import com.kircherelectronics.gyroscopeexplorer.activity.gauge.GaugeRotation;
+import com.example.johnny.multipong.R;
+import com.example.johnny.multipong.sensorFilters.Filters.GyroscopeOrientation;
+import com.example.johnny.multipong.sensorFilters.Filters.ImuOCfOrientation;
+import com.example.johnny.multipong.sensorFilters.Filters.ImuOCfQuaternion;
+import com.example.johnny.multipong.sensorFilters.Filters.ImuOCfRotationMatrix;
+import com.example.johnny.multipong.sensorFilters.Filters.ImuOKfQuaternion;
+import com.example.johnny.multipong.sensorFilters.Filters.Orientation;
+
 
 /*
  * Gyroscope Explorer
