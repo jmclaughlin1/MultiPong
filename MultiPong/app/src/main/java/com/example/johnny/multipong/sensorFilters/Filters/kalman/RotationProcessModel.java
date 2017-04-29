@@ -1,4 +1,4 @@
-package com.kircherelectronics.gyroscopeexplorer.activity.filter.kalman;
+package com.example.johnny.multipong.sensorFilters.Filters.kalman;
 
 import org.apache.commons.math3.filter.ProcessModel;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
