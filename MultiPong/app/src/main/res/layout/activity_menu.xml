@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.project.jasonesquivel.pong.MenuActivity">
+    tools:context="com.example.johnny.multipong.MenuActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,7 +18,7 @@
         android:id="@+id/playbutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play/Find Friend"
+        android:text="Find Friend"
         android:textSize="30dp"
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
@@ -33,5 +33,17 @@
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         style="@style/Widget.AppCompat.Button.Borderless"/>
+    <Button
+        android:id="@+id/GameTest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GameTest"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
 
 </RelativeLayout>

@@ -86,6 +86,7 @@ public class PongActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         mGLView.onResume();
+        resumeBackgroundMusic();
         Log.i(TAG, "onResume");
     }
 
@@ -93,6 +94,7 @@ public class PongActivity extends BaseActivity {
     protected void onPause() {
         super.onPause();
         mGLView.onPause();
+        pauseBackgroundMusic();
         Log.i(TAG, "onPause");
     }
 
@@ -104,12 +106,14 @@ public class PongActivity extends BaseActivity {
 
     @Override
     public void onDestroy() {
-        super.onDestroy();
+        stopBackgroundMusic();
         Log.i(TAG, "onDestroy");
+        super.onDestroy();
     }
 
     // if states id parameter with all ids in getValidActivityMessges,
     // body is message body
+    @Override
     public void processActivityMessage(String id, int[] body) {
         Log.i(TAG, "processActivityMessage");
         if (id.equals(Messages.InitMessage.INIT_MESSAGE_ID)){

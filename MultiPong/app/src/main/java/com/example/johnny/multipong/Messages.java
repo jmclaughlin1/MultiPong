@@ -173,4 +173,26 @@ public abstract class Messages {
     public abstract class EndGameMessage {
         public static final String END_GAME_ID = "EndGame";
     }
+
+    /**
+     * Sent from any Activity to Sound Service to set background music volume
+     */
+    public abstract class MusicMessage{
+
+        public static final String BACKGROUND_MUSIC_VOLUME_ID = "BackgroundMusicVolume";
+        public static final int BACKGROUND_VOLUME = 0;
+        public static final int BACKGROUND_MUSIC_VOLUME_SIZE = 1;
+
+        public static final String BACKGROUND_MUSIC_PAUSE_ID = "BackgroundMusicPause";
+
+        public static final String BACKGROUND_MUSIC_RESUME_ID = "BackgroundMusicResume";
+
+        public static final String BACKGROUND_MUSIC_STOP_ID = "BackgroundMusicStop";
+
+        public static final String SFX_MUSIC_VOLUME_ID = "SFXMusicVolume";
+        public static final int SFX_VOLUME = 0;
+        public static final int SFX_MUSIC_VOLUME_SIZE = 1;
+
+        public static final String SFX_MUSIC_PLAY_ID = "SFXMusicPlay";
+    }
 }

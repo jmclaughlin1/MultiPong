@@ -73,4 +73,19 @@ public abstract class BaseActivity extends Activity {
      * @return object containing the valid messages types
      */
     public abstract IntentFilter getValidActivityMessages();
+
+    public void pauseBackgroundMusic(){
+        publishActivityMessage(Messages.MusicMessage.BACKGROUND_MUSIC_PAUSE_ID, null);
+    }
+
+    public void resumeBackgroundMusic(){
+        publishActivityMessage(Messages.MusicMessage.BACKGROUND_MUSIC_RESUME_ID, null);
+    }
+
+    public void stopBackgroundMusic(){
+        publishActivityMessage(Messages.MusicMessage.BACKGROUND_MUSIC_STOP_ID, null);
+    }
+    public void playSFXMusic(){
+        publishActivityMessage(Messages.MusicMessage.SFX_MUSIC_PLAY_ID, null);
+    }
 }

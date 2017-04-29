@@ -2,6 +2,7 @@ package com.example.johnny.multipong;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,20 +13,20 @@ import android.widget.SeekBar;
  * Created by Jason Esquivel on 4/1/2017.
  */
 
-public class OptionsActivity extends Activity implements View.OnClickListener{
+public class OptionsActivity extends BaseActivity implements View.OnClickListener{
 
     private final String TAG = "OptionsActivity";
-    private static int musicSeekbarValue = 50;
-    private static int sfxSeekbarValue = 50;
+    private static int musicValue = 50;
+    private static int sfxValue = 50;
     protected void onCreate(Bundle savedInstanceState){
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        if(savedInstanceState != null) {
-            musicSeekbarValue = savedInstanceState.getInt("musicSeekbarValue");
+        //if(savedInstanceState != null) {
+        //    musicValue = savedInstanceState.getInt("musicValue");
 
-        }
-        Log.i(TAG, "Music Saved Value : " + musicSeekbarValue);
-        Log.i(TAG, "SFX   Saved Value : " + musicSeekbarValue);
+        //}
+        Log.i(TAG, "Music Saved Value : " + musicValue);
+        Log.i(TAG, "SFX   Saved Value : " + sfxValue);
 
         setContentView(R.layout.activity_options);
 
@@ -39,7 +40,13 @@ public class OptionsActivity extends Activity implements View.OnClickListener{
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
                 Log.i(TAG, "Music SeekBar Progress : " + progress);
-                musicSeekbarValue = progress;
+                musicValue = progress;
+
+                int body[] = new int[Messages.MusicMessage.BACKGROUND_MUSIC_VOLUME_SIZE];
+
+                body[Messages.MusicMessage.BACKGROUND_VOLUME] = musicValue;
+
+                publishActivityMessage(Messages.MusicMessage.BACKGROUND_MUSIC_VOLUME_ID, body);
             }
 
             @Override
@@ -50,7 +57,7 @@ public class OptionsActivity extends Activity implements View.OnClickListener{
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        musicSeekBar.setProgress(musicSeekbarValue);
+        musicSeekBar.setProgress(musicValue);
 
         SeekBar sfxSeekBar = (SeekBar)findViewById(R.id.seekBarSFX);
         sfxSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){
@@ -59,7 +66,15 @@ public class OptionsActivity extends Activity implements View.OnClickListener{
             public void onProgressChanged(SeekBar seekBar, int progress,
                                           boolean fromUser) {
                 Log.i(TAG, "SFX   SeekBar Progress : " + progress);
-                sfxSeekbarValue = progress;
+                sfxValue = progress;
+
+                int body[] = new int[Messages.MusicMessage.SFX_MUSIC_VOLUME_SIZE];
+
+                body[Messages.MusicMessage.SFX_VOLUME] = sfxValue;
+
+                publishActivityMessage(Messages.MusicMessage.SFX_MUSIC_VOLUME_ID, body);
+
+                playSFXMusic();
             }
 
             @Override
@@ -70,7 +85,7 @@ public class OptionsActivity extends Activity implements View.OnClickListener{
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        sfxSeekBar.setProgress(sfxSeekbarValue);
+        sfxSeekBar.setProgress(sfxValue);
     }
 
     @Override
@@ -113,13 +128,14 @@ public class OptionsActivity extends Activity implements View.OnClickListener{
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
-        //Log.i(TAG, "    Saved Value : " + musicSeekbarValue);
+        resumeBackgroundMusic();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "onPause");
+        pauseBackgroundMusic();
     }
 
     @Override
@@ -129,19 +145,29 @@ public class OptionsActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroy() {
         Log.i(TAG, "onDestroy");
+        stopBackgroundMusic();
+        super.onDestroy();
+    }
+
+    /*@Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("musicValue", musicValue);
+        Log.i(TAG, "onSaveInstanceState");
+        Log.i(TAG, "musicValue : " + musicValue);
+    }*/
+
+    @Override
+    public void processActivityMessage(String id, int[] body) {
+
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("musicSeekbarValue", musicSeekbarValue);
-        Log.i(TAG, "onSaveInstanceState");
-        Log.i(TAG, "musicSeekbarValue : " + musicSeekbarValue);
+    public IntentFilter getValidActivityMessages() {
+        IntentFilter filter = new IntentFilter();
+        return filter;
     }
-
-
 }
 

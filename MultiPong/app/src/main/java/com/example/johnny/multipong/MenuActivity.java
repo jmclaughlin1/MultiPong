@@ -2,17 +2,21 @@ package com.example.johnny.multipong;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.johnny.multipong.Bluetooth.BluetoothChat;
+import com.example.johnny.multipong.Bluetooth.DeviceListActivity;
+
 /**
  * Created by Jason Esquivel on 3/25/2017.
  */
 
-public class MenuActivity extends Activity implements View.OnClickListener{
+public class MenuActivity extends BaseActivity implements View.OnClickListener{
 
     private final String TAG = "MenuActivity";
 
@@ -27,8 +31,10 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         Button optionsButton = (Button) findViewById(R.id.optionsbutton);
         optionsButton.setOnClickListener(this);
 
-        MediaPlayer mp = MediaPlayer.create(getApplicationContext(), R.raw.spystory);
-        mp.start();
+        Button testButton = (Button) findViewById(R.id.GameTest);
+        testButton.setOnClickListener(this);
+
+        startService(new Intent(this, SoundService.class));
     }
 
     @Override
@@ -40,9 +46,15 @@ public class MenuActivity extends Activity implements View.OnClickListener{
                 startActivity(intentOptions);
                 break;
             case R.id.playbutton:
-                Intent intentPlay = new Intent(MenuActivity.this, PongActivity.class);
+                Intent intentPlay = new Intent(MenuActivity.this, BluetoothChat.class);
                 startActivity(intentPlay);
                 break;
+            case R.id.GameTest:
+                Intent intentTest = new Intent(MenuActivity.this, PongActivity.class);
+                startActivity(intentTest);
+                break;
+
+
         }
     }
 
@@ -73,12 +85,14 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     protected void onResume() {
         super.onResume();
         Log.i(TAG, "onResume");
+        resumeBackgroundMusic();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         Log.i(TAG, "onPause");
+        pauseBackgroundMusic();
     }
 
     @Override
@@ -88,9 +102,10 @@ public class MenuActivity extends Activity implements View.OnClickListener{
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    public void onDestroy() {
         Log.i(TAG, "onDestroy");
+        stopBackgroundMusic();
+        super.onDestroy();
     }
 
     @Override
@@ -98,5 +113,16 @@ public class MenuActivity extends Activity implements View.OnClickListener{
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState");
     }
+    @Override
+    public void processActivityMessage(String id, int[] body) {
+
+    }
+
+    @Override
+    public IntentFilter getValidActivityMessages() {
+        IntentFilter filter = new IntentFilter();
+        return filter;
+    }
+
 
 }
