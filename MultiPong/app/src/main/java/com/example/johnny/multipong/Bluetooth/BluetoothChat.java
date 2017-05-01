@@ -27,28 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class BluetoothChat extends BaseActivity {
+public class BluetoothChat extends Activity {
 
     // BluetoothMessage types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
     public static final int MESSAGE_WRITE = 3;
     public static final int MESSAGE_DEVICE_NAME = 4;
-
-    @Override
-    public void processActivityMessage(String id, int[] body) {
-
-    }
-
-    @Override
-    public IntentFilter getValidActivityMessages() {
-        IntentFilter filter = new IntentFilter();
-
-        return filter;
-    }
-
     public static final int MESSAGE_TOAST = 5;
-
 
     // Key names received from the BluetoothChatService Handler
     public static final String DEVICE_NAME = "device_name";
@@ -79,6 +65,8 @@ public class BluetoothChat extends BaseActivity {
 
     private List<BluetoothMessage> messageList = new ArrayList<BluetoothMessage>();
 
+    private String connectedDeviceAddress;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,23 +82,25 @@ public class BluetoothChat extends BaseActivity {
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
+        connectedDeviceAddress = getIntent().getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+
         // If the adapter is null, then Bluetooth is not supported
-        if (mBluetoothAdapter == null) {
-            Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
-            finish();
-            return;
-        }
+        //if (mBluetoothAdapter == null) {
+        //    Toast.makeText(this, "Bluetooth is not available", Toast.LENGTH_LONG).show();
+        //    finish();
+        //    return;
+        //}
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        if (!mBluetoothAdapter.isEnabled()) {
-            Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-            startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-        } else {
+        //if (!mBluetoothAdapter.isEnabled()) {
+        //    Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+        //    startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
+        //} else {
             if (mChatService == null) setupChat();
-        }
+        //}
     }
 
     @Override
@@ -124,6 +114,7 @@ public class BluetoothChat extends BaseActivity {
     }
 
     private void setupChat() {
+
         mOutEditText = (EditText) findViewById(R.id.edit_text_out);
         mOutEditText.setOnEditorActionListener(mWriteListener);
         mSendButton = (Button) findViewById(R.id.button_send);
@@ -140,6 +131,8 @@ public class BluetoothChat extends BaseActivity {
 
         // Initialize the buffer for outgoing messages
         mOutStringBuffer = new StringBuffer("");
+
+        connectDevice(connectedDeviceAddress);
     }
 
     @Override
@@ -160,16 +153,6 @@ public class BluetoothChat extends BaseActivity {
         // Stop the Bluetooth chat services
         if (mChatService != null) mChatService.stop();
     }
-
-    private void ensureDiscoverable() {
-        if (mBluetoothAdapter.getScanMode() !=
-                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
-            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
-            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
-            startActivity(discoverableIntent);
-        }
-    }
-
 
     private void sendMessage(String message) {
 
@@ -236,7 +219,16 @@ public class BluetoothChat extends BaseActivity {
         }
     };
 
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+    public void connectDevice(String address) {
+        // Get the BLuetoothDevice object
+        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(address);
+        // Attempt to connect to the device
+        mChatService.connect(device);
+        Toast.makeText(getApplicationContext(), "Connecting to " + address, Toast.LENGTH_SHORT).show();
+
+    }
+
+    /*public void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case REQUEST_CONNECT_DEVICE:
                 // When DeviceListActivity returns with a device to connect
@@ -249,25 +241,6 @@ public class BluetoothChat extends BaseActivity {
                     mChatService.connect(device);
                 }
                 break;
-            case REQUEST_ENABLE_BT:
-                // When the request to enable Bluetooth returns
-                if (resultCode == Activity.RESULT_OK) {
-                    // Bluetooth is now enabled, so set up a chat session
-                    setupChat();
-                } else {
-                    // User did not enable Bluetooth or an error occured
-                    Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
-                    finish();
-                }
         }
-    }
-
-    public void connect(View v) {
-        Intent serverIntent = new Intent(this, DeviceListActivity.class);
-        startActivityForResult(serverIntent, REQUEST_CONNECT_DEVICE);
-    }
-
-    public void discoverable(View v) {
-        ensureDiscoverable();
-    }
+    }*/
 }
