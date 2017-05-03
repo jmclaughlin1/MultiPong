@@ -37,6 +37,8 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
 
         startService(new Intent(this, SoundService.class));
 
+       // startService(new Intent(this, SensorsService.class));
+
 
     }
 
