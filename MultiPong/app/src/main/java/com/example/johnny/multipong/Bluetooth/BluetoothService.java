@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.johnny.multipong.BaseService;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 
 public class BluetoothService extends BaseService {
+    public static final String TAG = "BluetoothService";
     // BluetoothMessage types sent from the BluetoothChatService Handler
     public static final int MESSAGE_STATE_CHANGE = 1;
     public static final int MESSAGE_READ = 2;
@@ -82,20 +84,28 @@ public class BluetoothService extends BaseService {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        super.onStartCommand(intent, flags, startId);
+        Log.i(TAG, "onStartCommand");
         mAdapter = new MessageAdapter(getBaseContext(), messageList);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
-        connectedDeviceAddress = intent.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
-
         // Initialize the BluetoothChatService to perform bluetooth connections
         mChatService = new BluetoothChatService(this, mHandler);
+        Log.i(TAG, "Trying to get extras");
+        String action = intent.getExtras().getString(BluetoothTestActivity.ACTION);
+        Log.i(TAG, action);
+        if(action.equals(BluetoothTestActivity.ACTION_CONNECT)) {
 
-        // Get the BLuetoothDevice object
-        BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(connectedDeviceAddress);
-        // Attempt to connect to the device
-        mChatService.connect(device);
-        Toast.makeText(getApplicationContext(), "Connecting to " + connectedDeviceAddress, Toast.LENGTH_SHORT).show();
+            //connectedDeviceAddress = intent.getExtras().getString(DeviceListActivity.EXTRA_DEVICE_ADDRESS);
+            connectedDeviceAddress = intent.getExtras().getString(BluetoothTestActivity.DEVICE_ADDRESS);
+
+            // Get the BLuetoothDevice object
+            BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(connectedDeviceAddress);
+            // Attempt to connect to the device
+            mChatService.connect(device);
+            Toast.makeText(getApplicationContext(), "Connecting to " + connectedDeviceAddress, Toast.LENGTH_SHORT).show();
+        }
         if (mChatService.getState() == BluetoothChatService.STATE_NONE) {
             mChatService.start();
         }

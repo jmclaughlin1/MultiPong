@@ -147,8 +147,9 @@ public class DeviceListActivity extends BaseActivity {
             String info = ((TextView) v).getText().toString();
             String address = info.substring(info.length() - 17);
             // Create the result Intent and include the MAC address
-            Intent intent = new Intent(DeviceListActivity.this, BluetoothChat.class);
-            intent.putExtra(EXTRA_DEVICE_ADDRESS, address);
+            Intent intent = new Intent(DeviceListActivity.this, BluetoothTestActivity.class);
+            intent.putExtra(BluetoothTestActivity.ACTION, BluetoothTestActivity.ACTION_CONNECT);
+            intent.putExtra(BluetoothTestActivity.DEVICE_ADDRESS, address);
             //Start Chat Activity
             startActivity(intent);
             // Set result and finish this Activity
