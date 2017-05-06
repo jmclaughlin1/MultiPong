@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.johnny.multipong.BaseService;
+import com.example.johnny.multipong.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -111,6 +112,21 @@ public class BluetoothService extends BaseService {
         }
 
         return START_NOT_STICKY;
+    }
+
+    private void sendMessage(String message) {
+
+        // Check that we're actually connected before trying anything
+        if (mChatService.getState() != BluetoothChatService.STATE_CONNECTED) {
+            Toast.makeText(this, R.string.not_connected, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        // Check that there's actually something to send
+        if (message.length() > 0) {
+            // Get the message bytes and tell the BluetoothChatService to write
+            byte[] send = message.getBytes();
+            mChatService.write(send);
+        }
     }
     @Override
     public void runService() {
