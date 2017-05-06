@@ -218,12 +218,11 @@ public abstract class Messages {
 
         public static final int CENTER_X_FIELD = 0;
         public static final int CENTER_Y_FIELD = 1;
-        public static final int CENTER_Z_FIELD = 2;
-        public static final int LEFT_X_FIELD = 3;
-        public static final int RIGHT_X_FIELD = 4;
-        public static final int LEFT_Y_FIELD = 5;
-        public static final int RIGHT_Y_FIELD = 6;
-        public static final int CENTER_POSITION_MESSAGE_SIZE = 7;
+        public static final int LEFT_X_FIELD = 2;
+        public static final int RIGHT_X_FIELD = 3;
+        public static final int LEFT_Y_FIELD = 4;
+        public static final int RIGHT_Y_FIELD = 5;
+        public static final int CENTER_POSITION_MESSAGE_SIZE = 6;
     }
 
     public abstract class RequestCenterPositionMessage {

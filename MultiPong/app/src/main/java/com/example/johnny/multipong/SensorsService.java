@@ -3,6 +3,7 @@ package com.example.johnny.multipong;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -56,67 +57,76 @@ public class SensorsService extends BaseService {
 
     {
         gyroTimer = new Timer();
-        gyroTimer.scheduleAtFixedRate(new SensorTask() ,100,500);
-        initUI();
-        readPrefs();
-        reset();     // put in a constructor
-
-        orientation.reset();
-
-        handler.post(runable);
-
-
-
-        gyroscopeAvailable = gyroscopeAvailable();
-
-
-
-
     }
+
     @Override
     public void processServiceMessage(String id, int[] body) {
-
-
+        if (id.equals(Messages.RequestCenterPositionMessage.REQUEST_CENTER_POSITION_MESSAGE_ID)) {
+            sendCenterPositionMessage();
+        }
     }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-
-    }
-
 
     @Override
     public IntentFilter getValidServiceMessages() {
         IntentFilter intentFiltersensor= new IntentFilter();
+        intentFiltersensor.addAction(Messages.RequestCenterPositionMessage
+                                             .REQUEST_CENTER_POSITION_MESSAGE_ID);
 
         return intentFiltersensor;
     }
 
     @Override
     public void runService() {
-    Log.i("SensorService","Service Started");
+        Log.i("SensorService","Service Started");
 
-          }
+        /*Intent intent = new Intent();
+        intent.setClass(this, ConfigActivity.class);
+        startActivity(intent);*/
 
+        readPrefs();
+        reset();     // put in a constructor
 
+        orientation.reset();
 
+        //handler.post(runable);
 
+        gyroscopeAvailable = gyroscopeAvailable();
+
+        gyroTimer.scheduleAtFixedRate(new SensorTask() ,0,33);
+    }
 
     private class SensorTask extends TimerTask {
 
-
         @Override
         public void run() {
-           // int body[] = new int [1];
-         //   body[Messages.GyroscopeMessage.GYROSCOPE_X] = (int) gyroX;
-           // body[Messages.GyroscopeMessage.GYROSCOPE_Y] = (Math.toDegrees(vOrientation[1]));
-          //  body[Messages.GyroscopeMessage.GYROSCOPE_Z] = (int) gyroZ;
-           // publishServiceMessage(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID,body);
-            Toast.makeText(SensorsService.this, "Values Broadcasted", Toast.LENGTH_SHORT).show();
+            vOrientation = orientation.getOrientation();
+            //Log.i("SensorService", Math.toDegrees(vOrientation[0]) + " " + Math.toDegrees(vOrientation[1]) + " " + Math.toDegrees(vOrientation[2]));
+            dataReady = true;
+            sendGyroMessage();
         }
     }
 
+    private void sendGyroMessage() {
+        int body[] = new int[Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_SIZE];
+        body[Messages.GyroscopeMessage.GYROSCOPE_X] = (int) Math.toDegrees(vOrientation[1]);
+        body[Messages.GyroscopeMessage.GYROSCOPE_Y] = (int) Math.toDegrees(vOrientation[2]);
+        body[Messages.GyroscopeMessage.GYROSCOPE_Z] = (int) Math.toDegrees(vOrientation[0]);
+
+        Log.i("Sensor", "X: " + body[Messages.GyroscopeMessage.GYROSCOPE_X]);
+        publishServiceMessage(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID, body);
+    }
+
+    private void sendCenterPositionMessage() {
+        int body[] = new int[Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_SIZE];
+        body[Messages.CenterPositionMessage.LEFT_Y_FIELD] = -50;
+        body[Messages.CenterPositionMessage.RIGHT_Y_FIELD] = 50;
+        body[Messages.CenterPositionMessage.LEFT_X_FIELD] = -50;
+        body[Messages.CenterPositionMessage.RIGHT_X_FIELD] = 50;
+        body[Messages.CenterPositionMessage.CENTER_Y_FIELD] = 0;
+        body[Messages.CenterPositionMessage.CENTER_X_FIELD] = 25;
+
+        publishServiceMessage(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID, body);
+    }
 
     private boolean getPrefCalibratedGyroscopeEnabled()
     {
@@ -196,38 +206,16 @@ public class SensorsService extends BaseService {
                 PackageManager.FEATURE_SENSOR_GYROSCOPE);
     }
 
-
-
-    /**
-     * Initialize the UI.
-     */
-    private void initUI()
-    {
-        // Initialize the calibrated text views
-       // tvXAxis = (TextView) this.findViewById(R.id.value_x_axis_calibrated);
-       // tvYAxis = (TextView) this.findViewById(R.id.value_y_axis_calibrated);
-        //tvZAxis = (TextView) this.findViewById(R.id.value_z_axis_calibrated);
-       // tvStatus = (TextView) this.findViewById(R.id.label_sensor_status);
-
-
-        // Initialize the calibrated gauges views
-
-
-
-    }
-
     /**
      * Log output data to an external .csv file.
      */
-
-
     private void reset()
     {
         isCalibrated = getPrefCalibratedGyroscopeEnabled();
 
         orientation = new GyroscopeOrientation(this);
 
-        if (isCalibrated)
+        /*if (isCalibrated)
         {
             //tvStatus.setText("Sensor Calibrated");
         }
@@ -238,6 +226,7 @@ public class SensorsService extends BaseService {
 
         if (imuOCfOrienationEnabled)
         {
+            Log.i("SensorService", "We have an IMU OCF Orientation Enabled!");
             orientation = new ImuOCfOrientation(this);
             orientation.setFilterCoefficient(getPrefImuOCfOrienationCoeff());
 
@@ -251,8 +240,9 @@ public class SensorsService extends BaseService {
             }
 
         }
-        if (imuOCfRotationMatrixEnabled)
+        else if (imuOCfRotationMatrixEnabled)
         {
+            Log.i("SensorService", "We have an IMU OCF Rotation Matrix Enabled!");
             orientation = new ImuOCfRotationMatrix(this);
             orientation
                     .setFilterCoefficient(getPrefImuOCfRotationMatrixCoeff());
@@ -266,8 +256,9 @@ public class SensorsService extends BaseService {
                // tvStatus.setText("ImuOCfRm Uncalibrated");
             }
         }
-        if (imuOCfQuaternionEnabled)
+        else if (imuOCfQuaternionEnabled)
         {
+            Log.i("SensorService", "We have an IMU OCF Quaternion Enabled!");
             orientation = new ImuOCfQuaternion(this);
             orientation.setFilterCoefficient(getPrefImuOCfQuaternionCoeff());
 
@@ -279,10 +270,11 @@ public class SensorsService extends BaseService {
             {
                 //tvStatus.setText("ImuOCfQuaternion Uncalibrated");
             }
-        }
-        if (imuOKfQuaternionEnabled)
-        {
-            orientation = new ImuOKfQuaternion(this);
+        }*/
+        //else if (imuOKfQuaternionEnabled)
+        //{
+            //Log.i("SensorService", "We have an IMU OK Quaternion Enabled!");
+            //orientation = new ImuOKfQuaternion(this);
 
             if (isCalibrated)
             {
@@ -292,7 +284,9 @@ public class SensorsService extends BaseService {
             {
                // tvStatus.setText("ImuOKfQuaternion Uncalibrated");
             }
-        }
+        /*} else {
+            Log.i("SensorService", "We have NOTHING!");
+        }*/
 
         if (gyroscopeAvailable)
         {
@@ -304,9 +298,9 @@ public class SensorsService extends BaseService {
             //tvStatus.setTextColor(this.getResources().getColor(
          //   R.color.light_red));
 
-            showGyroscopeNotAvailableAlert();
+            //showGyroscopeNotAvailableAlert();
         }
-
+        /*Looper.prepare();
         handler = new Handler();
 
         runable = new Runnable()
@@ -317,13 +311,13 @@ public class SensorsService extends BaseService {
                 handler.postDelayed(this, 100);
 
                 vOrientation = orientation.getOrientation();
-
+                Log.i("SensorService", Math.toDegrees(vOrientation[0]) + " " + Math.toDegrees(vOrientation[0]) + " " + Math.toDegrees(vOrientation[0]));
                 dataReady = true;
 
-                updateText();
+                //updateText();
 
             }
-        };
+        };*/
     }
 
     private void readPrefs()
@@ -364,17 +358,11 @@ public class SensorsService extends BaseService {
         alertDialog.show();
     }
 
-
     /**
      * Begin logging data to an external .csv file.
      */
-
-
-
-
     private void updateText()
     {
-
         Toast.makeText(getApplicationContext(), String.format("%.2f", Math.toDegrees(vOrientation[1])), Toast.LENGTH_SHORT).show();
     }
 }

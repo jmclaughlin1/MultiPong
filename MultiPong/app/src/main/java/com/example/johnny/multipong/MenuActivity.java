@@ -36,10 +36,7 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         testButton.setOnClickListener(this);
 
         startService(new Intent(this, SoundService.class));
-
-       // startService(new Intent(this, SensorsService.class));
-
-
+        startService(new Intent(this, SensorsService.class));
     }
 
     @Override
@@ -58,8 +55,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
                 Intent intentTest = new Intent(MenuActivity.this, PongActivity.class);
                 startActivity(intentTest);
                 break;
-
-
         }
     }
 

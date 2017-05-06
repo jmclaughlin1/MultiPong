@@ -7,6 +7,7 @@ import org.apache.commons.math3.complex.Quaternion;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.util.Log;
 
 /*
  * Gyroscope Explorer
@@ -71,6 +72,7 @@ public class 	GyroscopeOrientation extends Orientation
 	 */
 	public float[] getOrientation()
 	{
+		//Log.i("Gyroscope", "Getting orientation!");
 		if (isOrientationValidAccelMag)
 		{
 			// Now we get a structure we can pass to get a rotation matrix, and
@@ -105,13 +107,14 @@ public class 	GyroscopeOrientation extends Orientation
 		// The acceleration and magnetic sensors are only required for the
 		// initial orientation. We can stop listening for updates after we
 		// obtain the initial orientation.
-		if (isOrientationValidAccelMag)
+		/*if (isOrientationValidAccelMag)
 		{
+            Log.i("Gyroscope", "Sensor manager is being unregistered!");
 			sensorManager.unregisterListener(this,
 					sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER));
 			sensorManager.unregisterListener(this,
 					sensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD));
-		}
+		}*/
 	}
 
 	/**
@@ -216,16 +219,19 @@ public class 	GyroscopeOrientation extends Orientation
 	@Override
 	protected void onGyroscopeChanged()
 	{
+		Log.i("Gyroscope", "Gyro changed!");
 		// Don't start until accelerometer/magnetometer orientation has
 		// been calculated. We need that initial orientation to base our
 		// gyroscope rotation off of.
 		if (!isOrientationValidAccelMag)
 		{
+			Log.i("Gyroscope", "Orientation is not Valid yet.");
 			return;
 		}
 
 		if (this.timeStampGyroscopeOld != 0)
 		{
+			Log.i("Gyroscope", "Time to get the rotation vector!");
 			dT = (this.timeStampGyroscope - this.timeStampGyroscopeOld) * NS2S;
 
 			getRotationVectorFromGyro();
