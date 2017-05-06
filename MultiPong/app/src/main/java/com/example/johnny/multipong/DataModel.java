@@ -93,8 +93,8 @@ public class DataModel extends BaseService {
             left_accel_y = body[Messages.CenterPositionMessage.LEFT_Y_FIELD];
             right_accel_y = body[Messages.CenterPositionMessage.RIGHT_Y_FIELD];
 
-            accel_pixel_ratio_y = max_width / right_accel_y;
-            //accel_pixel_ratio_x = 120 / left_accel_x;
+            //accel_pixel_ratio_y = max_width / right_accel_y;
+            accel_pixel_ratio_x = 120 / left_accel_y;
             accel_pixel_ratio_x = max_width / right_accel_x;
 
             PositionTask positionTask = new PositionTask();
@@ -105,8 +105,8 @@ public class DataModel extends BaseService {
             Log.i("Data Model", "Getting Gyro Message!");
             if (!pause_flag) {
                 int accel_x = body[Messages.GyroscopeMessage.GYROSCOPE_X];
-                int accel_y = body[Messages.GyroscopeMessage.GYROSCOPE_Y];
-                Log.i("Data Model", "Accel X: " + accel_x + ", " + accel_y);
+                int accel_z = body[Messages.GyroscopeMessage.GYROSCOPE_Z];
+                Log.i("Data Model", "Accel X: " + accel_x + ", " + accel_z);
                 if (paddle_x > 0 && paddle_x < max_width) {
                     paddle_x = (int) ((accel_x * accel_pixel_ratio_x) + (max_width/2));
                 } else if (paddle_x <= 0) {
@@ -115,8 +115,7 @@ public class DataModel extends BaseService {
                     paddle_x = max_width-1;
                 }
 
-                paddle_theta = 0;
-                //paddle_theta = (int) (accel_y * accel_pixel_ratio_y);
+                paddle_theta = accel_z + 20;
             }
         } else if (id.equals(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID)) {
             ball_y_increment = -ball_y_increment;
@@ -164,11 +163,11 @@ public class DataModel extends BaseService {
         paddle_theta = 30;
         paddle_x = (max_width/2);
         paddle_y = 100;
-        ball_x = 200;
+        ball_x = (max_width/2);
         ball_y = max_height;
         ball_x_direction = false;
         player1_score = player2_score = 0;
-        player1 = false;
+        player1 = true;
         pause_flag = false;
 
         paddle_rotation_matrix = new double[2][2];

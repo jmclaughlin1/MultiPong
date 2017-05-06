@@ -112,7 +112,7 @@ public class SensorsService extends BaseService {
         body[Messages.GyroscopeMessage.GYROSCOPE_Y] = (int) Math.toDegrees(vOrientation[2]);
         body[Messages.GyroscopeMessage.GYROSCOPE_Z] = (int) Math.toDegrees(vOrientation[0]);
 
-        Log.i("Sensor", "X: " + body[Messages.GyroscopeMessage.GYROSCOPE_X]);
+        Log.i("Sensor", "Z: " + body[Messages.GyroscopeMessage.GYROSCOPE_Z]);
         publishServiceMessage(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID, body);
     }
 
