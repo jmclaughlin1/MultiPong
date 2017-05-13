@@ -62,6 +62,10 @@ public class DataModel extends BaseService {
 
     private Timer positionTimer;
 
+    private int paddle_offset;
+
+    private boolean gotten_first_position;
+
     public DataModel() {
         positionTimer = new Timer();
     }
@@ -109,27 +113,36 @@ public class DataModel extends BaseService {
             positionTimer.scheduleAtFixedRate(positionTask, 0, 33);
             sendInitMessage();
         } else if (id.equals(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID)) {
+
             if (!pause_flag) {
                 int accel_x = body[Messages.GyroscopeMessage.GYROSCOPE_X];
                 int accel_z = body[Messages.GyroscopeMessage.GYROSCOPE_Z];
 
                 if (paddle_x > 0 && paddle_x < max_width) {
-                    paddle_x = (int) ((accel_x * accel_pixel_ratio_x) + (max_width/2));
+                    paddle_x = max_width - ((int) ((accel_x * accel_pixel_ratio_x) + (max_width/2)));
                 } else if (paddle_x <= 0) {
                     paddle_x = 1;
                 } else if (paddle_x >= max_width) {
                     paddle_x = max_width-1;
                 }
 
-                paddle_theta = accel_z + 20;
+                if (!gotten_first_position) {
+                    paddle_offset = accel_z + 20;
+                    gotten_first_position = true;
+                }
+
+                paddle_theta = accel_z + 20 - paddle_offset;
             }
         } else if (id.equals(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID)) {
             has_ball = true;
             ball_y_increment = -ball_y_increment;
             ball_y = max_height;
+            int other_width = body[Messages.BallTransferBTMessage.BALL_Y];
+            float scale = (other_width == 0) ? 0 : max_width/other_width;
+
             //ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
-            ball_x = body[Messages.BallTransferBTMessage.BALL_X];
-            ball_x_increment = -body[Messages.BallTransferBTMessage.BALL_ANGLE];
+            ball_x = (int)(body[Messages.BallTransferBTMessage.BALL_X] * scale);
+            ball_x_increment = (int)(-body[Messages.BallTransferBTMessage.BALL_ANGLE] * scale);
         } else if (id.equals(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID)) {
             player1_score = body[Messages.UpdateScoreBTMessage.PLAYER_1_SCORE];
             player2_score = body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE];
@@ -148,8 +161,7 @@ public class DataModel extends BaseService {
     }
 
     @Override
-    public IntentFilter getValidServiceMessages()
-    {
+    public IntentFilter getValidServiceMessages() {
         IntentFilter messageIds = new IntentFilter();
         messageIds.addAction(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID);
         messageIds.addAction(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID);
@@ -161,7 +173,6 @@ public class DataModel extends BaseService {
 
         return messageIds;
     }
-
 
     @Override
     public void runService() {
@@ -180,6 +191,8 @@ public class DataModel extends BaseService {
         player1_score = player2_score = 0;
         player1 = true;
         pause_flag = false;
+        paddle_offset = 0;
+        gotten_first_position = false;
 
         paddle_rotation_matrix = new double[2][2];
     }
@@ -234,7 +247,7 @@ public class DataModel extends BaseService {
         int body[] = new int[Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_SIZE];
         body[Messages.BallTransferMessage.BALL_ANGLE] = ball_x_increment;
         body[Messages.BallTransferMessage.BALL_X] = ball_x;
-        body[Messages.BallTransferMessage.BALL_Y] = ball_y;
+        body[Messages.BallTransferMessage.BALL_Y] = max_width;
 
         publishServiceMessage(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID, body);
     }
@@ -258,18 +271,20 @@ public class DataModel extends BaseService {
                     if (hit_paddle) {
                         if (paddle_theta % 360 != 0) {
                             int slope = (int) Math.atan(paddle_theta);
-                            if (slope != 0) ball_x_increment = -(ball_y_increment / slope);
+                            if (slope != 0) ball_x_increment = (ball_y_increment / slope);
                         }
 
-                        ball_y_increment = -(ball_y_increment/* + BALL_SPEED*/);
-                        Log.i("DataModel", "Increment: " + ball_y_increment);
+                        ball_y_increment = -(ball_y_increment + BALL_SPEED);
+                        publishServiceMessage(Messages.MusicMessage.SFX_MUSIC_PLAY_ID, null);
 
                     } else if (hit_left_wall) {
                         ball_x = 0;
                         ball_x_increment = -ball_x_increment;
+                        publishServiceMessage(Messages.MusicMessage.SFX_MUSIC_PLAY_ID, null);
                     } else if (hit_right_wall) {
                         ball_x = max_width;
                         ball_x_increment = -ball_x_increment;
+                        publishServiceMessage(Messages.MusicMessage.SFX_MUSIC_PLAY_ID, null);
                     } else if (hit_bottom_wall) {
                         updateScore();
                     } else if (hit_top_wall) {
