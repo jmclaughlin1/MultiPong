@@ -141,7 +141,7 @@ public class DataModel extends BaseService {
             float scale = (other_width == 0) ? 0 : ((float)(max_width))/other_width;
 
             //ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
-            ball_x = (int)(body[Messages.BallTransferBTMessage.BALL_X] * scale);
+            ball_x = max_width - (int)(body[Messages.BallTransferBTMessage.BALL_X] * scale);
             ball_x_increment = (int)(-body[Messages.BallTransferBTMessage.BALL_ANGLE] * scale);
         } else if (id.equals(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID)) {
             player1_score = body[Messages.UpdateScoreBTMessage.PLAYER_1_SCORE];
