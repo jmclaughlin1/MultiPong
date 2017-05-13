@@ -128,7 +128,6 @@ public class DataModel extends BaseService {
         } else if (id.equals(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID)) {
             has_ball = true;
             ball_y_increment = -ball_y_increment;
-            Log.i("DataModel", "Increment: " + ball_y_increment);
             ball_y = max_height;
             //ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
             ball_x = body[Messages.BallTransferBTMessage.BALL_X];
@@ -138,10 +137,11 @@ public class DataModel extends BaseService {
             player2_score = body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE];
 
             ball_y_increment = max_height / 75;
-            Log.i("DataModel", "Increment: " + ball_y_increment);
             ball_x = (max_width/2);
             ball_x_increment = 0;
             ball_y = max_height;
+
+            has_ball = true;
         } else if (id.equals(Messages.PauseMessage.PAUSE_MESSAGE_ID)) {
             pause_flag = (body[Messages.PauseMessage.PAUSE_RESUME_FLAG]== 1);
         } else if (id.equals(Messages.PauseMessageBT.PAUSE_MESSAGE_BT_ID)) {
@@ -217,14 +217,16 @@ public class DataModel extends BaseService {
 
     private void updateScore() {
         if (player1) {
-            player1_score++;
-        } else {
             player2_score++;
+        } else {
+            player1_score++;
         }
 
         int body[] = new int[Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_SIZE];
         body[Messages.UpdateScoreMessage.PLAYER_1_SCORE] = player1_score;
         body[Messages.UpdateScoreMessage.PLAYER_2_SCORE] = player2_score;
+
+        has_ball = false;
 
         publishServiceMessage(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID, body);
     }
@@ -279,7 +281,7 @@ public class DataModel extends BaseService {
                     ball_x -= ball_x_increment;
                     ball_y -= ball_y_increment;
                 }
-                
+
                 sendPositionMessage();
             }
         }
