@@ -69,7 +69,6 @@ public class DataModel extends BaseService {
     @Override
     public void processServiceMessage(String id, int[] body) {
         if (id.equals(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID)) {
-            Log.i("Data Model", "Getting Screen Resolution Message!");
             max_width = body[Messages.ScreenResMessage.SCREEN_WIDTH];
             max_height = body[Messages.ScreenResMessage.SCREEN_HEIGHT];
             player1 = (body[Messages.ScreenResMessage.PLAYER_ID] == DataModel.PLAYER_1);
@@ -94,7 +93,6 @@ public class DataModel extends BaseService {
             requestCenterPosition();
 
         } else if (id.equals(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID)) {
-            Log.i("Data Model", "Getting Center Position Message!");
             center_accel_x = body[Messages.CenterPositionMessage.CENTER_X_FIELD];
             center_accel_y = body[Messages.CenterPositionMessage.CENTER_Y_FIELD];
             left_accel_x = body[Messages.CenterPositionMessage.LEFT_X_FIELD];
@@ -136,12 +134,12 @@ public class DataModel extends BaseService {
             player1_score = body[Messages.UpdateScoreBTMessage.PLAYER_1_SCORE];
             player2_score = body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE];
 
+            has_ball = true;
             ball_y_increment = max_height / 75;
             ball_x = (max_width/2);
             ball_x_increment = 0;
             ball_y = max_height;
 
-            has_ball = true;
         } else if (id.equals(Messages.PauseMessage.PAUSE_MESSAGE_ID)) {
             pause_flag = (body[Messages.PauseMessage.PAUSE_RESUME_FLAG]== 1);
         } else if (id.equals(Messages.PauseMessageBT.PAUSE_MESSAGE_BT_ID)) {
@@ -262,7 +260,7 @@ public class DataModel extends BaseService {
                             if (slope != 0) ball_x_increment = -(ball_y_increment / slope);
                         }
 
-                        ball_y_increment = -(ball_y_increment + BALL_SPEED);
+                        ball_y_increment = -(ball_y_increment/* + BALL_SPEED*/);
                         Log.i("DataModel", "Increment: " + ball_y_increment);
 
                     } else if (hit_left_wall) {
