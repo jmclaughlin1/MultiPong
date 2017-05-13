@@ -16,6 +16,10 @@ import java.util.TimerTask;
  */
 public class DataModel extends BaseService {
 
+    public static String PLAYER_ID = "playerId";
+    public static int PLAYER_1 = 0;
+    public static int PLAYER_2 = 1;
+
     private static final int PADDLE_WIDTH_RATIO = 4;
 
     private static final int PADDLE_HEIGHT_RATIO = 12;
@@ -68,6 +72,7 @@ public class DataModel extends BaseService {
             Log.i("Data Model", "Getting Screen Resolution Message!");
             max_width = body[Messages.ScreenResMessage.SCREEN_WIDTH];
             max_height = body[Messages.ScreenResMessage.SCREEN_HEIGHT];
+            player1 = (body[Messages.ScreenResMessage.PLAYER_ID] == DataModel.PLAYER_1);
 
             paddle_width = max_width / PADDLE_WIDTH_RATIO;
             paddle_height = max_height / PADDLE_HEIGHT_RATIO;

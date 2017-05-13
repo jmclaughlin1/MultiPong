@@ -186,6 +186,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         int[] messageBody = new int[2];
         messageBody[Messages.ScreenResMessage.SCREEN_WIDTH] = mWidth;
         messageBody[Messages.ScreenResMessage.SCREEN_HEIGHT] = mHeight;
+        messageBody[Messages.ScreenResMessage.PLAYER_ID] = mPongActivity.getPlayerId();
 
         mPongActivity.publishActivityMessage(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID, messageBody);
     }

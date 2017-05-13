@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.johnny.multipong.BaseActivity;
+import com.example.johnny.multipong.DataModel;
 import com.example.johnny.multipong.Messages;
 import com.example.johnny.multipong.PongActivity;
 import com.example.johnny.multipong.R;
@@ -37,7 +38,8 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
     // Local Bluetooth adapter
     private BluetoothAdapter mBluetoothAdapter = null;
 
-    // Start Game Button
+    // player id
+    private int playerId;
 
     // temp
     private EditText editText;
@@ -59,8 +61,8 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
             address = "";
         }
 
+        playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
         editText = (EditText) findViewById(R.id.testMessage);
-
         status = (TextView) findViewById(R.id.status);
 
         Button sendButton = (Button) findViewById(R.id.sendTestMessage);
@@ -123,8 +125,9 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
             status.setText(Integer.toString(body[Messages.BlueToothTestReceiveMessage.TEST]));
         }
         else if(id.equals(Messages.ConnectedBluetoothMessage.CONNECTED_BLUETOOTH_MESSAGE_ID)){
-            Intent intentTest = new Intent(BluetoothTestActivity.this, PongActivity.class);
-            startActivity(intentTest);
+            Intent pongIntent = new Intent(BluetoothTestActivity.this, PongActivity.class);
+            pongIntent.putExtra(DataModel.PLAYER_ID, playerId);
+            startActivity(pongIntent);
         }
 
     }

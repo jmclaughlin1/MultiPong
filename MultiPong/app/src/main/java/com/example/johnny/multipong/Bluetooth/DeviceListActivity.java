@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.johnny.multipong.BaseActivity;
+import com.example.johnny.multipong.DataModel;
 import com.example.johnny.multipong.R;
 
 import java.util.ArrayList;
@@ -46,6 +47,9 @@ public class DeviceListActivity extends BaseActivity {
     private ArrayAdapter<String> mNewDevicesArrayAdapter;
     private ArrayList<String> newDeviceNamesList;
     private ArrayList<String> pairedDeviceNamesList;
+
+    // Player Id
+    private int playerId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +88,8 @@ public class DeviceListActivity extends BaseActivity {
 
         newDeviceNamesList = new ArrayList<>();
         pairedDeviceNamesList = new ArrayList<>();
+
+        playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
     }
     @Override
     public void onStart(){
@@ -150,6 +156,7 @@ public class DeviceListActivity extends BaseActivity {
             Intent intent = new Intent(DeviceListActivity.this, BluetoothTestActivity.class);
             intent.putExtra(BluetoothTestActivity.ACTION, BluetoothTestActivity.ACTION_CONNECT);
             intent.putExtra(BluetoothTestActivity.DEVICE_ADDRESS, address);
+            intent.putExtra(DataModel.PLAYER_ID, playerId);
             //Start Chat Activity
             startActivity(intent);
             // Set result and finish this Activity

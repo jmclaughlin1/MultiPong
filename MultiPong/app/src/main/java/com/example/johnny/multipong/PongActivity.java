@@ -31,6 +31,9 @@ public class PongActivity extends BaseActivity {
     
     private final String TAG = "PongActivity";
 
+    //Player Id
+    private int playerId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.i(TAG, "onCreate");
@@ -57,7 +60,11 @@ public class PongActivity extends BaseActivity {
 
         //mPlayer1.bringToFront();
         //mPlayer2.bringToFront();
-        startService(new Intent(this, DataModel.class));
+
+        playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
+        Intent dataModelIntent = new Intent(this, DataModel.class);
+        //dataModelIntent.putExtra(DataModel.PLAYER_ID, playerId);
+        startService(dataModelIntent);
     }
 
     @Override
@@ -179,4 +186,5 @@ public class PongActivity extends BaseActivity {
     public int getPaddleAngle(){
         return paddleAngle;
     }
+    public int getPlayerId(){ return playerId;}
 }

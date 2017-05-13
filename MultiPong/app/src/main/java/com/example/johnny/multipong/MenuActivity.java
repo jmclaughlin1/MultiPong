@@ -53,11 +53,13 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case R.id.findFriend:
                 Intent intentFind = new Intent(MenuActivity.this, DeviceListActivity.class);
+                intentFind.putExtra(DataModel.PLAYER_ID, DataModel.PLAYER_1);
                 startActivity(intentFind);
                 break;
             case R.id.waitFriend:
                 Intent intentWait = new Intent(MenuActivity.this, BluetoothTestActivity.class);
                 intentWait.putExtra(BluetoothTestActivity.ACTION, BluetoothTestActivity.ACTION_WAIT);
+                intentWait.putExtra(DataModel.PLAYER_ID, DataModel.PLAYER_2);
                 startActivity(intentWait);
                 break;
             //case R.id.GameTest:
