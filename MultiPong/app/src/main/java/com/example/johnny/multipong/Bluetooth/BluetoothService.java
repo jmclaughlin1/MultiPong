@@ -66,10 +66,21 @@ public class BluetoothService extends BaseService {
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
+                    String messageArray[] = readMessage.split("\\|");
+                    String id = messageArray[0];
+                    if (id.equals(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID)) {
+                        int body[] = new int[Messages.BallTransferBTMessage.BALL_TRANSFER_BT_MESSAGE_SIZE];
+                        body[Messages.BallTransferBTMessage.BALL_Y] = Integer.parseInt(messageArray[1]);
+                        body[Messages.BallTransferBTMessage.BALL_X] = Integer.parseInt(messageArray[2]);
+                        body[Messages.BallTransferBTMessage.BALL_ANGLE] = Integer.parseInt(messageArray[3]);
+
+                        publishServiceMessage(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID, body);
+                    }
+
                     //Toast.makeText(BluetoothService.this, readMessage, Toast.LENGTH_SHORT).show(); // read your message here
-                    int body[] = new int[Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_SIZE];
-                    body[Messages.BlueToothTestReceiveMessage.TEST] = Integer.parseInt(readMessage);
-                    publishServiceMessage(Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_ID, body);
+                    //int body[] = new int[Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_SIZE];
+                    //body[Messages.BlueToothTestReceiveMessage.TEST] = Integer.parseInt(readMessage);
+                    //publishServiceMessage(Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_ID, body);
                     //mAdapter.notifyDataSetChanged();
                     //messageList.add(new BluetoothMessage(counter++, readMessage, mConnectedDeviceName));
                     break;
@@ -138,9 +149,19 @@ public class BluetoothService extends BaseService {
     }
     @Override
     public void processServiceMessage(String id, int[] body) {
+        String bluetoothMessage = "";
+
         if(id.equals(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID)){
-            sendMessage(Integer.toString(body[Messages.BlueToothTestSendMessage.TEST]));
+            bluetoothMessage = Integer.toString(body[Messages.BlueToothTestSendMessage.TEST]);
+            //sendMessage(Integer.toString(body[Messages.BlueToothTestSendMessage.TEST]));
+        } else if (id.equals(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID)) {
+            bluetoothMessage = Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID
+                             + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_Y])
+                             + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_X])
+                             + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_ANGLE]);
         }
+
+        sendMessage(bluetoothMessage);
     }
 
     @Override
