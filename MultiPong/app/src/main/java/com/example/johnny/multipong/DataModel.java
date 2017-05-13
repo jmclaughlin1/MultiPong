@@ -242,7 +242,7 @@ public class DataModel extends BaseService {
 
         @Override
         public void run() {
-            if (!pause_flag && has_ball) {
+            if (!pause_flag) {
                 //Log.i("DataModel", "Ball Y: " + ball_y);
                 boolean hit_right_wall = ball_x > max_width;
                 boolean hit_left_wall = ball_x < 0;
@@ -253,31 +253,33 @@ public class DataModel extends BaseService {
                         && ball_x >= (paddle_x - (paddle_width / 2))
                         && ball_x <= (paddle_x + (paddle_width / 2));
 
-                if (hit_paddle) {
-                    if (paddle_theta % 360 != 0) {
-                        int slope = (int) Math.atan(paddle_theta);
-                        if (slope != 0) ball_x_increment = -(ball_y_increment / slope);
+                if (has_ball) {
+                    if (hit_paddle) {
+                        if (paddle_theta % 360 != 0) {
+                            int slope = (int) Math.atan(paddle_theta);
+                            if (slope != 0) ball_x_increment = -(ball_y_increment / slope);
+                        }
+
+                        ball_y_increment = -(ball_y_increment + BALL_SPEED);
+                        Log.i("DataModel", "Increment: " + ball_y_increment);
+
+                    } else if (hit_left_wall) {
+                        ball_x = 0;
+                        ball_x_increment = -ball_x_increment;
+                    } else if (hit_right_wall) {
+                        ball_x = max_width;
+                        ball_x_increment = -ball_x_increment;
+                    } else if (hit_bottom_wall) {
+                        updateScore();
+                    } else if (hit_top_wall) {
+                        has_ball = false;
+                        sendBallTransferMessage();
                     }
 
-                    ball_y_increment = -(ball_y_increment + BALL_SPEED);
-                    Log.i("DataModel", "Increment: " + ball_y_increment);
-
-                } else if (hit_left_wall) {
-                    ball_x = 0;
-                    ball_x_increment = -ball_x_increment;
-                } else if (hit_right_wall) {
-                    ball_x = max_width;
-                    ball_x_increment = -ball_x_increment;
-                } else if (hit_bottom_wall) {
-                    updateScore();
-                } else if (hit_top_wall) {
-                    has_ball = false;
-                    sendBallTransferMessage();
+                    ball_x -= ball_x_increment;
+                    ball_y -= ball_y_increment;
                 }
-
-                ball_x -= ball_x_increment;
-                ball_y -= ball_y_increment;
-
+                
                 sendPositionMessage();
             }
         }
