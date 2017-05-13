@@ -97,8 +97,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         initializeBallPaddle(mPongActivity.getValidFields());
 
-        if(mPongActivity.getTogglePause())
+        if(mPongActivity.getTogglePause()) {
             togglePause();
+        }
 
         // Redraw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);

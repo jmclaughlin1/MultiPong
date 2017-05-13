@@ -208,6 +208,8 @@ public class PongActivity extends BaseActivity {
         return playerId;
     }
     public boolean getTogglePause() {
-        return togglePause;
+        boolean temp = togglePause;
+        togglePause = false;
+        return temp;
     }
 }
