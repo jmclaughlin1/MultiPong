@@ -59,6 +59,7 @@ public class BluetoothService extends BaseService {
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
+                    Log.i(TAG, "Sending message: " + msg);
                     //mAdapter.notifyDataSetChanged();
                     //messageList.add(new BluetoothMessage(counter++, writeMessage, "Me"));
                     break;
@@ -66,9 +67,11 @@ public class BluetoothService extends BaseService {
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
+                    Log.i(TAG, readMessage);
                     String messageArray[] = readMessage.split("\\|");
                     String id = messageArray[0];
                     if (id.equals(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID)) {
+                        Log.i(TAG, "Got Ball transfer message!");
                         int body[] = new int[Messages.BallTransferBTMessage.BALL_TRANSFER_BT_MESSAGE_SIZE];
                         body[Messages.BallTransferBTMessage.BALL_Y] = Integer.parseInt(messageArray[1]);
                         body[Messages.BallTransferBTMessage.BALL_X] = Integer.parseInt(messageArray[2]);
@@ -103,6 +106,7 @@ public class BluetoothService extends BaseService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Log.i(TAG, "onStartCommand");
+
         //mAdapter = new MessageAdapter(getBaseContext(), messageList);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -144,9 +148,11 @@ public class BluetoothService extends BaseService {
             mChatService.write(send);
         }
     }
+
     @Override
     public void runService() {
     }
+
     @Override
     public void processServiceMessage(String id, int[] body) {
         String bluetoothMessage = "";
@@ -155,6 +161,7 @@ public class BluetoothService extends BaseService {
             bluetoothMessage = Integer.toString(body[Messages.BlueToothTestSendMessage.TEST]);
             //sendMessage(Integer.toString(body[Messages.BlueToothTestSendMessage.TEST]));
         } else if (id.equals(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID)) {
+            Log.i(TAG, "Sending transfer message");
             bluetoothMessage = Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID
                              + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_Y])
                              + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_X])
@@ -168,6 +175,7 @@ public class BluetoothService extends BaseService {
     public IntentFilter getValidServiceMessages() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID);
+        intentFilter.addAction(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID);
         return intentFilter;
     }
 

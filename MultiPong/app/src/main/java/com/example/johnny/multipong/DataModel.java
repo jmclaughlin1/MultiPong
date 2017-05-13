@@ -58,7 +58,7 @@ public class DataModel extends BaseService {
 
     private int player1_score, player2_score;
 
-    private boolean pause_flag;
+    private boolean pause_flag, has_ball;
 
     private Timer positionTimer;
 
@@ -73,6 +73,7 @@ public class DataModel extends BaseService {
             max_width = body[Messages.ScreenResMessage.SCREEN_WIDTH];
             max_height = body[Messages.ScreenResMessage.SCREEN_HEIGHT];
             player1 = (body[Messages.ScreenResMessage.PLAYER_ID] == DataModel.PLAYER_1);
+            has_ball = player1;
 
             paddle_width = max_width / PADDLE_WIDTH_RATIO;
             paddle_height = max_height / PADDLE_HEIGHT_RATIO;
@@ -107,11 +108,10 @@ public class DataModel extends BaseService {
             positionTimer.scheduleAtFixedRate(positionTask, 0, 33);
             sendInitMessage();
         } else if (id.equals(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID)) {
-            Log.i("Data Model", "Getting Gyro Message!");
             if (!pause_flag) {
                 int accel_x = body[Messages.GyroscopeMessage.GYROSCOPE_X];
                 int accel_z = body[Messages.GyroscopeMessage.GYROSCOPE_Z];
-                Log.i("Data Model", "Accel X: " + accel_x + ", " + accel_z);
+
                 if (paddle_x > 0 && paddle_x < max_width) {
                     paddle_x = (int) ((accel_x * accel_pixel_ratio_x) + (max_width/2));
                 } else if (paddle_x <= 0) {
@@ -123,10 +123,11 @@ public class DataModel extends BaseService {
                 paddle_theta = accel_z + 20;
             }
         } else if (id.equals(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID)) {
+            has_ball = true;
             ball_y_increment = -ball_y_increment;
             ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
             ball_x = body[Messages.BallTransferBTMessage.BALL_X];
-            ball_x_increment = body[Messages.BallTransferBTMessage.BALL_ANGLE];
+            ball_x_increment = -body[Messages.BallTransferBTMessage.BALL_ANGLE];
         } else if (id.equals(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID)) {
             player1_score = body[Messages.UpdateScoreBTMessage.PLAYER_1_SCORE];
             player2_score = body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE];
@@ -235,11 +236,12 @@ public class DataModel extends BaseService {
 
         @Override
         public void run() {
-            if (!pause_flag) {
+            if (!pause_flag && has_ball) {
+                Log.i("DataModel", "Ball Y: " + ball_y);
                 boolean hit_right_wall = ball_x > max_width;
                 boolean hit_left_wall = ball_x < 0;
-                boolean hit_top_wall = ball_y < 0;
-                boolean hit_bottom_wall = ball_y > max_height;
+                boolean hit_top_wall = ball_y > max_height;
+                boolean hit_bottom_wall = ball_y < 0;
 
                 boolean hit_paddle = (ball_y <= (paddle_y + (paddle_height)))
                         && ball_x >= (paddle_x - (paddle_width / 2))
@@ -262,6 +264,7 @@ public class DataModel extends BaseService {
                 } else if (hit_bottom_wall) {
                     updateScore();
                 } else if (hit_top_wall) {
+                    has_ball = false;
                     sendBallTransferMessage();
                 }
 
