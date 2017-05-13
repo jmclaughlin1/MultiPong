@@ -78,6 +78,12 @@ public class BluetoothService extends BaseService {
                         body[Messages.BallTransferBTMessage.BALL_ANGLE] = Integer.parseInt(messageArray[3]);
 
                         publishServiceMessage(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID, body);
+                    } else if(id.equals(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID)) {
+                        int body [] = new int[Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_SIZE];
+                        body[Messages.UpdateScoreBTMessage.PLAYER_1_SCORE] = Integer.parseInt(messageArray[1]);
+                        body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE] = Integer.parseInt(messageArray[2]);
+
+                        publishServiceMessage(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID, body);
                     }
 
                     //Toast.makeText(BluetoothService.this, readMessage, Toast.LENGTH_SHORT).show(); // read your message here
@@ -163,9 +169,13 @@ public class BluetoothService extends BaseService {
         } else if (id.equals(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID)) {
             Log.i(TAG, "Sending transfer message");
             bluetoothMessage = Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID
-                             + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_Y])
-                             + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_X])
-                             + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_ANGLE]);
+                            + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_Y])
+                            + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_X])
+                            + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_ANGLE]);
+        } else if(id.equals(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID)) {
+            bluetoothMessage = Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID
+                            + "|" + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE])
+                            + "|" + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]);
         }
 
         sendMessage(bluetoothMessage);
@@ -176,6 +186,7 @@ public class BluetoothService extends BaseService {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID);
         intentFilter.addAction(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID);
+        intentFilter.addAction(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID);
         return intentFilter;
     }
 

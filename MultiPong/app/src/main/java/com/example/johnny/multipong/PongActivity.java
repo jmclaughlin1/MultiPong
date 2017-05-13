@@ -30,6 +30,9 @@ public class PongActivity extends BaseActivity {
 
     
     private final String TAG = "PongActivity";
+    //Score TextViews
+    TextView mPlayer1;
+    TextView mPlayer2;
 
     //Player Id
     private int playerId;
@@ -40,12 +43,12 @@ public class PongActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
 
-        Log.i(TAG, " DataModel Service Started");
-        //FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
-        //setContentView(R.layout.activity_main);
+        //Log.i(TAG, " DataModel Service Started");
+        FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
 
-        //TextView mPlayer1 = (TextView) frameLayout.findViewById(R.id.player1Text);
-        //TextView mPlayer2 = (TextView) frameLayout.findViewById(R.id.player2Text);
+
+        mPlayer1 = (TextView) frameLayout.findViewById(R.id.player1Text);
+        mPlayer2 = (TextView) frameLayout.findViewById(R.id.player2Text);
 
         //ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
         //ConfigurationInfo info = am.getDeviceConfigurationInfo();
@@ -53,17 +56,16 @@ public class PongActivity extends BaseActivity {
         //if (supportES2) {
         //    Log.i(TAG, "Your device OpenGLES2 version (" + info.reqGlEsVersion + ")");
         mGLView = new MyGLSurfaceView(this);
-        //    frameLayout.addView(mGLView);
-        setContentView(mGLView);
+            frameLayout.addView(mGLView);
+        setContentView(frameLayout);//setContentView(mGLView);
         //} else
         //    Log.e("OpenGL2", "your device doesn't support ES2. (" + info.reqGlEsVersion + ")");
 
-        //mPlayer1.bringToFront();
-        //mPlayer2.bringToFront();
+        mPlayer1.bringToFront();
+        mPlayer2.bringToFront();
 
-        playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
+        //playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
         Intent dataModelIntent = new Intent(this, DataModel.class);
-        //dataModelIntent.putExtra(DataModel.PLAYER_ID, playerId);
         startService(dataModelIntent);
     }
 
@@ -143,6 +145,14 @@ public class PongActivity extends BaseActivity {
 
             Log.i(TAG, ballX + " " + ballY );
         }
+        else if(id.equals(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID)){
+            mPlayer1.setText(Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE]));
+            mPlayer2.setText(Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]));
+        }
+        else if(id.equals(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID)){
+            mPlayer1.setText(Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE]));
+            mPlayer2.setText(Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]));
+        }
     }
     // create intent filter
     // add message ids gonna receive to intent filter
@@ -152,6 +162,8 @@ public class PongActivity extends BaseActivity {
         IntentFilter filter = new IntentFilter();
         filter.addAction(Messages.InitMessage.INIT_MESSAGE_ID);
         filter.addAction(Messages.PositionMessage.POSITION_MESSAGE_ID);
+        filter.addAction(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID);
+        filter.addAction(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID);
         return filter;
     }
 

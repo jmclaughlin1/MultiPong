@@ -93,7 +93,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 unused) {
-        //Log.i(TAG, "onDrawFrame");
+        Log.i(TAG, "onDrawFrame");
 
         initializeBallPaddle(mPongActivity.getValidFields());
 
@@ -189,6 +189,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         messageBody[Messages.ScreenResMessage.PLAYER_ID] = mPongActivity.getPlayerId();
 
         mPongActivity.publishActivityMessage(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID, messageBody);
+        Log.i(TAG, "sendResolutionMessageToDM");
     }
 
     public void initializeBallPaddle(Boolean validFields){
