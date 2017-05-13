@@ -138,7 +138,7 @@ public class DataModel extends BaseService {
             ball_y_increment = max_height / 75;
             ball_x = (max_width/2);
             ball_x_increment = 0;
-            ball_y = max_height;
+            ball_y = max_height - 1;
 
         } else if (id.equals(Messages.PauseMessage.PAUSE_MESSAGE_ID)) {
             pause_flag = (body[Messages.PauseMessage.PAUSE_RESUME_FLAG]== 1);
@@ -154,6 +154,7 @@ public class DataModel extends BaseService {
         messageIds.addAction(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID);
         messageIds.addAction(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID);
         messageIds.addAction(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID);
+        messageIds.addAction(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID);
         messageIds.addAction(Messages.PauseMessage.PAUSE_MESSAGE_ID);
         messageIds.addAction(Messages.PauseMessageBT.PAUSE_MESSAGE_BT_ID);
         messageIds.addAction(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID);
