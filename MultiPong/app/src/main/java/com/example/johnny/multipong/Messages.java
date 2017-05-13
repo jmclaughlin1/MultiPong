@@ -38,7 +38,9 @@ public abstract class Messages {
 
         public static final int SCREEN_WIDTH = 0;
         public static final int SCREEN_HEIGHT = 1;
-        public static final int PLAYER_ID =2;
+        public static final int PLAYER_ID = 2;
+
+        public static final int SCREEN_RES_MESSAGE_SIZE = 3;
     }
 
     /**

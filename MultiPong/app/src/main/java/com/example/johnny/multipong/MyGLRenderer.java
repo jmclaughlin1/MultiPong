@@ -183,7 +183,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     }
 
     private void sendResolutionMessageToDM(){
-        int[] messageBody = new int[2];
+        int[] messageBody = new int[Messages.ScreenResMessage.SCREEN_RES_MESSAGE_SIZE];
         messageBody[Messages.ScreenResMessage.SCREEN_WIDTH] = mWidth;
         messageBody[Messages.ScreenResMessage.SCREEN_HEIGHT] = mHeight;
         messageBody[Messages.ScreenResMessage.PLAYER_ID] = mPongActivity.getPlayerId();
