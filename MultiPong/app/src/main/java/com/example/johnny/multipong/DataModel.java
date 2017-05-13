@@ -81,12 +81,16 @@ public class DataModel extends BaseService {
 
             ball_radius = max_width / BALL_RADIUS_RATIO;
             ball_y_increment = max_height / 75;
+            paddle_x_increment = max_width / 50;
+            Log.i("DataModel", "Increment: " + ball_y_increment);
 
             if (player1) {
-                paddle_x_increment = ball_x_increment = max_width / 50;
+
                 ball_x = (max_width / 2);
                 ball_x_increment = 0;
                 ball_y = max_height;
+            } else {
+                ball_y_increment = -ball_y_increment;
             }
             requestCenterPosition();
 
@@ -125,6 +129,7 @@ public class DataModel extends BaseService {
         } else if (id.equals(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID)) {
             has_ball = true;
             ball_y_increment = -ball_y_increment;
+            Log.i("DataModel", "Increment: " + ball_y_increment);
             ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
             ball_x = body[Messages.BallTransferBTMessage.BALL_X];
             ball_x_increment = -body[Messages.BallTransferBTMessage.BALL_ANGLE];
@@ -133,6 +138,7 @@ public class DataModel extends BaseService {
             player2_score = body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE];
 
             ball_y_increment = max_height / 75;
+            Log.i("DataModel", "Increment: " + ball_y_increment);
             ball_x = (max_width/2);
             ball_x_increment = 0;
             ball_y = max_height;
@@ -237,7 +243,7 @@ public class DataModel extends BaseService {
         @Override
         public void run() {
             if (!pause_flag && has_ball) {
-                Log.i("DataModel", "Ball Y: " + ball_y);
+                //Log.i("DataModel", "Ball Y: " + ball_y);
                 boolean hit_right_wall = ball_x > max_width;
                 boolean hit_left_wall = ball_x < 0;
                 boolean hit_top_wall = ball_y > max_height;
@@ -254,6 +260,7 @@ public class DataModel extends BaseService {
                     }
 
                     ball_y_increment = -(ball_y_increment + BALL_SPEED);
+                    Log.i("DataModel", "Increment: " + ball_y_increment);
 
                 } else if (hit_left_wall) {
                     ball_x = 0;
