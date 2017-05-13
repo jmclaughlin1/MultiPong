@@ -84,6 +84,10 @@ public class BluetoothService extends BaseService {
                         body[Messages.UpdateScoreBTMessage.PLAYER_2_SCORE] = Integer.parseInt(messageArray[2]);
 
                         publishServiceMessage(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID, body);
+                    } else if(id.equals(Messages.PauseMessage.PAUSE_MESSAGE_ID)) {
+                        int body [] = new int[Messages.PauseMessageBT.PAUSE_MESSAGE_BT_SIZE];
+                        body[Messages.PauseMessageBT.PAUSE_RESUME_FLAG] = Integer.parseInt(messageArray[1]);
+                        publishServiceMessage(Messages.PauseMessageBT.PAUSE_MESSAGE_BT_ID, body);
                     }
 
                     //Toast.makeText(BluetoothService.this, readMessage, Toast.LENGTH_SHORT).show(); // read your message here
@@ -176,6 +180,9 @@ public class BluetoothService extends BaseService {
             bluetoothMessage = Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID
                             + "|" + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE])
                             + "|" + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]);
+        } else if(id.equals(Messages.PauseMessage.PAUSE_MESSAGE_ID)) {
+            bluetoothMessage = Messages.PauseMessage.PAUSE_MESSAGE_ID
+                    + "|" + Integer.toString(body[Messages.PauseMessage.PAUSE_RESUME_FLAG]);
         }
 
         sendMessage(bluetoothMessage);
@@ -187,6 +194,7 @@ public class BluetoothService extends BaseService {
         intentFilter.addAction(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID);
         intentFilter.addAction(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID);
         intentFilter.addAction(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID);
+        intentFilter.addAction(Messages.PauseMessage.PAUSE_MESSAGE_ID);
         return intentFilter;
     }
 

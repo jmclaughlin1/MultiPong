@@ -28,6 +28,8 @@ public class PongActivity extends BaseActivity {
     private int paddleHeight;
     private boolean validFields = true;
 
+    private boolean togglePause = false;
+
     
     private final String TAG = "PongActivity";
     //Score TextViews
@@ -153,6 +155,9 @@ public class PongActivity extends BaseActivity {
             mPlayer1.setText("Player 1:\n   " + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE]));
             mPlayer2.setText("Player 2:\n   " + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]));
         }
+        else if(id.equals(Messages.PauseMessageBT.PAUSE_MESSAGE_BT_ID)){
+            togglePause = true;
+        }
     }
     // create intent filter
     // add message ids gonna receive to intent filter
@@ -164,6 +169,7 @@ public class PongActivity extends BaseActivity {
         filter.addAction(Messages.PositionMessage.POSITION_MESSAGE_ID);
         filter.addAction(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID);
         filter.addAction(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID);
+        filter.addAction(Messages.PauseMessageBT.PAUSE_MESSAGE_BT_ID);
         return filter;
     }
 
@@ -198,5 +204,10 @@ public class PongActivity extends BaseActivity {
     public int getPaddleAngle(){
         return paddleAngle;
     }
-    public int getPlayerId(){ return playerId;}
+    public int getPlayerId(){
+        return playerId;
+    }
+    public boolean getTogglePause() {
+        return togglePause;
+    }
 }

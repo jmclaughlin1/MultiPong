@@ -97,6 +97,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         initializeBallPaddle(mPongActivity.getValidFields());
 
+        if(mPongActivity.getTogglePause())
+            togglePause();
+
         // Redraw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
 
@@ -105,7 +108,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
-
         if(mInitBallPaddle) {
             // Paddle
             mPaddle.move(projPosX(mPongActivity.getPaddleX()), projPosY(mPongActivity.getPaddleY()), mPongActivity.getPaddleAngle());
@@ -116,12 +118,11 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
             mBall.move(projPosX(mPongActivity.getBallX()), projPosY(mPongActivity.getBallY()));
             mBall.draw(mProgram, mMVPMatrix);
         }
-
-
         //Pause
         if(!pause) {
             mPauseLeft.draw(mProgram, mMVPMatrix);
             mPauseRight.draw(mProgram, mMVPMatrix);
+
         }
         else{
             mResume.draw(mProgram, mMVPMatrix);
@@ -221,5 +222,9 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private float projPosY(int pixelPosY){
         return (pixelPosY - (mHeight/2.0f))/(mHeight/2.0f);
+    }
+
+    public boolean getPause(){
+        return pause;
     }
 }

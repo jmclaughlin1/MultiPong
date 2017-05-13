@@ -171,6 +171,8 @@ public abstract class Messages {
         public static final String PAUSE_MESSAGE_BT_ID = "PauseBT";
 
         public static final int PAUSE_RESUME_FLAG = 0;
+
+        public static final int PAUSE_MESSAGE_BT_SIZE = 1;
     }
 
     /**
@@ -180,6 +182,8 @@ public abstract class Messages {
         public static final String PAUSE_MESSAGE_ID = "Pause";
 
         public static final int PAUSE_RESUME_FLAG = 0;
+
+        public static final int PAUSE_MESSAGE_SIZE = 1;
     }
 
     /**

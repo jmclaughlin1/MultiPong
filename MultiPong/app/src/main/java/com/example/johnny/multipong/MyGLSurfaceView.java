@@ -18,12 +18,15 @@ class MyGLSurfaceView extends GLSurfaceView {
     public static int resolution1080 = 1;
     public static int resolution1440 = 2;
 
+    private PongActivity mPongActivity;
 
     public MyGLSurfaceView(PongActivity pongActivity){
         super(pongActivity);
         Log.i(TAG, "MyGLSurfaceView");
         // Create an OpenGL ES 2.0 context
         setEGLContextClientVersion(2);
+
+        mPongActivity = pongActivity;
 
         mRenderer = new MyGLRenderer(pongActivity);
 
@@ -46,12 +49,15 @@ class MyGLSurfaceView extends GLSurfaceView {
         }
         switch(e.getAction()){
             case MotionEvent.ACTION_DOWN:
-                if(x < xPauseLimit && y > yPauseLimit)
+                if(x < xPauseLimit && y > yPauseLimit) {
                     mRenderer.togglePause();
+                    int[] messageBody = new int[Messages.PauseMessage.PAUSE_MESSAGE_SIZE];
+                    messageBody[Messages.PauseMessage.PAUSE_RESUME_FLAG] =  mRenderer.getPause() ? 1 : 0;
+
+                    mPongActivity.publishActivityMessage(Messages.PauseMessage.PAUSE_MESSAGE_ID, messageBody);
+                }
                Log.i(TAG,  "(X,Y) = " + x + ", "+ y);
         }
         return true;
     }
-
-
 }
