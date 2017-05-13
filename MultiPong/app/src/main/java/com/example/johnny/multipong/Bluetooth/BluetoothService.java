@@ -66,7 +66,7 @@ public class BluetoothService extends BaseService {
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
-                    Toast.makeText(BluetoothService.this, readMessage, Toast.LENGTH_SHORT).show(); // read your message here
+                    //Toast.makeText(BluetoothService.this, readMessage, Toast.LENGTH_SHORT).show(); // read your message here
                     int body[] = new int[Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_SIZE];
                     body[Messages.BlueToothTestReceiveMessage.TEST] = Integer.parseInt(readMessage);
                     publishServiceMessage(Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_ID, body);
@@ -78,6 +78,7 @@ public class BluetoothService extends BaseService {
                     mConnectedDeviceName = msg.getData().getString(DEVICE_NAME);
                     Toast.makeText(getApplicationContext(), "Connected to "
                             + mConnectedDeviceName, Toast.LENGTH_SHORT).show();
+                    publishServiceMessage(Messages.ConnectedBluetoothMessage.CONNECTED_BLUETOOTH_MESSAGE_ID, null);
                     break;
                 case MESSAGE_TOAST:
                     Toast.makeText(getApplicationContext(), msg.getData().getString(TOAST),

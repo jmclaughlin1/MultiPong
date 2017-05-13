@@ -2,31 +2,13 @@
 <items version="2" >
 
     <item
-        is-multidex="true"
-        jar="/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="510aa6efc159983dfbffa676a0dae37568c0a46f">
-        <dex dex="/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_65c49b9fa0847ce035d9a6b817704c86c34e61aa/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.2"
-        sha1="bef87920bf4c470783033bea97aacd2cfc64894d">
-        <dex dex="/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_350c24628ad05917ebcc0db42502397180b64425/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/home/johnny/development/school/MultiPong/MultiPong/app/libs/commons-math3-3.5.jar"
-        jumboMode="true"
+        is-multidex="false"
+        jar="C:\Users\Jason Esquivel\Documents\GMU\2017Spring\ECE590\MultiPong\MultiPong\app\libs\commons-math3-3.5.jar"
+        jumboMode="false"
         optimize="true"
         revision="25.0.2"
         sha1="13af68e9a11576953f5c4b09436f8207be9d3a27">
-        <dex dex="/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/transforms/dex/debug/folders/1000/2/commons-math3-3.5_920ea942956e2a8c166bd636a75284dcd9eedc36/classes.dex" />
+        <dex dex="C:\Users\Jason Esquivel\Documents\GMU\2017Spring\ECE590\MultiPong\MultiPong\app\build\intermediates\pre-dexed\debug\commons-math3-3.5_6e6c34ee68bac0109cb5fe8bdc85ceabdce059f1.jar" />
     </item>
 
 </items>

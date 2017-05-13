@@ -36,8 +36,8 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         Button optionsButton = (Button) findViewById(R.id.optionsbutton);
         optionsButton.setOnClickListener(this);
 
-        Button testButton = (Button) findViewById(R.id.GameTest);
-        testButton.setOnClickListener(this);
+        //Button testButton = (Button) findViewById(R.id.GameTest);
+        //testButton.setOnClickListener(this);
 
         startService(new Intent(this, SoundService.class));
         startService(new Intent(this, SensorsService.class));
@@ -60,10 +60,10 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
                 intentWait.putExtra(BluetoothTestActivity.ACTION, BluetoothTestActivity.ACTION_WAIT);
                 startActivity(intentWait);
                 break;
-            case R.id.GameTest:
-                Intent intentTest = new Intent(MenuActivity.this, PongActivity.class);
-                startActivity(intentTest);
-                break;
+            //case R.id.GameTest:
+            //    Intent intentTest = new Intent(MenuActivity.this, PongActivity.class);
+            //    startActivity(intentTest);
+            //    break;
         }
     }
 

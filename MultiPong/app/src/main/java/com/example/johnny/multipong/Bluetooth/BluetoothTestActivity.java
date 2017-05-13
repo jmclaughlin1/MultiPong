@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.johnny.multipong.BaseActivity;
 import com.example.johnny.multipong.Messages;
+import com.example.johnny.multipong.PongActivity;
 import com.example.johnny.multipong.R;
 
 /**
@@ -35,6 +36,8 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
 
     // Local Bluetooth adapter
     private BluetoothAdapter mBluetoothAdapter = null;
+
+    // Start Game Button
 
     // temp
     private EditText editText;
@@ -119,6 +122,10 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
         if(id.equals(Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_ID)){
             status.setText(Integer.toString(body[Messages.BlueToothTestReceiveMessage.TEST]));
         }
+        else if(id.equals(Messages.ConnectedBluetoothMessage.CONNECTED_BLUETOOTH_MESSAGE_ID)){
+            Intent intentTest = new Intent(BluetoothTestActivity.this, PongActivity.class);
+            startActivity(intentTest);
+        }
 
     }
 
@@ -126,6 +133,7 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
     public IntentFilter getValidActivityMessages() {
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_ID);
+        intentFilter.addAction(Messages.ConnectedBluetoothMessage.CONNECTED_BLUETOOTH_MESSAGE_ID);
         return intentFilter;
     }
 }

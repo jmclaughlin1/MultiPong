@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/res/merged/debug/mipmap-xxhdpi/ic_launcher.png",
-        "source": "/home/johnny/development/school/MultiPong/MultiPong/app/src/main/res/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "C:\\Users\\Jason Esquivel\\Documents\\GMU\\2017Spring\\ECE590\\MultiPong\\MultiPong\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_launcher.png",
+        "source": "C:\\Users\\Jason Esquivel\\Documents\\GMU\\2017Spring\\ECE590\\MultiPong\\MultiPong\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\home\\johnny\\development\\school\\MultiPong\\MultiPong\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi\\ic_launcher.png",
+        "source": "C:\\home\\johnny\\development\\school\\MultiPong\\MultiPong\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
     }
 ]

@@ -53,12 +53,21 @@
         <activity
             android:name="com.example.johnny.multipong.Bluetooth.DeviceListActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/select_device" />
+            android:label="@string/select_device" >
+        </activity>
         <activity
             android:name="com.example.johnny.multipong.Bluetooth.BluetoothChat"
             android:configChanges="orientation|keyboardHidden"
-            android:label="@string/select_device" />
-        <activity android:name="com.example.johnny.multipong.sensorFilters.ConfigActivity" />
+            android:label="@string/select_device" >
+        </activity>
+        <activity
+            android:name="com.example.johnny.multipong.Bluetooth.BluetoothTestActivity"
+            android:configChanges="orientation"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity android:name="com.example.johnny.multipong.sensorFilters.ConfigActivity" >
+        </activity>
 
         <service
             android:name="com.example.johnny.multipong.DataModel"
@@ -70,6 +79,9 @@
             android:exported="true" />
         <service
             android:name="com.example.johnny.multipong.SoundService"
+            android:enabled="true" />
+        <service
+            android:name="com.example.johnny.multipong.Bluetooth.BluetoothService"
             android:enabled="true" />
     </application>
 

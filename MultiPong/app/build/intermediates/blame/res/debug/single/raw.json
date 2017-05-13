@@ -1,10 +1,18 @@
 [
     {
-        "merged": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/res/merged/debug/raw/spystory.mp3",
-        "source": "/home/johnny/development/school/MultiPong/MultiPong/app/src/main/res/raw/spystory.mp3"
+        "merged": "C:\\Users\\Jason Esquivel\\Documents\\GMU\\2017Spring\\ECE590\\MultiPong\\MultiPong\\app\\build\\intermediates\\res\\merged\\debug\\raw\\button31.mp3",
+        "source": "C:\\Users\\Jason Esquivel\\Documents\\GMU\\2017Spring\\ECE590\\MultiPong\\MultiPong\\app\\src\\main\\res\\raw\\button31.mp3"
     },
     {
-        "merged": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/res/merged/debug/raw/button31.mp3",
-        "source": "/home/johnny/development/school/MultiPong/MultiPong/app/src/main/res/raw/button31.mp3"
+        "merged": "C:\\Users\\Jason Esquivel\\Documents\\GMU\\2017Spring\\ECE590\\MultiPong\\MultiPong\\app\\build\\intermediates\\res\\merged\\debug\\raw\\spystory.mp3",
+        "source": "C:\\Users\\Jason Esquivel\\Documents\\GMU\\2017Spring\\ECE590\\MultiPong\\MultiPong\\app\\src\\main\\res\\raw\\spystory.mp3"
+    },
+    {
+        "merged": "C:\\home\\johnny\\development\\school\\MultiPong\\MultiPong\\app\\build\\intermediates\\res\\merged\\debug\\raw\\spystory.mp3",
+        "source": "C:\\home\\johnny\\development\\school\\MultiPong\\MultiPong\\app\\src\\main\\res\\raw\\spystory.mp3"
+    },
+    {
+        "merged": "C:\\home\\johnny\\development\\school\\MultiPong\\MultiPong\\app\\build\\intermediates\\res\\merged\\debug\\raw\\button31.mp3",
+        "source": "C:\\home\\johnny\\development\\school\\MultiPong\\MultiPong\\app\\src\\main\\res\\raw\\button31.mp3"
     }
 ]

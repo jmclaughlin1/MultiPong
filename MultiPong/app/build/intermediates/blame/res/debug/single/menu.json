@@ -1,6 +1,10 @@
 [
     {
-        "merged": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/res/merged/debug/menu/gyroscope.xml",
-        "source": "/home/johnny/development/school/MultiPong/MultiPong/app/src/main/res/menu/gyroscope.xml"
+        "merged": "C:\\Users\\Jason Esquivel\\Documents\\GMU\\2017Spring\\ECE590\\MultiPong\\MultiPong\\app\\build\\intermediates\\res\\merged\\debug\\menu\\gyroscope.xml",
+        "source": "C:\\Users\\Jason Esquivel\\Documents\\GMU\\2017Spring\\ECE590\\MultiPong\\MultiPong\\app\\src\\main\\res\\menu\\gyroscope.xml"
+    },
+    {
+        "merged": "C:\\home\\johnny\\development\\school\\MultiPong\\MultiPong\\app\\build\\intermediates\\res\\merged\\debug\\menu\\gyroscope.xml",
+        "source": "C:\\home\\johnny\\development\\school\\MultiPong\\MultiPong\\app\\src\\main\\res\\menu\\gyroscope.xml"
     }
 ]

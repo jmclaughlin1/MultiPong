@@ -15,15 +15,27 @@
         android:text="MULTIPONG"
         android:textSize="60dp" />
     <Button
-        android:id="@+id/playbutton"
+        android:id="@+id/findFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Find Friend"
         android:textSize="30dp"
         android:textColor="@android:color/white"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/waitFriend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Wait Friend"
+        android:textSize="30dp"
+        android:textColor="@android:color/white"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_alignBaseline="@+id/findFriend"
+        android:layout_alignBottom="@+id/findFriend"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
     <Button
         android:id="@+id/optionsbutton"
         android:layout_width="wrap_content"
@@ -33,7 +45,7 @@
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         style="@style/Widget.AppCompat.Button.Borderless"/>
-    <Button
+    <!--Button
         android:id="@+id/GameTest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,7 +55,7 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true" /-->
 
 
 </RelativeLayout>

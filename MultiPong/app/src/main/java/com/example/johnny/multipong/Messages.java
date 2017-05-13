@@ -93,12 +93,14 @@ public abstract class Messages {
     }
 
     /**
-     * Send from the UI thread to the Bluetooth thread to connect/disconnect Bluetooth
+     * Send from the UI thread to the Bluetooth thread to state established connection
      */
-    public abstract class ConnectBluetoothMessage {
-        public static final String CONNECT_BLUETOOTH_MESSAGE_ID = "InitBluetooth";
+    public abstract class ConnectedBluetoothMessage {
+        public static final String CONNECTED_BLUETOOTH_MESSAGE_ID = "ConnectedBluetooth";
 
-        public static final int CONNECT_BLUETOOTH = 0;
+        public static final int CONNECTED_BLUETOOTH = 0;
+
+        public static final int CONNECTED_BLUETOOTH_MESSAGE_SIZE = 0;
     }
 
     /**

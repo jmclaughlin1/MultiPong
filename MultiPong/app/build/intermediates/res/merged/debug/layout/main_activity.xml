@@ -37,18 +37,11 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <Button
+        <!--Button
             android:id="@+id/scan"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="connect"
-            android:text="@string/connect" />
-
-        <Button
-            android:id="@+id/discoverable"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="discoverable"
-            android:text="@string/discoverable" />
+            android:text="@string/connect" /-->
     </LinearLayout>
 </LinearLayout>
