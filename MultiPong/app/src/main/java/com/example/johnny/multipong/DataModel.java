@@ -85,7 +85,6 @@ public class DataModel extends BaseService {
             Log.i("DataModel", "Increment: " + ball_y_increment);
 
             if (player1) {
-
                 ball_x = (max_width / 2);
                 ball_x_increment = 0;
                 ball_y = max_height;
@@ -130,7 +129,8 @@ public class DataModel extends BaseService {
             has_ball = true;
             ball_y_increment = -ball_y_increment;
             Log.i("DataModel", "Increment: " + ball_y_increment);
-            ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
+            ball_y = max_height;
+            //ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
             ball_x = body[Messages.BallTransferBTMessage.BALL_X];
             ball_x_increment = -body[Messages.BallTransferBTMessage.BALL_ANGLE];
         } else if (id.equals(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID)) {
