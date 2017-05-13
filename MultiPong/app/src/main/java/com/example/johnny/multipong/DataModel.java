@@ -59,13 +59,13 @@ public class DataModel extends BaseService {
     private Timer positionTimer;
 
     public DataModel() {
-        Log.i("Data Model", "Data Model is constructed!");
         positionTimer = new Timer();
     }
 
     @Override
     public void processServiceMessage(String id, int[] body) {
         if (id.equals(Messages.ScreenResMessage.SCREEN_RES_MESSAGE_ID)) {
+            Log.i("Data Model", "Getting Screen Resolution Message!");
             max_width = body[Messages.ScreenResMessage.SCREEN_WIDTH];
             max_height = body[Messages.ScreenResMessage.SCREEN_HEIGHT];
 
@@ -85,26 +85,37 @@ public class DataModel extends BaseService {
             requestCenterPosition();
 
         } else if (id.equals(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID)) {
+            Log.i("Data Model", "Getting Center Position Message!");
             center_accel_x = body[Messages.CenterPositionMessage.CENTER_X_FIELD];
             center_accel_y = body[Messages.CenterPositionMessage.CENTER_Y_FIELD];
             left_accel_x = body[Messages.CenterPositionMessage.LEFT_X_FIELD];
             right_accel_x = body[Messages.CenterPositionMessage.RIGHT_X_FIELD];
             left_accel_y = body[Messages.CenterPositionMessage.LEFT_Y_FIELD];
-            right_accel_x = body[Messages.CenterPositionMessage.RIGHT_Y_FIELD];
+            right_accel_y = body[Messages.CenterPositionMessage.RIGHT_Y_FIELD];
 
-            accel_pixel_ratio_y = max_width / right_accel_y;
-            accel_pixel_ratio_x = 120 / left_accel_x;
+            //accel_pixel_ratio_y = max_width / right_accel_y;
+            accel_pixel_ratio_x = 120 / left_accel_y;
+            accel_pixel_ratio_x = max_width / right_accel_x;
 
             PositionTask positionTask = new PositionTask();
 
             positionTimer.scheduleAtFixedRate(positionTask, 0, 33);
             sendInitMessage();
         } else if (id.equals(Messages.GyroscopeMessage.GYROSCOPE_MESSAGE_ID)) {
+            Log.i("Data Model", "Getting Gyro Message!");
             if (!pause_flag) {
                 int accel_x = body[Messages.GyroscopeMessage.GYROSCOPE_X];
-                int accel_y = body[Messages.GyroscopeMessage.GYROSCOPE_Y];
-                paddle_x = (int) (accel_y * accel_pixel_ratio_y);
-                paddle_theta = (int) (accel_x * accel_pixel_ratio_x);
+                int accel_z = body[Messages.GyroscopeMessage.GYROSCOPE_Z];
+                Log.i("Data Model", "Accel X: " + accel_x + ", " + accel_z);
+                if (paddle_x > 0 && paddle_x < max_width) {
+                    paddle_x = (int) ((accel_x * accel_pixel_ratio_x) + (max_width/2));
+                } else if (paddle_x <= 0) {
+                    paddle_x = 1;
+                } else if (paddle_x >= max_width) {
+                    paddle_x = max_width-1;
+                }
+
+                paddle_theta = accel_z + 20;
             }
         } else if (id.equals(Messages.BallTransferBTMessage.BALL_TRANSFER_MESSAGE_BT_ID)) {
             ball_y_increment = -ball_y_increment;
@@ -150,13 +161,13 @@ public class DataModel extends BaseService {
         paddle_height = 0;
         paddle_width = 0;
         paddle_theta = 30;
-        paddle_x = 0;
+        paddle_x = (max_width/2);
         paddle_y = 100;
-        ball_x = 200;
+        ball_x = (max_width/2);
         ball_y = max_height;
         ball_x_direction = false;
         player1_score = player2_score = 0;
-        player1 = false;
+        player1 = true;
         pause_flag = false;
 
         paddle_rotation_matrix = new double[2][2];
@@ -176,7 +187,7 @@ public class DataModel extends BaseService {
     }
 
     private void requestCenterPosition() {
-        publishServiceMessage(Messages.CenterPositionMessage.CENTER_POSITION_MESSAGE_ID, null);
+        publishServiceMessage(Messages.RequestCenterPositionMessage.REQUEST_CENTER_POSITION_MESSAGE_ID, null);
     }
 
     private void sendPositionMessage() {

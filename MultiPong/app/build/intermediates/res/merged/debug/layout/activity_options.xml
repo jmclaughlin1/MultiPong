@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/backbutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="25dp"
+        android:layout_marginBottom="25dp"
+        android:src="@drawable/backfilled50"
+        style="@style/Widget.AppCompat.Button.Borderless"/>
+    <TextView
+        android:id="@+id/music"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Music"
+        android:textSize="30dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"/>
+    <SeekBar
+        android:id="@+id/seekBarMusic"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:max="99"
+        android:progress="50"
+        android:layout_below="@+id/music"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+    <TextView
+        android:id="@+id/sfx"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SFX"
+        android:textSize="30dp"
+        android:layout_below="@+id/seekBarMusic"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+    <SeekBar
+        android:id="@+id/seekBarSFX"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:max="99"
+        android:progress="50"
+        android:layout_below="@+id/sfx"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
+
+</RelativeLayout>

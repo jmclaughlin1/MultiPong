@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/home/johnny/.android/build-cache/b44fd9af819d0f29bfa58bb29895dec6410d5a2f/output/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/home/johnny/.android/build-cache/b44fd9af819d0f29bfa58bb29895dec6410d5a2f/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/home/johnny/.android/build-cache/b44fd9af819d0f29bfa58bb29895dec6410d5a2f/output/res/layout-v21/notification_template_icon_group.xml"
+    },
+    {
+        "merged": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/home/johnny/.android/build-cache/b44fd9af819d0f29bfa58bb29895dec6410d5a2f/output/res/layout-v21/notification_action_tombstone.xml"
+    }
+]
