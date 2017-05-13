@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.johnny.multipong.Bluetooth.BluetoothChat;
+import com.example.johnny.multipong.Bluetooth.BluetoothTestActivity;
 import com.example.johnny.multipong.Bluetooth.DeviceListActivity;
 import com.example.johnny.multipong.sensorFilters.GyroscopeActivity;
 
@@ -26,10 +27,13 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        Button playButton = (Button) findViewById(R.id.playbutton);
-        playButton.setOnClickListener(this);
+        Button findFriend = (Button) findViewById(R.id.findFriend);
+        findFriend.setOnClickListener(this);
 
-       Button optionsButton = (Button) findViewById(R.id.optionsbutton);
+        Button waitFriend = (Button) findViewById(R.id.waitFriend);
+        waitFriend.setOnClickListener(this);
+
+        Button optionsButton = (Button) findViewById(R.id.optionsbutton);
         optionsButton.setOnClickListener(this);
 
         Button testButton = (Button) findViewById(R.id.GameTest);
@@ -48,9 +52,14 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
                 //startActivityForResult(intentOptions, 1);
                 startActivity(intentOptions);
                 break;
-            case R.id.playbutton:
-                Intent intentPlay = new Intent(MenuActivity.this, DeviceListActivity.class);
-                startActivity(intentPlay);
+            case R.id.findFriend:
+                Intent intentFind = new Intent(MenuActivity.this, DeviceListActivity.class);
+                startActivity(intentFind);
+                break;
+            case R.id.waitFriend:
+                Intent intentWait = new Intent(MenuActivity.this, BluetoothTestActivity.class);
+                intentWait.putExtra(BluetoothTestActivity.ACTION, BluetoothTestActivity.ACTION_WAIT);
+                startActivity(intentWait);
                 break;
             case R.id.GameTest:
                 Intent intentTest = new Intent(MenuActivity.this, PongActivity.class);
