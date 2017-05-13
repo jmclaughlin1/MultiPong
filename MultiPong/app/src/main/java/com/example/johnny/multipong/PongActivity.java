@@ -64,7 +64,7 @@ public class PongActivity extends BaseActivity {
         mPlayer1.bringToFront();
         mPlayer2.bringToFront();
 
-        //playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
+        playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
         Intent dataModelIntent = new Intent(this, DataModel.class);
         startService(dataModelIntent);
     }
@@ -146,12 +146,12 @@ public class PongActivity extends BaseActivity {
             Log.i(TAG, ballX + " " + ballY );
         }
         else if(id.equals(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID)){
-            mPlayer1.setText(Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE]));
-            mPlayer2.setText(Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]));
+            mPlayer1.setText("Player 1:\n   " + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE]));
+            mPlayer2.setText("Player 2:\n   " + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]));
         }
         else if(id.equals(Messages.UpdateScoreBTMessage.UPDATE_SCORE_MESSAGE_ID)){
-            mPlayer1.setText(Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE]));
-            mPlayer2.setText(Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]));
+            mPlayer1.setText("Player 1:\n   " + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_1_SCORE]));
+            mPlayer2.setText("Player 2:\n   " + Integer.toString(body[Messages.UpdateScoreMessage.PLAYER_2_SCORE]));
         }
     }
     // create intent filter
