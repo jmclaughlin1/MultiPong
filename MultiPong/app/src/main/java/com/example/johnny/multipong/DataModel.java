@@ -137,8 +137,8 @@ public class DataModel extends BaseService {
             has_ball = true;
             ball_y_increment = -ball_y_increment;
             ball_y = max_height;
-            int other_width = body[Messages.BallTransferBTMessage.BALL_Y];
-            float scale = (other_width == 0) ? 0 : max_width/other_width;
+            float other_width = (float)(body[Messages.BallTransferBTMessage.BALL_Y]);
+            float scale = (other_width == 0) ? 0 : ((float)(max_width))/other_width;
 
             //ball_y = body[Messages.BallTransferBTMessage.BALL_Y];
             ball_x = (int)(body[Messages.BallTransferBTMessage.BALL_X] * scale);
