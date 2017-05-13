@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "D:\\Multipong\\MultiPong\\MultiPong\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
+        "outputFile": "/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values/values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 96
                 },
                 "from": {
-                    "file": "C:\\Users\\dhavl\\.android\\build-cache\\f71fde9d264768fe83903f54fd7b667bac2f9b29\\output\\res\\values\\values.xml",
+                    "file": "/home/johnny/.android/build-cache/ce6fe9d734286c575ab5e6d57af4d35205925084/output/res/values/values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,

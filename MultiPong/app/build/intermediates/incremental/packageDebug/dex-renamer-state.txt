@@ -1,4 +1,7 @@
-#Wed May 03 04:19:39 EDT 2017
-base.0=D\:\\Multipong\\MultiPong\\MultiPong\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main
-renamed.0=classes.dex
-file.0=D\:\\Multipong\\MultiPong\\MultiPong\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\1f\\main\\classes.dex
+#Sat May 06 11:24:57 EDT 2017
+base.0=/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_65c49b9fa0847ce035d9a6b817704c86c34e61aa
+renamed.1=classes.dex
+renamed.0=classes2.dex
+file.1=/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_350c24628ad05917ebcc0db42502397180b64425/classes.dex
+base.1=/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_350c24628ad05917ebcc0db42502397180b64425
+file.0=/home/johnny/development/school/MultiPong/MultiPong/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_65c49b9fa0847ce035d9a6b817704c86c34e61aa/classes.dex
