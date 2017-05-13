@@ -10,6 +10,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.johnny.multipong.BaseService;
+import com.example.johnny.multipong.Messages;
 import com.example.johnny.multipong.R;
 
 import java.util.ArrayList;
@@ -44,7 +45,7 @@ public class BluetoothService extends BaseService {
     // Member object for the chat services
     private BluetoothChatService mChatService = null;
 
-    private MessageAdapter mAdapter;
+    //private MessageAdapter mAdapter;
 
     private List<BluetoothMessage> messageList = new ArrayList<>();
 
@@ -58,16 +59,19 @@ public class BluetoothService extends BaseService {
                     byte[] writeBuf = (byte[]) msg.obj;
                     // construct a string from the buffer
                     String writeMessage = new String(writeBuf);
-                    mAdapter.notifyDataSetChanged();
-                    messageList.add(new BluetoothMessage(counter++, writeMessage, "Me"));
+                    //mAdapter.notifyDataSetChanged();
+                    //messageList.add(new BluetoothMessage(counter++, writeMessage, "Me"));
                     break;
                 case MESSAGE_READ:
                     byte[] readBuf = (byte[]) msg.obj;
                     // construct a string from the valid bytes in the buffer
                     String readMessage = new String(readBuf, 0, msg.arg1);
                     Toast.makeText(BluetoothService.this, readMessage, Toast.LENGTH_SHORT).show(); // read your message here
-                    mAdapter.notifyDataSetChanged();
-                    messageList.add(new BluetoothMessage(counter++, readMessage, mConnectedDeviceName));
+                    int body[] = new int[Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_SIZE];
+                    body[Messages.BlueToothTestReceiveMessage.TEST] = Integer.parseInt(readMessage);
+                    publishServiceMessage(Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_ID, body);
+                    //mAdapter.notifyDataSetChanged();
+                    //messageList.add(new BluetoothMessage(counter++, readMessage, mConnectedDeviceName));
                     break;
                 case MESSAGE_DEVICE_NAME:
                     // save the connected device's name
@@ -87,7 +91,7 @@ public class BluetoothService extends BaseService {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
         Log.i(TAG, "onStartCommand");
-        mAdapter = new MessageAdapter(getBaseContext(), messageList);
+        //mAdapter = new MessageAdapter(getBaseContext(), messageList);
 
         mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
@@ -133,12 +137,15 @@ public class BluetoothService extends BaseService {
     }
     @Override
     public void processServiceMessage(String id, int[] body) {
-
+        if(id.equals(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID)){
+            sendMessage(Integer.toString(body[Messages.BlueToothTestSendMessage.TEST]));
+        }
     }
 
     @Override
     public IntentFilter getValidServiceMessages() {
         IntentFilter intentFilter = new IntentFilter();
+        intentFilter.addAction(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID);
         return intentFilter;
     }
 
