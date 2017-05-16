@@ -20,7 +20,7 @@ class MyGLSurfaceView extends GLSurfaceView {
 
     private PongActivity mPongActivity;
 
-    public MyGLSurfaceView(PongActivity pongActivity){
+    public MyGLSurfaceView(PongActivity pongActivity, boolean player){
         super(pongActivity);
         Log.i(TAG, "MyGLSurfaceView");
         // Create an OpenGL ES 2.0 context
@@ -28,7 +28,7 @@ class MyGLSurfaceView extends GLSurfaceView {
 
         mPongActivity = pongActivity;
 
-        mRenderer = new MyGLRenderer(pongActivity);
+        mRenderer = new MyGLRenderer(pongActivity, player);
 
         // Set the Renderer for drawing on the GLSurfaceView
         setRenderer(mRenderer);

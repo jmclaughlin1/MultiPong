@@ -41,18 +41,19 @@ public class PongActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
+        playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
 
         mPlayer1 = (TextView) frameLayout.findViewById(R.id.player1Text);
         mPlayer2 = (TextView) frameLayout.findViewById(R.id.player2Text);
 
-        mGLView = new MyGLSurfaceView(this);
+        mGLView = new MyGLSurfaceView(this,(playerId == DataModel.PLAYER_1));
         frameLayout.addView(mGLView);
         setContentView(frameLayout);
 
         mPlayer1.bringToFront();
         mPlayer2.bringToFront();
 
-        playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
+
         Intent dataModelIntent = new Intent(this, DataModel.class);
         startService(dataModelIntent);
     }

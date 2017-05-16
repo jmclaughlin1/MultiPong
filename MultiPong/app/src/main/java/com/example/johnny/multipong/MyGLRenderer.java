@@ -62,10 +62,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private float mRatio;
 
     private boolean mInitBallPaddle = false;
+    private boolean mplayer;
 
-    public MyGLRenderer(PongActivity pongActivity){
+    public MyGLRenderer(PongActivity pongActivity, boolean player){
         Log.i(TAG, "MyGLRenderer");
         mPongActivity = pongActivity;
+        mplayer = player;
     }
 
     @Override
@@ -75,7 +77,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         //cc1251
 
         // Set the background frame color
-        GLES20.glClearColor((float)0xCC/0xFF, (float)0x12/0xFF, (float)0x51/0xFF, 1.0f);
+        if(mplayer)
+            GLES20.glClearColor((float)0xCC/0xFF, (float)0x12/0xFF, (float)0x51/0xFF, 1.0f);
+        else
+            GLES20.glClearColor((float)0x3B/0xFF, (float)0x83/0xFF, (float)0xBB/0xFF, 1.0f);
 
         mProgram = createGLProgram(vertexShaderCode, fragmentShaderCode);
         // initialize a paddle
