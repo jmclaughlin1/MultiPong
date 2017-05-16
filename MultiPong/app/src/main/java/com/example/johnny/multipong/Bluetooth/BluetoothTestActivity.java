@@ -40,7 +40,6 @@ public class BluetoothTestActivity extends BaseActivity{
     private int playerId;
 
     // temp
-    private EditText editText;
     private TextView status;
 
     @Override
