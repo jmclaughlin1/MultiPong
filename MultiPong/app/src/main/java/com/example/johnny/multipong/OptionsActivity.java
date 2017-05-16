@@ -21,11 +21,7 @@ public class OptionsActivity extends BaseActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState){
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
-        //if(savedInstanceState != null) {
-        //    musicValue = savedInstanceState.getInt("musicValue");
-
-        //}
-        Log.i(TAG, "Music Saved Value : " + musicValue);
+         Log.i(TAG, "Music Saved Value : " + musicValue);
         Log.i(TAG, "SFX   Saved Value : " + sfxValue);
 
         setContentView(R.layout.activity_options);
@@ -93,8 +89,6 @@ public class OptionsActivity extends BaseActivity implements View.OnClickListene
         switch (v.getId()){
             case R.id.backbutton:
                 Intent returnIntent = new Intent(OptionsActivity.this, MenuActivity.class);
-                //setResult(Activity.RESULT_OK, returnIntent);
-                //finish();
                 startActivity(returnIntent);
                 break;
 
@@ -150,14 +144,6 @@ public class OptionsActivity extends BaseActivity implements View.OnClickListene
         stopBackgroundMusic();
         super.onDestroy();
     }
-
-    /*@Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("musicValue", musicValue);
-        Log.i(TAG, "onSaveInstanceState");
-        Log.i(TAG, "musicValue : " + musicValue);
-    }*/
 
     @Override
     public void processActivityMessage(String id, int[] body) {

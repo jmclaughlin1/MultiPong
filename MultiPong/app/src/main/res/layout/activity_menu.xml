@@ -45,17 +45,4 @@
         android:textColor="@android:color/white"
         android:layout_alignParentBottom="true"
         style="@style/Widget.AppCompat.Button.Borderless"/>
-    <!--Button
-        android:id="@+id/GameTest"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GameTest"
-        android:textSize="30dp"
-        android:textColor="@android:color/white"
-        style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" /-->
-
-
 </RelativeLayout>

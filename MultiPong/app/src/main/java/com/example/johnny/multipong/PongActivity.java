@@ -44,24 +44,14 @@ public class PongActivity extends BaseActivity {
         Log.i(TAG, "onCreate");
         super.onCreate(savedInstanceState);
 
-
-        //Log.i(TAG, " DataModel Service Started");
         FrameLayout frameLayout = (FrameLayout) getLayoutInflater().inflate(R.layout.activity_main, null);
-
 
         mPlayer1 = (TextView) frameLayout.findViewById(R.id.player1Text);
         mPlayer2 = (TextView) frameLayout.findViewById(R.id.player2Text);
 
-        //ActivityManager am = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
-        //ConfigurationInfo info = am.getDeviceConfigurationInfo();
-        //boolean supportES2 = (info.reqGlEsVersion >= 0x20000);
-        //if (supportES2) {
-        //    Log.i(TAG, "Your device OpenGLES2 version (" + info.reqGlEsVersion + ")");
         mGLView = new MyGLSurfaceView(this);
-            frameLayout.addView(mGLView);
+        frameLayout.addView(mGLView);
         setContentView(frameLayout);//setContentView(mGLView);
-        //} else
-        //    Log.e("OpenGL2", "your device doesn't support ES2. (" + info.reqGlEsVersion + ")");
 
         mPlayer1.bringToFront();
         mPlayer2.bringToFront();

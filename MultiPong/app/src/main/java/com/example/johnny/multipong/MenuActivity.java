@@ -35,9 +35,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         Button optionsButton = (Button) findViewById(R.id.optionsbutton);
         optionsButton.setOnClickListener(this);
 
-        //Button testButton = (Button) findViewById(R.id.GameTest);
-        //testButton.setOnClickListener(this);
-
         startService(new Intent(this, SoundService.class));
         startService(new Intent(this, SensorsService.class));
     }
@@ -47,7 +44,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         switch (v.getId()){
             case R.id.optionsbutton:
                 Intent intentOptions = new Intent(MenuActivity.this, OptionsActivity.class);
-                //startActivityForResult(intentOptions, 1);
                 startActivity(intentOptions);
                 break;
             case R.id.findFriend:
@@ -61,10 +57,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
                 intentWait.putExtra(DataModel.PLAYER_ID, DataModel.PLAYER_2);
                 startActivity(intentWait);
                 break;
-            //case R.id.GameTest:
-            //    Intent intentTest = new Intent(MenuActivity.this, PongActivity.class);
-            //    startActivity(intentTest);
-            //    break;
         }
     }
 
@@ -108,7 +100,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onStop() {
         super.onStop();
-        //stopBackgroundMusic();
         Log.i(TAG, "onStop");
     }
 

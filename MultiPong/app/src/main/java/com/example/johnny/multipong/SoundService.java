@@ -20,10 +20,6 @@ public class SoundService extends BaseService implements MediaPlayer.OnErrorList
     private int bgPos;
 
     private static final float MAX_VOLUME = 100.f;
-    //@Override
-    //public IBinder onBind(Intent intent) {
-    //    return null;
-    //}
 
     @Override
     public void runService() {

@@ -2,7 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.johnny.multipong">
 
-
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-feature android:name="android.hardware.sensor.gyroscope" android:required="true"/>
@@ -11,7 +10,6 @@
 
     <uses-feature android:glEsVersion="0x00020000"
         android:required="true" />
-
 
     <application
         android:allowBackup="true"
@@ -52,22 +50,11 @@
             android:label="@string/select_device">
         </activity>
 
-        <activity
-            android:name=".Bluetooth.BluetoothChat"
-            android:configChanges="orientation|keyboardHidden"
-            android:label="@string/select_device">
-        </activity>
-
         <activity android:name=".Bluetooth.BluetoothTestActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:configChanges="orientation">
         </activity>
-
-        <activity
-            android:name=".sensorFilters.ConfigActivity">
-        </activity>
-
 
         <service
             android:name=".DataModel"
