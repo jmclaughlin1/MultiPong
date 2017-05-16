@@ -5,7 +5,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.example.johnny.multipong.Bluetooth.BluetoothTestActivity;
 import com.example.johnny.multipong.Bluetooth.DeviceListActivity;
@@ -23,13 +23,13 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
 
-        Button findFriend = (Button) findViewById(R.id.findFriend);
+        ImageButton findFriend = (ImageButton) findViewById(R.id.findf);
         findFriend.setOnClickListener(this);
 
-        Button waitFriend = (Button) findViewById(R.id.waitFriend);
+        ImageButton waitFriend = (ImageButton) findViewById(R.id.waitf);
         waitFriend.setOnClickListener(this);
 
-        Button optionsButton = (Button) findViewById(R.id.optionsbutton);
+        ImageButton optionsButton = (ImageButton) findViewById(R.id.optionsbutton);
         optionsButton.setOnClickListener(this);
 
         startService(new Intent(this, SoundService.class));
@@ -43,12 +43,12 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener{
                 Intent intentOptions = new Intent(MenuActivity.this, OptionsActivity.class);
                 startActivity(intentOptions);
                 break;
-            case R.id.findFriend:
+            case R.id.findf:
                 Intent intentFind = new Intent(MenuActivity.this, DeviceListActivity.class);
                 intentFind.putExtra(DataModel.PLAYER_ID, DataModel.PLAYER_1);
                 startActivity(intentFind);
                 break;
-            case R.id.waitFriend:
+            case R.id.waitf:
                 Intent intentWait = new Intent(MenuActivity.this, BluetoothTestActivity.class);
                 intentWait.putExtra(BluetoothTestActivity.ACTION, BluetoothTestActivity.ACTION_WAIT);
                 intentWait.putExtra(DataModel.PLAYER_ID, DataModel.PLAYER_2);
