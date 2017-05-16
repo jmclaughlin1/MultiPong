@@ -8,10 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -99,10 +97,22 @@ public class DeviceListActivity extends BaseActivity {
             startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
         }
     }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        resumeBackgroundMusic();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pauseBackgroundMusic();
+    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+        stopBackgroundMusic();
         // Make sure we're not doing discovery anymore
         if (mBtAdapter != null) {
             mBtAdapter.cancelDiscovery();

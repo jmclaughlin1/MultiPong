@@ -1,6 +1,5 @@
 package com.example.johnny.multipong;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;

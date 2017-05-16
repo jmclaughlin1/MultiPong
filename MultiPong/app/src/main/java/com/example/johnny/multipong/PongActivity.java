@@ -1,11 +1,7 @@
 package com.example.johnny.multipong;
 
-import android.app.Activity;
-import android.app.ActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ConfigurationInfo;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,7 +47,7 @@ public class PongActivity extends BaseActivity {
 
         mGLView = new MyGLSurfaceView(this);
         frameLayout.addView(mGLView);
-        setContentView(frameLayout);//setContentView(mGLView);
+        setContentView(frameLayout);
 
         mPlayer1.bringToFront();
         mPlayer2.bringToFront();

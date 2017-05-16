@@ -5,8 +5,6 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -81,7 +79,20 @@ public class BluetoothTestActivity extends BaseActivity{
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        resumeBackgroundMusic();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pauseBackgroundMusic();
+    }
+
+    @Override
     public void onDestroy() {
+        stopBackgroundMusic();
         super.onDestroy();
     }
 

@@ -1,12 +1,8 @@
 package com.example.johnny.multipong;
 
-import android.app.Service;
-import android.content.Intent;
 import android.content.IntentFilter;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnErrorListener;
-import android.os.IBinder;
-import android.support.annotation.IntDef;
 import android.util.Log;
 
 /**
