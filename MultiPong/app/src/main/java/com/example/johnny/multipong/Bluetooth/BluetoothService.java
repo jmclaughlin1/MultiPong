@@ -167,10 +167,7 @@ public class BluetoothService extends BaseService {
     public void processServiceMessage(String id, int[] body) {
         String bluetoothMessage = "";
 
-        if(id.equals(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID)){
-            bluetoothMessage = Integer.toString(body[Messages.BlueToothTestSendMessage.TEST]);
-            //sendMessage(Integer.toString(body[Messages.BlueToothTestSendMessage.TEST]));
-        } else if (id.equals(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID)) {
+        if (id.equals(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID)) {
             Log.i(TAG, "Sending transfer message");
             bluetoothMessage = Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID
                             + "|" + Integer.toString(body[Messages.BallTransferMessage.BALL_Y])
@@ -191,7 +188,6 @@ public class BluetoothService extends BaseService {
     @Override
     public IntentFilter getValidServiceMessages() {
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID);
         intentFilter.addAction(Messages.BallTransferMessage.BALL_TRANSFER_MESSAGE_ID);
         intentFilter.addAction(Messages.UpdateScoreMessage.UPDATE_SCORE_MESSAGE_ID);
         intentFilter.addAction(Messages.PauseMessage.PAUSE_MESSAGE_ID);

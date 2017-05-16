@@ -21,7 +21,7 @@ import com.example.johnny.multipong.R;
  * Created by Jason Esquivel on 5/6/2017.
  */
 
-public class BluetoothTestActivity extends BaseActivity  implements View.OnClickListener{
+public class BluetoothTestActivity extends BaseActivity{
     // Intent request codes
     private static final int REQUEST_ENABLE_BT = 2;
 
@@ -62,12 +62,7 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
         }
 
         playerId = getIntent().getExtras().getInt(DataModel.PLAYER_ID);
-        editText = (EditText) findViewById(R.id.testMessage);
         status = (TextView) findViewById(R.id.status);
-
-        Button sendButton = (Button) findViewById(R.id.sendTestMessage);
-        sendButton.setOnClickListener(this);
-
     }
     @Override
     public void onStart(){
@@ -110,21 +105,8 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.sendTestMessage:
-                int body[] = new int[Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_SIZE];
-                body[Messages.BlueToothTestSendMessage.TEST] = Integer.parseInt(editText.getText().toString());
-                publishActivityMessage(Messages.BlueToothTestSendMessage.BLUETOOTH_TEST_SEND_MESSAGE_ID, body);
-                break;
-        }
-    }
-    @Override
     public void processActivityMessage(String id, int[] body) {
-        if(id.equals(Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_ID)){
-            status.setText(Integer.toString(body[Messages.BlueToothTestReceiveMessage.TEST]));
-        }
-        else if(id.equals(Messages.ConnectedBluetoothMessage.CONNECTED_BLUETOOTH_MESSAGE_ID)){
+        if(id.equals(Messages.ConnectedBluetoothMessage.CONNECTED_BLUETOOTH_MESSAGE_ID)){
             Intent pongIntent = new Intent(BluetoothTestActivity.this, PongActivity.class);
             pongIntent.putExtra(DataModel.PLAYER_ID, playerId);
             startActivity(pongIntent);
@@ -135,7 +117,6 @@ public class BluetoothTestActivity extends BaseActivity  implements View.OnClick
     @Override
     public IntentFilter getValidActivityMessages() {
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Messages.BlueToothTestReceiveMessage.BLUETOOTH_TEST_RECEIVE_MESSAGE_ID);
         intentFilter.addAction(Messages.ConnectedBluetoothMessage.CONNECTED_BLUETOOTH_MESSAGE_ID);
         return intentFilter;
     }

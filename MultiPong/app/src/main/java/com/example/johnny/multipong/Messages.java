@@ -237,16 +237,4 @@ public abstract class Messages {
     public abstract class RequestCenterPositionMessage {
         public static final String REQUEST_CENTER_POSITION_MESSAGE_ID = "RequestCenterPosition";
     }
-
-    public abstract class BlueToothTestSendMessage{
-        public static final String BLUETOOTH_TEST_SEND_MESSAGE_ID = "BluetoothTestSend";
-        public static final int TEST = 0;
-        public static final int BLUETOOTH_TEST_SEND_MESSAGE_SIZE = 1;
-    }
-
-    public abstract class BlueToothTestReceiveMessage{
-        public static final String BLUETOOTH_TEST_RECEIVE_MESSAGE_ID = "BluetoothTestReceive";
-        public static final int TEST = 0;
-        public static final int BLUETOOTH_TEST_RECEIVE_MESSAGE_SIZE = 1;
-    }
 }
