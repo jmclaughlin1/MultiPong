@@ -72,8 +72,10 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void onSurfaceCreated(GL10 gl, EGLConfig config){
         Log.i(TAG, "onSurfaceCreated");
 
+        //cc1251
+
         // Set the background frame color
-        GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+        GLES20.glClearColor((float)0xCC/0xFF, (float)0x12/0xFF, (float)0x51/0xFF, 1.0f);
 
         mProgram = createGLProgram(vertexShaderCode, fragmentShaderCode);
         // initialize a paddle

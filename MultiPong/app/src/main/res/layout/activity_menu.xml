@@ -5,6 +5,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/hot_pink"
     tools:context="com.example.johnny.multipong.MenuActivity">
 
     <TextView
@@ -13,14 +14,15 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="60dp"
         android:text="MULTIPONG"
-        android:textSize="60dp" />
+        android:textSize="60dp"
+        android:textColor="@color/black"/>
     <Button
         android:id="@+id/findFriend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Find Friend"
         android:textSize="30dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
@@ -30,7 +32,7 @@
         android:layout_height="wrap_content"
         android:text="Wait Friend"
         android:textSize="30dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_alignBaseline="@+id/findFriend"
         android:layout_alignBottom="@+id/findFriend"
@@ -42,7 +44,7 @@
         android:layout_height="wrap_content"
         android:text="Options"
         android:textSize="30dp"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/black"
         android:layout_alignParentBottom="true"
         style="@style/Widget.AppCompat.Button.Borderless"/>
 </RelativeLayout>

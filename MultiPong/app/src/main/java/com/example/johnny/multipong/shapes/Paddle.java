@@ -5,7 +5,7 @@ package com.example.johnny.multipong.shapes;
  */
 public class Paddle extends Shape{
 
-    private static final float COLOR[] = { 0.2f, 0.709803922f, 0.898039216f, 1.0f };
+    private static final float COLOR[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
     private static final int NUMBER_POINTS = 6;
 

@@ -7,7 +7,7 @@ public class Ball extends Shape {
     private static final int NUMBER_POINTS_OUTSIDE = 16;
     private static final int NUMBER_POINTS_TOTAL = NUMBER_POINTS_OUTSIDE + 2;
 
-    private static final float COLOR[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
+    private static final float COLOR[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
     private float ballCoords[] = new float[(NUMBER_POINTS_TOTAL ) * 3];
 

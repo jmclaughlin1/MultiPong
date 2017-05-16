@@ -15,7 +15,7 @@ public class PauseButton extends Shape{
             -0.03f,  0.08f, 0.0f}; // top right
 
 
-    private static final float COLOR[] = { 0.9f, 0.209803922f, 0.898039216f, 1.0f };
+    private static final float COLOR[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 
     private static final int NUMBER_POINTS = 6;
 
