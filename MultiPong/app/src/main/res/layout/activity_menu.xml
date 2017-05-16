@@ -24,29 +24,28 @@
         android:layout_width="150dp"
         android:layout_height="30dp"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="28dp"
-        android:layout_marginEnd="28dp" />
+        android:layout_alignTop="@+id/findf"
+        android:layout_toRightOf="@+id/findf"
+        android:layout_toEndOf="@+id/findf"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp" />
     <ImageButton
         android:id="@+id/optionsbutton"
         android:background="@drawable/options"
         android:layout_width="150dp"
         android:layout_height="30dp"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_marginLeft="28dp"
-        android:layout_marginStart="28dp"
-        android:layout_below="@+id/imageView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignTop="@+id/findf"
+        android:layout_toLeftOf="@+id/findf"
+        android:layout_toStartOf="@+id/findf"
+        android:layout_marginRight="21dp"
+        android:layout_marginEnd="21dp" />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/logo"
-        android:layout_above="@+id/findf"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="69dp" />
+        android:layout_marginTop="70dp" />
 </RelativeLayout>
