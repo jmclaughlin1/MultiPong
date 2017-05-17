@@ -19,7 +19,7 @@ public class PauseButton extends Shape{
 
     private static final int NUMBER_POINTS = 6;
 
-    private static final float INITIAL_COORDINATE_X = -1.6f;
+    private static final float INITIAL_COORDINATE_X = -1.55f;
 
     private static final float INITIAL_COORDINATE_Y = -.9f;
 

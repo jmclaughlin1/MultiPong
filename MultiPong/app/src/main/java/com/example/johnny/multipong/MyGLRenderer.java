@@ -90,7 +90,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
         mPauseLeft = new PauseButton();
         mPauseRight = new PauseButton();
-        mPauseRight.setPosX(-1.5f);
+        mPauseRight.setPosX(-1.45f);
         mResume = new ResumeButton();
 
         // Set the camera position (View matrix) - constant

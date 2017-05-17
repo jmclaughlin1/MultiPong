@@ -19,7 +19,7 @@ public class ResumeButton extends Shape{
 
     private static final int NUMBER_POINTS = 5;
 
-    private static final float INITIAL_COORDINATE_X = -1.55f;
+    private static final float INITIAL_COORDINATE_X = -1.50f;
 
     private static final float INITIAL_COORDINATE_Y = -.9f;
 
