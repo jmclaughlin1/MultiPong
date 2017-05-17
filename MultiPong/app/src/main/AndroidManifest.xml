@@ -46,6 +46,8 @@
 
         <activity
             android:name=".Bluetooth.DeviceListActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:configChanges="orientation|keyboardHidden"
             android:label="@string/select_device">
         </activity>
