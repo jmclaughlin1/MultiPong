@@ -260,8 +260,8 @@ public class DataModel extends BaseService {
                 //Log.i("DataModel", "Ball Y: " + ball_y);
                 boolean hit_right_wall = ball_x > max_width;
                 boolean hit_left_wall = ball_x < 0;
-                boolean hit_top_wall = ball_y > max_height;
-                boolean hit_bottom_wall = ball_y < 0;
+                boolean hit_top_wall = ball_y > (max_height + ball_radius);
+                boolean hit_bottom_wall = ball_y < (0 - ball_radius);
 
                 boolean hit_paddle = (ball_y <= (paddle_y + (paddle_height)))
                         && ball_x >= (paddle_x - (paddle_width / 2))
