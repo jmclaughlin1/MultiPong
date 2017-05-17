@@ -5,6 +5,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -129,5 +130,14 @@ public class BluetoothTestActivity extends BaseActivity{
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(Messages.ConnectedBluetoothMessage.CONNECTED_BLUETOOTH_MESSAGE_ID);
         return intentFilter;
+    }
+
+    public void discoverable(View v) {
+        if (mBluetoothAdapter.getScanMode() !=
+                BluetoothAdapter.SCAN_MODE_CONNECTABLE_DISCOVERABLE) {
+            Intent discoverableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_DISCOVERABLE);
+            discoverableIntent.putExtra(BluetoothAdapter.EXTRA_DISCOVERABLE_DURATION, 300);
+            startActivity(discoverableIntent);
+        }
     }
 }

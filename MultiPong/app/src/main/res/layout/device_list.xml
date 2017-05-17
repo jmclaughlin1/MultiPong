@@ -46,12 +46,4 @@
         android:text="@string/button_scan"
         android:textSize="25dp"
         style="@style/Widget.AppCompat.Button.Borderless"/>
-    <Button
-        android:id="@+id/discoverable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:onClick="discoverable"
-        android:text="@string/discoverable"
-        android:textSize="25dp"
-        style="@style/Widget.AppCompat.Button.Borderless"/>
 </LinearLayout>
